@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+*.db
+*.db-wal
+*.db-shm
+.env
+allure-results/
+allure-report/
+output/
+.pytest_cache/
+reports/
+node_modules/
+web/dist/

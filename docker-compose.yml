@@ -1,0 +1,168 @@
+name: officespace
+
+x-service-env: &service-env
+  DATABASE_URL: postgresql+psycopg2://officespace:officespace@db:5432/officespace
+  JWT_SECRET: ${JWT_SECRET:-dev-secret-change-me}
+  SERVICE_TOKEN: ${SERVICE_TOKEN:-dev-service-token}
+  AMQP_URL: amqp://officespace:officespace@rabbitmq:5672/
+  OFFICE_TZ: Europe/Moscow
+
+# один образ на все python-сервисы, сервис выбирается командой
+x-python-service: &python-service
+  build: ./services
+  image: officespace-services
+  healthcheck:
+    test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"]
+    interval: 3s
+    retries: 30
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: officespace
+      POSTGRES_PASSWORD: officespace
+      POSTGRES_DB: officespace
+    ports: ["5433:5432"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U officespace"]
+      interval: 3s
+      retries: 20
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    environment:
+      # guest/guest пускает только с localhost, поэтому отдельный пользователь
+      RABBITMQ_DEFAULT_USER: officespace
+      RABBITMQ_DEFAULT_PASS: officespace
+    ports: ["5672:5672", "15672:15672"]   # 15672 — веб-интерфейс
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "check_port_connectivity"]
+      interval: 5s
+      retries: 30
+
+  mailpit:
+    image: axllent/mailpit:v1.21
+    ports: ["8025:8025"]   # веб-интерфейс почты; SMTP 1025 внутри сети
+
+  stubs:
+    <<: *python-service
+    command: uvicorn stubs.main:app --host 0.0.0.0 --port 8000
+    environment:
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-123456:stub-token}
+    ports: ["8090:8000"]
+
+  auth:
+    <<: *python-service
+    command: uvicorn auth.main:app --host 0.0.0.0 --port 8000
+    environment:
+      <<: *service-env
+      ROOT_PATH: /api/auth
+      ADMIN_EMAIL: admin@officespace.test
+      ADMIN_PASSWORD: Admin12345
+    depends_on:
+      db: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+
+  booking:
+    <<: *python-service
+    command: uvicorn booking.main:app --host 0.0.0.0 --port 8000
+    environment:
+      <<: *service-env
+      ROOT_PATH: /api/booking
+      CALENDAR_URL: http://stubs:8000/calendar
+    depends_on:
+      db: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+
+  notifier:
+    <<: *python-service
+    command: python -m notifier.main
+    environment:
+      <<: *service-env
+      SMTP_HOST: mailpit
+      SMTP_PORT: "1025"
+      PUBLIC_URL: http://localhost:8080
+    healthcheck:
+      # воркер без HTTP: живой, если обновлял heartbeat-файл в последние 30 секунд
+      test: ["CMD", "python", "-c", "import os,sys,time; sys.exit(time.time()-os.path.getmtime('/tmp/heartbeat')>30)"]
+      interval: 3s
+      retries: 30
+    depends_on:
+      db: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+      mailpit: {condition: service_started}
+
+  tgbot:
+    <<: *python-service
+    command: uvicorn tgbot.main:app --host 0.0.0.0 --port 8000
+    environment:
+      <<: *service-env
+      ROOT_PATH: /api/tg
+      BOOKING_INTERNAL_URL: http://booking:8000
+      TELEGRAM_API_URL: http://stubs:8000/telegram
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-123456:stub-token}
+    depends_on:
+      db: {condition: service_healthy}
+      rabbitmq: {condition: service_healthy}
+      stubs: {condition: service_healthy}
+      booking: {condition: service_healthy}
+
+  scheduler:
+    <<: *python-service
+    command: uvicorn scheduler.main:app --host 0.0.0.0 --port 8000
+    environment:
+      <<: *service-env
+      ROOT_PATH: /api/scheduler
+      SCHEDULER_MODE: ${SCHEDULER_MODE:-manual}   # в тестах джобы запускаются вручную, auto — по расписанию
+      AUTH_INTERNAL_URL: http://auth:8000
+      BOOKING_INTERNAL_URL: http://booking:8000
+    depends_on:
+      auth: {condition: service_healthy}
+      booking: {condition: service_healthy}
+
+  web:
+    build: ./web
+    image: officespace-web
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
+      interval: 3s
+      retries: 20
+
+  gateway:
+    image: nginx:1.27-alpine
+    volumes:
+      - ./gateway/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports: ["8080:80"]
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/api/"]
+      interval: 3s
+      retries: 20
+    depends_on:
+      web: {condition: service_healthy}
+      auth: {condition: service_healthy}
+      booking: {condition: service_healthy}
+      tgbot: {condition: service_healthy}
+      scheduler: {condition: service_healthy}
+      notifier: {condition: service_healthy}
+
+  # автотесты: docker compose run --rm tests
+  tests:
+    build: ./tests
+    profiles: ["tests"]
+    environment:
+      TEST_ENV: docker
+      PARALLEL: ${PARALLEL:-4}
+    volumes:
+      - ./tests:/tests
+      - ./reports:/reports
+    depends_on:
+      gateway: {condition: service_healthy}
+
+  # локальный Allure-отчёт из reports/allure-results: docker compose run --rm allure
+  # результат — один файл reports/allure-report/index.html
+  allure:
+    build: ./tools/allure
+    profiles: ["tests"]
+    volumes:
+      - ./reports:/reports

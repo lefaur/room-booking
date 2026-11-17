@@ -1,0 +1,26 @@
+# Тесты с хоста против поднятого docker compose (порты проброшены наружу)
+base_url: http://localhost:8080
+db:
+  host: localhost
+  port: 5433
+  dbname: officespace
+  user: officespace
+  password: officespace
+admin:
+  email: admin@officespace.test
+  password: Admin12345
+jwt_secret: dev-secret-change-me
+office_tz: Europe/Moscow
+http_timeout: 15
+# вспомогательные системы стенда
+mailpit_url: http://localhost:8025
+stubs_url: http://localhost:8090
+rabbitmq:
+  url: http://localhost:15672
+  user: officespace
+  password: officespace
+# UI-тесты (Playwright)
+ui:
+  timeout_ms: 8000
+  timezone: Asia/Novosibirsk
+  artifacts_dir: ../reports/ui-failures

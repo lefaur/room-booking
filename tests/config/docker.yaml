@@ -1,0 +1,26 @@
+# Тесты в контейнере внутри сети docker compose (локально и в CI)
+base_url: http://gateway
+db:
+  host: db
+  port: 5432
+  dbname: officespace
+  user: officespace
+  password: officespace
+admin:
+  email: admin@officespace.test
+  password: Admin12345
+jwt_secret: dev-secret-change-me
+office_tz: Europe/Moscow
+http_timeout: 15
+# вспомогательные системы стенда
+mailpit_url: http://mailpit:8025
+stubs_url: http://stubs:8000
+rabbitmq:
+  url: http://rabbitmq:15672
+  user: officespace
+  password: officespace
+# UI-тесты (Playwright)
+ui:
+  timeout_ms: 8000
+  timezone: Asia/Novosibirsk
+  artifacts_dir: /reports/ui-failures
