@@ -50,6 +50,7 @@ class Resource(Contract):
 
 class MapResource(Resource):
     busy: bool
+    mine: bool
 
 
 class FloorMap(Contract):

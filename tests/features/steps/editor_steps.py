@@ -46,6 +46,13 @@ def step_open_map(context, label, day, hhmm):
     context.resp = context.booking.floor_map(actor(context, label).access_token, context.floor.id, at)
 
 
+@step('на карте "{label}" занята {whose} бронью')
+def step_map_whose(context, label, whose):
+    """Карта отличает свою бронь от чужой: панель бронирования пишет «у вас уже есть бронь», а не «занято»."""
+    res = {r.id: r for r in parse(models.FloorMap, context.resp).resources}[context.resources[label].id]
+    assert (res.busy, res.mine) == (True, {"своей": True, "чужой": False}[whose]), res
+
+
 @step('на карте "{busy}" занята, "{free}" свободна')
 def step_map_state(context, busy, free):
     floor_map = parse(models.FloorMap, context.resp)

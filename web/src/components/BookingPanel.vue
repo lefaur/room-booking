@@ -3,7 +3,7 @@ import { computed, ref, watch } from "vue";
 
 import { post } from "../api";
 import { EQUIPMENT_LABELS } from "../labels";
-import { SLOTS, addDays, officeIso } from "../time";
+import { SLOTS, addDays, formatDay, officeIso } from "../time";
 import { notify } from "../toasts";
 import type { Booking, MapResource } from "../types";
 
@@ -61,7 +61,7 @@ async function submit() {
 
 <template>
   <aside class="card stack" data-testid="booking-panel">
-    <header class="row" style="justify-content: space-between; align-items: start">
+    <header class="row" style="justify-content: space-between; align-items: start; flex-wrap: nowrap">
       <div>
         <h2 data-testid="panel-title">{{ resource.name }}</h2>
         <p class="muted" style="margin: 0">
@@ -71,14 +71,20 @@ async function submit() {
           </template>
         </p>
       </div>
-      <button class="link-button" aria-label="Закрыть" data-testid="panel-close" @click="emit('close')">✕</button>
+      <button class="link-button" style="flex-shrink: 0" aria-label="Закрыть" data-testid="panel-close" @click="emit('close')">✕</button>
     </header>
 
-    <p v-if="resource.busy" class="muted" data-testid="panel-busy">На выбранное время занято, выберите другое время.</p>
+    <!-- после своей брони ресурс на карте занят ею же: «занято, выберите другое» читалось бы как ошибка -->
+    <template v-if="resource.busy && !created">
+      <p v-if="resource.mine" class="muted" data-testid="panel-busy-mine">
+        На это время у вас уже есть бронь. <RouterLink to="/bookings">Мои брони</RouterLink>
+      </p>
+      <p v-else class="muted" data-testid="panel-busy">На выбранное время занято, выберите другое время.</p>
+    </template>
 
     <form class="stack" data-testid="booking-form" @submit.prevent="submit">
       <template v-if="resource.kind === 'room'">
-        <p style="margin: 0">Дата: <strong data-testid="panel-date">{{ date }}</strong></p>
+        <p style="margin: 0">Дата: <strong data-testid="panel-date">{{ formatDay(`${date}T12:00:00Z`) }}</strong></p>
         <div class="row">
           <label>
             С

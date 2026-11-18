@@ -117,17 +117,18 @@ def delete_floor(floor_id: int, db: Session = Depends(get_db), _: Principal = De
 
 @app.get("/floors/{floor_id}/map", response_model=schemas.FloorMap)
 def floor_map(floor_id: int, at: AwareDatetime | None = None, db: Session = Depends(get_db),
-              _: Principal = Depends(current_principal)):
-    """Ресурсы этажа с признаком занятости на момент at (по умолчанию сейчас)."""
+              principal: Principal = Depends(current_principal)):
+    """Ресурсы этажа с признаком занятости на момент at (по умолчанию сейчас) и тем, своя ли это бронь."""
     floor = _floor_or_404(db, floor_id)
     moment = at or utcnow()
-    busy_ids = set(db.scalars(select(Booking.resource_id).join(Resource).where(
+    holders = dict(db.execute(select(Booking.resource_id, Booking.user_id).join(Resource).where(
         Resource.floor_id == floor.id, Booking.status.in_(ACTIVE_STATUSES),
-        Booking.start_at <= moment, Booking.end_at > moment)))
+        Booking.start_at <= moment, Booking.end_at > moment)).all())
     resources = db.scalars(select(Resource).where(Resource.floor_id == floor.id).order_by(Resource.id)).all()
     return schemas.FloorMap(
         floor=schemas.FloorOut.model_validate(floor), at=moment,
-        resources=[schemas.MapResource(**schemas.ResourceOut.model_validate(r).model_dump(), busy=r.id in busy_ids)
+        resources=[schemas.MapResource(**schemas.ResourceOut.model_validate(r).model_dump(), busy=r.id in holders,
+                                       mine=holders.get(r.id) == principal.user_id)
                    for r in resources])
 
 
@@ -292,7 +293,7 @@ def create_booking(body: schemas.BookingIn, db: Session = Depends(get_db),
         Booking.start_at < end, Booking.end_at > start)))
     if clash:
         db.commit()  # сохраняем просрочку, если она случилась
-        raise HTTPException(409, "Ресурс занят на это время")
+        raise HTTPException(409, _busy_message(resource))
 
     booking = Booking(resource_id=resource.id, user_id=principal.user_id, user_email=principal.email,
                       start_at=start, end_at=end, created_at=now)
@@ -304,8 +305,12 @@ def create_booking(body: schemas.BookingIn, db: Session = Depends(get_db),
         db.commit()
     except IntegrityError:
         db.rollback()
-        raise HTTPException(409, "Ресурс занят на это время")
+        raise HTTPException(409, _busy_message(resource))
     return booking
+
+
+def _busy_message(resource: Resource) -> str:
+    return "Переговорка занята на это время" if resource.kind == "room" else "Рабочее место занято в эти дни"
 
 
 def _visible_booking(db: Session, booking_id: int, principal: Principal, lock: bool = False) -> Booking:

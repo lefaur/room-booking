@@ -19,12 +19,13 @@ def _hhmm(moment) -> str:
 
 
 def checkin_window(booking: Booking, kind: str, rules: dict[str, int]):
-    opens = booking.start_at - timedelta(minutes=rules["checkin_open_minutes_before"])
+    """Переговорка: за checkin_open_minutes_before до начала и no_show_grace_minutes после.
+    Рабочее место: бронь начинается в 00:00 дня по офису, отметка — с 00:00 до DESK_CHECKIN_DEADLINE_HOURS:
+    «за 10 минут до начала» дало бы 23:50 накануне."""
     if kind == "room":
-        closes = booking.start_at + timedelta(minutes=rules["no_show_grace_minutes"])
-    else:
-        closes = booking.start_at + timedelta(hours=config.DESK_CHECKIN_DEADLINE_HOURS)
-    return opens, closes
+        return (booking.start_at - timedelta(minutes=rules["checkin_open_minutes_before"]),
+                booking.start_at + timedelta(minutes=rules["no_show_grace_minutes"]))
+    return booking.start_at, booking.start_at + timedelta(hours=config.DESK_CHECKIN_DEADLINE_HOURS)
 
 
 # --- действия с бронью ---

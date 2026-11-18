@@ -258,6 +258,14 @@ def step_ui_book_desk(context, day_from, day_to):
     MapPage(_page(context)).book_desk(day_of(context, day_from).isoformat(), day_of(context, day_to).isoformat())
 
 
+@step("панель не пишет, что время занято")
+def step_ui_no_busy(context):
+    """После своей брони ресурс на карте занят ею же — «занято, выберите другое время» тут было бы ошибкой."""
+    page = MapPage(_page(context))
+    expect(page.by_id("panel-busy")).to_have_count(0)
+    expect(page.by_id("panel-busy-mine")).to_have_count(0)
+
+
 @step("панель сообщает, что бронь создана")
 def step_ui_created(context):
     context.ui_booking_id = MapPage(_page(context)).created_booking_id()

@@ -40,6 +40,8 @@ export interface Resource {
 
 export interface MapResource extends Resource {
   busy: boolean;
+  /** занято бронью того, кто смотрит карту */
+  mine: boolean;
 }
 
 export interface FloorMap {

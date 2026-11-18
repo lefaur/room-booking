@@ -85,6 +85,7 @@ class ResourceOut(BaseModel):
 
 class MapResource(ResourceOut):
     busy: bool
+    mine: bool  # занято бронью того, кто смотрит карту
 
 
 class FloorMap(BaseModel):
