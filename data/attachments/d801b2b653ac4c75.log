@@ -1,0 +1,72 @@
+﻿11:20:42 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.4648eecadd@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (84 ms)
+{
+  "id": 43,
+  "email": "employee.4648eecadd@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T11:20:42.823177Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.4648eecadd@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+11:20:42 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 43
+-> [{'password_hash': 'pbkdf2_sha256$100000$25be0ecaf8780cbfd1f35ffe6167eaae$d61c8a54ebcd847f4f8a16cdc5bdc4fc8b99dd76570161bbb5e5e86977652a00'}]
+11:20:42 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 6 мс
+11:20:42 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 7 мс
+11:20:42 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin.85300a1ab3@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (44 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NSIsImVtYWlsIjoiYWRtaW4uODUzMDBhMWFiM0BvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiNDNiOWYyZTQzMWE2MzMwNCIsImlhdCI6MTc5NTAwMDg0MiwiZXhwIjoxNzk1MDAxNzQyfQ.0g5n9B8ct-oEF4Bk1MKG7yuGmuUbTCRbhfVl1UmW8bI",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NSIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiNjc5MmU3OGEyZGEwOGRlMGFiOTEyNWZhMzg1ZmYwYTUiLCJmYW0iOiJlNGU5YzVmNDNhYWUyN2E3MzI0NWYwMmYxZjBjM2EwNiIsImlhdCI6MTc5NTAwMDg0MiwiZXhwIjoxNzk1NjA1NjQyfQ.IwqOFXqkjsXrQrAPdpGhe0MHIXKKf1gA7jtYG7TYtm0",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "admin.85300a1ab3@officespace.test", "password": "Passw0rd123"}'
+11:20:43 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (38 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiZDA3ZDVkMGNjY2M5ODAyNyIsImlhdCI6MTc5NTAwMDg0MywiZXhwIjoxNzk1MDAxNzQzfQ.0tbx2AtNzkIQJpw3vAwhFoj0TjaOD_YK_7u-5ZbTknE",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiJjMzAyZGJhMWQ2MGU3MzQxMDJhMjZmMjg1M2VkY2U2ZiIsImZhbSI6IjE0YTJiMGU1NTBiZThkYTZiMzlhNmVjODBiMWFhM2MyIiwiaWF0IjoxNzk1MDAwODQzLCJleHAiOjE3OTU2MDU2NDN9.m-gtAQozQcP47wX3QZR3PJpGfb-4hK3Zw-QNrNwPkt4",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "admin@officespace.test", "password": "Admin12345"}'
+11:20:43 - INFO - GET http://gateway/api/auth/users?email=employee.44efb597f3%40officespace.test
+
+
+<- 200 (6 ms)
+[
+  {
+    "id": 44,
+    "email": "employee.44efb597f3@officespace.test",
+    "full_name": "Тест сотрудник",
+    "role": "manager",
+    "is_active": true,
+    "created_at": "2026-11-18T11:20:42.907742Z"
+  }
+]
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://gateway/api/auth/users?email=employee.44efb597f3%40officespace.test' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiZDA3ZDVkMGNjY2M5ODAyNyIsImlhdCI6MTc5NTAwMDg0MywiZXhwIjoxNzk1MDAxNzQzfQ.0tbx2AtNzkIQJpw3vAwhFoj0TjaOD_YK_7u-5ZbTknE'

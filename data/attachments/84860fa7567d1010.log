@@ -1,0 +1,33 @@
+﻿11:20:52 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (48 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiOTQxZjUwNzg3YzlhODU3MCIsImlhdCI6MTc5NTAwMDg1MiwiZXhwIjoxNzk1MDAxNzUyfQ.QZro5USfAZ6qYOVsLAVzmsRJo-vCGNeUDAjRj86OFaQ",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiJmZDMzNmUwNzM2MWMyMmRlYTIzNTIxNzA1ODA5MDI2MiIsImZhbSI6ImI1N2Y2YzkxYTJiNDdmNTZhZjQ5NWUzMDk1MzJhZTNmIiwiaWF0IjoxNzk1MDAwODUyLCJleHAiOjE3OTU2MDU2NTJ9.rMd3w1rLqmEzAiApal9Y6jA6-6WfTiUzQY1Ga2YivJU",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "admin@officespace.test", "password": "Admin12345"}'
+11:20:52 - INFO - GET http://gateway/api/auth/users?email=ui.b189a07d03%40officespace.test
+
+
+<- 200 (10 ms)
+[
+  {
+    "id": 82,
+    "email": "ui.b189a07d03@officespace.test",
+    "full_name": "UI f50cab3f92",
+    "role": "employee",
+    "is_active": true,
+    "created_at": "2026-11-18T11:20:52.194664Z"
+  }
+]
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://gateway/api/auth/users?email=ui.b189a07d03%40officespace.test' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiOTQxZjUwNzg3YzlhODU3MCIsImlhdCI6MTc5NTAwMDg1MiwiZXhwIjoxNzk1MDAxNzUyfQ.QZro5USfAZ6qYOVsLAVzmsRJo-vCGNeUDAjRj86OFaQ'

@@ -1,7 +1,0 @@
-﻿10:59:02 - INFO - POST http://gateway/api/auth/internal/jobs/cleanup-tokens
-
-
-<- 404 (1 ms)
-{
-  "detail": "Not Found"
-}

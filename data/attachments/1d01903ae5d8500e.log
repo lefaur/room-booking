@@ -1,0 +1,79 @@
+﻿11:20:47 - INFO - SQL-подготовка одной транзакцией: booking.floors ×1, booking.resources ×3, 17 мс
+11:20:47 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.4adeba9df9@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (46 ms)
+{
+  "id": 64,
+  "email": "employee.4adeba9df9@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T11:20:47.974125Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.4adeba9df9@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+11:20:47 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 64
+-> [{'password_hash': 'pbkdf2_sha256$100000$0821405948e307588a2d64f1e9e115cd$6b7a90f421aaec268ab6918b300cb2a5b4cbdcea5b0d05aab14d1e98903d643f'}]
+11:20:47 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 4 мс
+11:20:48 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.147b426aa2@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (63 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NSIsImVtYWlsIjoiZW1wbG95ZWUuMTQ3YjQyNmFhMkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiIxNGQ2M2I3MmI1ZGJlMzAzIiwiaWF0IjoxNzk1MDAwODQ4LCJleHAiOjE3OTUwMDE3NDh9.W9jCK8xDX9mJ2svMVfPWyfwkz-hJmbdBRaPp6_PTzbI",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NSIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiYjA4NDVlNWJjZDYwODNhNmNkYWE5M2Y2ODA3NmJiMGEiLCJmYW0iOiI2MDdlMzg0ZGJlYzRjM2M3ODE4MTYyZDU1OWJlMTk1NyIsImlhdCI6MTc5NTAwMDg0OCwiZXhwIjoxNzk1NjA1NjQ4fQ.nE3R9wRx006D1q_j7pEhM2CdBwUGt8WR4vRY8LCGVTM",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.147b426aa2@officespace.test", "password": "Passw0rd123"}'
+11:20:48 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (62 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiMjNmZWU1MTY0NTU0NjNhOSIsImlhdCI6MTc5NTAwMDg0OCwiZXhwIjoxNzk1MDAxNzQ4fQ.S_QBk2246FYVV5hnUa5je5f6B-egxluc2qQ1HcZa8Ds",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiIxN2I2NWQxZjBiZmNmZTQxYTljNTRkMTM3YzI0M2MxNCIsImZhbSI6ImYwZGRiOTM0OGExNmRiNWZiYTQ4ZGZiN2VkMjE3YWIwIiwiaWF0IjoxNzk1MDAwODQ4LCJleHAiOjE3OTU2MDU2NDh9.4fJcu31Z20cXlHiiRCl6b_I5t5SEk93NC64yuQViCqY",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "admin@officespace.test", "password": "Admin12345"}'
+11:20:48 - INFO - PATCH http://gateway/api/booking/resources/33
+{
+  "version": 1,
+  "active": false
+}
+
+<- 200 (29 ms)
+{
+  "id": 33,
+  "floor_id": 18,
+  "kind": "room",
+  "name": "B-da44dbd9ed",
+  "capacity": 6,
+  "x": 200,
+  "y": 20,
+  "w": 160,
+  "h": 100,
+  "equipment": [],
+  "active": false,
+  "version": 2
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X PATCH http://gateway/api/booking/resources/33 -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiMjNmZWU1MTY0NTU0NjNhOSIsImlhdCI6MTc5NTAwMDg0OCwiZXhwIjoxNzk1MDAxNzQ4fQ.S_QBk2246FYVV5hnUa5je5f6B-egxluc2qQ1HcZa8Ds' -H 'Content-Type: application/json' --data-raw '{"version": 1, "active": false}'

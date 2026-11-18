@@ -1,0 +1,68 @@
+﻿11:20:52 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.3341bd9d3a@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (34 ms)
+{
+  "id": 83,
+  "email": "employee.3341bd9d3a@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T11:20:52.624348Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.3341bd9d3a@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+11:20:52 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 83
+-> [{'password_hash': 'pbkdf2_sha256$100000$004511c251dfd7b2f583c234e86a1673$e1c52ad4df37041a19326acb9e232c81f5bc20c9537a19ecf8f72c78f7769678'}]
+11:20:52 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 2 мс
+11:20:52 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.464e8ce379@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (33 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NCIsImVtYWlsIjoiZW1wbG95ZWUuNDY0ZThjZTM3OUBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI4NmQzMDI0NWYzMWY1N2U0IiwiaWF0IjoxNzk1MDAwODUyLCJleHAiOjE3OTUwMDE3NTJ9.uzptTfkbFiNq8SORaAdHPBdPRx07QrlMvb1ARCdvq1M",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NCIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiNzkyZmE4ZjU4NWQwZTgxNzZlMDRkMmY1ODRmZTlhODgiLCJmYW0iOiI3MGIyYjdkN2JmMTZmYTBkODdhMzFkNzk3ZTM1ZTQwZCIsImlhdCI6MTc5NTAwMDg1MiwiZXhwIjoxNzk1NjA1NjUyfQ.et-Qlbp_LVh91f2ENFoQ1tKswqUWXwk8fFnz6E9hYTk",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.464e8ce379@officespace.test", "password": "Passw0rd123"}'
+11:20:52 - INFO - POST http://gateway/api/auth/refresh
+{
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NCIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiNzkyZmE4ZjU4NWQwZTgxNzZlMDRkMmY1ODRmZTlhODgiLCJmYW0iOiI3MGIyYjdkN2JmMTZmYTBkODdhMzFkNzk3ZTM1ZTQwZCIsImlhdCI6MTc5NTAwMDg1MiwiZXhwIjoxNzk1NjA1NjUyfQ.et-Qlbp_LVh91f2ENFoQ1tKswqUWXwk8fFnz6E9hYTk"
+}
+
+<- 200 (6 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NCIsImVtYWlsIjoiZW1wbG95ZWUuNDY0ZThjZTM3OUBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiJhZDcyMmJlNzA0ZjM1MDY4IiwiaWF0IjoxNzk1MDAwODUyLCJleHAiOjE3OTUwMDE3NTJ9.9GS2ec4LF6KjSoPvZ23R4sUaXNOEQybA9ZjkId_phfc",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NCIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiYjkzZjRiODA0NmNmZDVjYTg1NmM0YjA3MTc1NGZmYWQiLCJmYW0iOiI3MGIyYjdkN2JmMTZmYTBkODdhMzFkNzk3ZTM1ZTQwZCIsImlhdCI6MTc5NTAwMDg1MiwiZXhwIjoxNzk1NjA1NjUyfQ.tOXkUXDg16YCUAOxPk1gqtBtYuEKnrl0AoQHb9t5XMw",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/refresh -H 'Content-Type: application/json' --data-raw '{"refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NCIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiNzkyZmE4ZjU4NWQwZTgxNzZlMDRkMmY1ODRmZTlhODgiLCJmYW0iOiI3MGIyYjdkN2JmMTZmYTBkODdhMzFkNzk3ZTM1ZTQwZCIsImlhdCI6MTc5NTAwMDg1MiwiZXhwIjoxNzk1NjA1NjUyfQ.et-Qlbp_LVh91f2ENFoQ1tKswqUWXwk8fFnz6E9hYTk"}'
+11:20:52 - INFO - GET http://gateway/api/auth/me
+
+
+<- 200 (4 ms)
+{
+  "id": 84,
+  "email": "employee.464e8ce379@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T11:20:52.645877Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET http://gateway/api/auth/me -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NCIsImVtYWlsIjoiZW1wbG95ZWUuNDY0ZThjZTM3OUBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiJhZDcyMmJlNzA0ZjM1MDY4IiwiaWF0IjoxNzk1MDAwODUyLCJleHAiOjE3OTUwMDE3NTJ9.9GS2ec4LF6KjSoPvZ23R4sUaXNOEQybA9ZjkId_phfc'

@@ -1,0 +1,73 @@
+﻿11:20:56 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.7cb6b879c4@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (17 ms)
+{
+  "id": 188,
+  "email": "employee.7cb6b879c4@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T11:20:56.436338Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.7cb6b879c4@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+11:20:56 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 188
+-> [{'password_hash': 'pbkdf2_sha256$100000$d6614e8a6245a814454f278d60884834$2e4ecd833e7ef3727b7f9744db6182276e7d1201140d3f24257b9c0d9bf40c52'}]
+11:20:56 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 1 мс
+11:20:56 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.23606a8567@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (19 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxODkiLCJlbWFpbCI6ImVtcGxveWVlLjIzNjA2YTg1NjdAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiOWQyNmE0MDAzN2RhYzU2ZSIsImlhdCI6MTc5NTAwMDg1NiwiZXhwIjoxNzk1MDAxNzU2fQ.4QqbnEewAtm3vId7Ey8yFECDQBfdC_nR2lhituI1BXE",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxODkiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6IjMyMTM1Y2E5YTg3N2IxMGRlMGEwNjA3ZjJjYjViNjJiIiwiZmFtIjoiZDEwNzVhODViY2E2NjEwZTcwOTExNDMzMzVjZGFhZDQiLCJpYXQiOjE3OTUwMDA4NTYsImV4cCI6MTc5NTYwNTY1Nn0.qUwSDS7fAf7CZI1_wi-JnTwieHo1LINpx9i3xpr5aJs",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.23606a8567@officespace.test", "password": "Passw0rd123"}'
+11:20:56 - INFO - SQL-подготовка одной транзакцией: booking.floors ×1, 1 мс
+11:20:56 - INFO - SQL-подготовка одной транзакцией: booking.resources ×1, 1 мс
+11:20:56 - INFO - PUT http://gateway/api/booking/settings
+{
+  "max_booking_hours": 1
+}
+
+<- 200 (4 ms)
+{
+  "confirm_timeout_minutes": 15,
+  "max_desk_days": 5,
+  "booking_horizon_days": 30,
+  "reminder_minutes_before": 30,
+  "checkin_open_minutes_before": 10,
+  "no_show_grace_minutes": 15,
+  "max_active_bookings_per_user": 3,
+  "max_booking_hours": 1
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X PUT http://gateway/api/booking/settings -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiNGUxNTdmZDU4ZDc4NmI0NiIsImlhdCI6MTc5NTAwMDg1NiwiZXhwIjoxNzk1MDAxNzU2fQ.iV8uB7PkbmQfwIHVgLImzA9xJMGGHkgVog_RSu01J7k' -H 'Content-Type: application/json' --data-raw '{"max_booking_hours": 1}'
+11:20:56 - INFO - POST http://gateway/api/booking/bookings
+{
+  "resource_id": 52,
+  "start": "2026-11-19T10:00:00+03:00",
+  "end": "2026-11-19T11:30:00+03:00"
+}
+
+<- 422 (2 ms)
+{
+  "detail": "Бронь длиннее допустимой (1 ч)"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/booking/bookings -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxODkiLCJlbWFpbCI6ImVtcGxveWVlLjIzNjA2YTg1NjdAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiOWQyNmE0MDAzN2RhYzU2ZSIsImlhdCI6MTc5NTAwMDg1NiwiZXhwIjoxNzk1MDAxNzU2fQ.4QqbnEewAtm3vId7Ey8yFECDQBfdC_nR2lhituI1BXE' -H 'Content-Type: application/json' --data-raw '{"resource_id": 52, "start": "2026-11-19T10:00:00+03:00", "end": "2026-11-19T11:30:00+03:00"}'

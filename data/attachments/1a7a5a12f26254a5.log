@@ -1,0 +1,27 @@
+﻿11:20:54 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "guest.3c1ed07c94@officespace.test",
+  "password": "Abc12",
+  "full_name": "Гость"
+}
+
+<- 422 (4 ms)
+{
+  "detail": [
+    {
+      "type": "string_too_short",
+      "loc": [
+        "body",
+        "password"
+      ],
+      "msg": "String should have at least 8 characters",
+      "input": "Abc12",
+      "ctx": {
+        "min_length": 8
+      }
+    }
+  ]
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "guest.3c1ed07c94@officespace.test", "password": "Abc12", "full_name": "\u0413\u043e\u0441\u0442\u044c"}'

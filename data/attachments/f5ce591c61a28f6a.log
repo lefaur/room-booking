@@ -1,0 +1,38 @@
+﻿11:20:42 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.d3f9e6866a@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (45 ms)
+{
+  "id": 46,
+  "email": "employee.d3f9e6866a@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T11:20:42.987276Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.d3f9e6866a@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+11:20:43 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 46
+-> [{'password_hash': 'pbkdf2_sha256$100000$89f7b5276f0bc6c19a7624324828e013$b3b64c03a383e3a4da6f97266f53b367734d0a79308def32acef38b72eee9277'}]
+11:20:43 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 26 мс
+11:20:43 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "facility.ad0015eb4c@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (60 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NyIsImVtYWlsIjoiZmFjaWxpdHkuYWQwMDE1ZWI0Y0BvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImZhY2lsaXR5IiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIiwiZmxvb3JzLndyaXRlIiwicmVzb3VyY2VzLndyaXRlIiwic2V0dGluZ3Mud3JpdGUiXSwidHlwZSI6ImFjY2VzcyIsImp0aSI6ImJkZmFkN2U3ZTJhYzNhYjYiLCJpYXQiOjE3OTUwMDA4NDMsImV4cCI6MTc5NTAwMTc0M30.bN4h88myo6zfG8ikIyVseqYScnGvGVQZkOklnaPqRms",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0NyIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiYTJjODAwYzFjZmUyNmIxMTBkMGJmYTI5ZWI4OTcwYmIiLCJmYW0iOiJlNTMxZmQ1NWJkMzc4NzBiMWMxOWQ3ZDE4NzI2MWIyOSIsImlhdCI6MTc5NTAwMDg0MywiZXhwIjoxNzk1NjA1NjQzfQ.SxEPrLhX8gsqVI5DZSow6bSx--SlkmJGbfQpLTMERqA",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "facility.ad0015eb4c@officespace.test", "password": "Passw0rd123"}'

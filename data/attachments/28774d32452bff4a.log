@@ -1,0 +1,147 @@
+﻿11:20:55 - INFO - POST http://rabbitmq:15672/api/exchanges/%2F/officespace.events/publish
+{
+  "routing_key": "user.registered",
+  "payload": "not a json 7ad122c53a",
+  "payload_encoding": "string",
+  "properties": {
+    "content_type": "application/json",
+    "delivery_mode": 2,
+    "message_id": "39b5d2d5-472e-4ec7-a809-059359c56091"
+  }
+}
+
+<- 200 (5 ms)
+{
+  "routed": true
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://rabbitmq:15672/api/exchanges/%2F/officespace.events/publish -H 'Authorization: Basic b2ZmaWNlc3BhY2U6b2ZmaWNlc3BhY2U=' -H 'Content-Type: application/json' --data-raw '{"routing_key": "user.registered", "payload": "not a json 7ad122c53a", "payload_encoding": "string", "properties": {"content_type": "application/json", "delivery_mode": 2, "message_id": "39b5d2d5-472e-4ec7-a809-059359c56091"}}'
+11:20:55 - INFO - POST http://rabbitmq:15672/api/queues/%2F/notifier.dlq/get
+{
+  "count": 500,
+  "ackmode": "ack_requeue_true",
+  "encoding": "auto"
+}
+
+<- 200 (3 ms)
+[
+  {
+    "payload_bytes": 213,
+    "redelivered": true,
+    "exchange": "officespace.dlx",
+    "routing_key": "notifier",
+    "message_count": 0,
+    "properties": {
+      "message_id": "6700ef52-9fff-4b86-a384-c3e94d9b5240",
+      "delivery_mode": 2,
+      "headers": {
+        "x-death": [
+          {
+            "count": 1,
+            "exchange": "officespace.events",
+            "queue": "notifier",
+            "reason": "rejected",
+            "routing-keys": [
+              "user.registered"
+            ],
+            "time": 1795000855
+          }
+        ],
+        "x-first-death-exchange": "officespace.events",
+        "x-first-death-queue": "notifier",
+        "x-first-death-reason": "rejected",
+        "x-last-death-exchange": "officespace.events",
+        "x-last-death-queue": "notifier",
+        "x-last-death-reason": "rejected"
+      },
+      "content_type": "application/json"
+    },
+    "payload": "{\"event_id\": \"6700ef52-9fff-4b86-a384-c3e94d9b5240\", \"type\": \"user.registered\", \"source\": \"autotest\", \"occurred_at\": \"2026-11-18T11:20:55.370598+00:00\", \"payload\": {\"user_id\": 0, \"full_name\": \"broken-410bbdcacc\"}}",
+    "payload_encoding": "string"
+  }
+]
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://rabbitmq:15672/api/queues/%2F/notifier.dlq/get -H 'Authorization: Basic b2ZmaWNlc3BhY2U6b2ZmaWNlc3BhY2U=' -H 'Content-Type: application/json' --data-raw '{"count": 500, "ackmode": "ack_requeue_true", "encoding": "auto"}'
+11:20:55 - INFO - POST http://rabbitmq:15672/api/queues/%2F/notifier.dlq/get
+{
+  "count": 500,
+  "ackmode": "ack_requeue_true",
+  "encoding": "auto"
+}
+
+<- 200 (4 ms)
+[
+  {
+    "payload_bytes": 213,
+    "redelivered": true,
+    "exchange": "officespace.dlx",
+    "routing_key": "notifier",
+    "message_count": 1,
+    "properties": {
+      "message_id": "6700ef52-9fff-4b86-a384-c3e94d9b5240",
+      "delivery_mode": 2,
+      "headers": {
+        "x-death": [
+          {
+            "count": 1,
+            "exchange": "officespace.events",
+            "queue": "notifier",
+            "reason": "rejected",
+            "routing-keys": [
+              "user.registered"
+            ],
+            "time": 1795000855
+          }
+        ],
+        "x-first-death-exchange": "officespace.events",
+        "x-first-death-queue": "notifier",
+        "x-first-death-reason": "rejected",
+        "x-last-death-exchange": "officespace.events",
+        "x-last-death-queue": "notifier",
+        "x-last-death-reason": "rejected"
+      },
+      "content_type": "application/json"
+    },
+    "payload": "{\"event_id\": \"6700ef52-9fff-4b86-a384-c3e94d9b5240\", \"type\": \"user.registered\", \"source\": \"autotest\", \"occurred_at\": \"2026-11-18T11:20:55.370598+00:00\", \"payload\": {\"user_id\": 0, \"full_name\": \"broken-410bbdcacc\"}}",
+    "payload_encoding": "string"
+  },
+  {
+    "payload_bytes": 21,
+    "redelivered": false,
+    "exchange": "officespace.dlx",
+    "routing_key": "notifier",
+    "message_count": 0,
+    "properties": {
+      "message_id": "39b5d2d5-472e-4ec7-a809-059359c56091",
+      "delivery_mode": 2,
+      "headers": {
+        "x-death": [
+          {
+            "count": 1,
+            "exchange": "officespace.events",
+            "queue": "notifier",
+            "reason": "rejected",
+            "routing-keys": [
+              "user.registered"
+            ],
+            "time": 1795000855
+          }
+        ],
+        "x-first-death-exchange": "officespace.events",
+        "x-first-death-queue": "notifier",
+        "x-first-death-reason": "rejected",
+        "x-last-death-exchange": "officespace.events",
+        "x-last-death-queue": "notifier",
+        "x-last-death-reason": "rejected"
+      },
+      "content_type": "application/json"
+    },
+    "payload": "not a json 7ad122c53a",
+    "payload_encoding": "string"
+  }
+]
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://rabbitmq:15672/api/queues/%2F/notifier.dlq/get -H 'Authorization: Basic b2ZmaWNlc3BhY2U6b2ZmaWNlc3BhY2U=' -H 'Content-Type: application/json' --data-raw '{"count": 500, "ackmode": "ack_requeue_true", "encoding": "auto"}'

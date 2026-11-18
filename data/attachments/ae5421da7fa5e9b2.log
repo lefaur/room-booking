@@ -1,0 +1,38 @@
+﻿11:20:43 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.796665aa7e@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (25 ms)
+{
+  "id": 48,
+  "email": "employee.796665aa7e@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T11:20:43.835777Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.796665aa7e@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+11:20:43 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 48
+-> [{'password_hash': 'pbkdf2_sha256$100000$e063e9faf042c9f9c3271ca47638b174$864c81083d8465167235eb0efed939cd6903f7f3cff01247b9348a9a7ae680bf'}]
+11:20:43 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 2 мс
+11:20:43 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin.cddc0119b2@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (26 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0OSIsImVtYWlsIjoiYWRtaW4uY2RkYzAxMTliMkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiMzcxZmViZThiODExMjcxOCIsImlhdCI6MTc5NTAwMDg0MywiZXhwIjoxNzk1MDAxNzQzfQ.9etGiGFeMRSKsV2lTCi-6GSZOBd_MVJqOxgyAJZ5QSo",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0OSIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiNGE2ZTRlMzcyZjY2MDhlYTEwNGU3ZDc0ZTA2Y2Q4ZTUiLCJmYW0iOiJmOTA5MzI4OGI0NDE5OTA3ZmFlM2NjYzM4OTEwNTA2NiIsImlhdCI6MTc5NTAwMDg0MywiZXhwIjoxNzk1NjA1NjQzfQ.-ijpdxOVVFZO4Ta0mw6cSKT1plhBJKFjVU9UmdmbKxk",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "admin.cddc0119b2@officespace.test", "password": "Passw0rd123"}'

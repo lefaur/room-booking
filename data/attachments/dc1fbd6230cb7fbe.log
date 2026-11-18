@@ -1,0 +1,48 @@
+﻿11:20:55 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.091e365686@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (20 ms)
+{
+  "id": 166,
+  "email": "employee.091e365686@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T11:20:55.633078Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.091e365686@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+11:20:55 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 166
+-> [{'password_hash': 'pbkdf2_sha256$100000$e4731a6a5bf7ec1c6049ac7dad634fb0$05f09ead53f81c7c4f803b8ef4f1a5bc7c4c0bcfc416de6933a9432bb66936f2'}]
+11:20:55 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 1 мс
+11:20:55 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.9671af5caf@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (20 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNjciLCJlbWFpbCI6ImVtcGxveWVlLjk2NzFhZjVjYWZAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiMTRmOTI1MTM3NmE1ZGQyNCIsImlhdCI6MTc5NTAwMDg1NSwiZXhwIjoxNzk1MDAxNzU1fQ.dQQn0fDRty-SIMhXrmvwTSHVoG_9_nOtwJNpfLoIxDc",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNjciLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6ImViMmUxMzhlMzBjMjI5NWM1MWJjNjA3Njk5MDE1M2E1IiwiZmFtIjoiMzY2ZWNhYjg4MjE3ZDI5NjAyYzQzNWNjOTczYjg1ZTIiLCJpYXQiOjE3OTUwMDA4NTUsImV4cCI6MTc5NTYwNTY1NX0.7XfnBvqtFu9ZVlR-driX27YU0ZGJWW8QhQnPuDS0mUI",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.9671af5caf@officespace.test", "password": "Passw0rd123"}'
+11:20:55 - INFO - POST http://gateway/api/scheduler/jobs/expire-pending/run
+
+
+<- 403 (2 ms)
+{
+  "detail": "Нет прав: jobs.run"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/scheduler/jobs/expire-pending/run -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNjciLCJlbWFpbCI6ImVtcGxveWVlLjk2NzFhZjVjYWZAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiMTRmOTI1MTM3NmE1ZGQyNCIsImlhdCI6MTc5NTAwMDg1NSwiZXhwIjoxNzk1MDAxNzU1fQ.dQQn0fDRty-SIMhXrmvwTSHVoG_9_nOtwJNpfLoIxDc'
