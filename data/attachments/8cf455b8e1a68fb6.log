@@ -1,0 +1,120 @@
+﻿10:49:14 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.1206949769@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (19 ms)
+{
+  "id": 163,
+  "email": "employee.1206949769@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:49:14.675546Z"
+}
+10:49:14 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.1206949769@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (20 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNjMiLCJlbWFpbCI6ImVtcGxveWVlLjEyMDY5NDk3NjlAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiYmE0Y2VlM2EwYTViMmUxZSIsImlhdCI6MTc5NDk5ODk1NCwiZXhwIjoxNzk0OTk5ODU0fQ.ToXy_rlD-eMdG75nwfEyplTmxCw0b4g0F9DUCGiKUC8",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNjMiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6IjJkNGVjYTMzYTFjY2E5NTMyOTkyZDEzNjM0YWZlMDIzIiwiZmFtIjoiZmYzMDJiNzNjMjQ3ZTUzNjNjZTFjNjViMDE0MmRkMzUiLCJpYXQiOjE3OTQ5OTg5NTQsImV4cCI6MTc5NTYwMzc1NH0.Ge8CrfzHt7lVfzjfIa9VX4Qiw65BT2tswjhmj2SgvWM",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:49:14 - INFO - POST http://gateway/api/booking/floors
+{
+  "name": "autotest-floor-354016bf68",
+  "level": 1,
+  "width": 9900,
+  "height": 9900
+}
+
+<- 201 (3 ms)
+{
+  "id": 75,
+  "name": "autotest-floor-354016bf68",
+  "level": 1,
+  "width": 9900,
+  "height": 9900
+}
+10:49:14 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 75,
+  "kind": "room",
+  "name": "A-ff733dd6e0",
+  "capacity": 6,
+  "x": 0,
+  "y": 0,
+  "w": 10,
+  "h": 10
+}
+
+<- 201 (4 ms)
+{
+  "id": 93,
+  "floor_id": 75,
+  "kind": "room",
+  "name": "A-ff733dd6e0",
+  "capacity": 6,
+  "x": 0,
+  "y": 0,
+  "w": 10,
+  "h": 10,
+  "equipment": [],
+  "active": true,
+  "version": 1
+}
+10:49:14 - INFO - PUT http://gateway/api/booking/settings
+{
+  "max_active_bookings_per_user": 1
+}
+
+<- 200 (3 ms)
+{
+  "confirm_timeout_minutes": 15,
+  "max_desk_days": 5,
+  "booking_horizon_days": 30,
+  "reminder_minutes_before": 30,
+  "checkin_open_minutes_before": 10,
+  "no_show_grace_minutes": 15,
+  "max_booking_hours": 4,
+  "max_active_bookings_per_user": 1
+}
+10:49:14 - INFO - POST http://gateway/api/booking/bookings
+{
+  "resource_id": 93,
+  "start": "2026-11-19T10:00:00+03:00",
+  "end": "2026-11-19T11:00:00+03:00"
+}
+
+<- 201 (6 ms)
+{
+  "id": 59,
+  "resource_id": 93,
+  "user_id": 163,
+  "user_email": "employee.1206949769@officespace.test",
+  "start": "2026-11-19T07:00:00Z",
+  "end": "2026-11-19T08:00:00Z",
+  "status": "pending",
+  "created_at": "2026-11-18T10:49:14.714091Z",
+  "updated_at": "2026-11-18T10:49:14.716663Z",
+  "cancelled_by": null,
+  "checked_in_at": null
+}
+10:49:14 - INFO - POST http://gateway/api/booking/bookings
+{
+  "resource_id": 93,
+  "start": "2026-11-19T12:00:00+03:00",
+  "end": "2026-11-19T13:00:00+03:00"
+}
+
+<- 409 (3 ms)
+{
+  "detail": "Превышен лимит активных броней (1)"
+}

@@ -1,0 +1,7 @@
+﻿10:49:09 - INFO - POST http://gateway/api/booking/internal/jobs/expire-pending
+
+
+<- 404 (2 ms)
+{
+  "detail": "Not Found"
+}

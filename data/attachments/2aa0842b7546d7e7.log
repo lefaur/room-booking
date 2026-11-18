@@ -1,0 +1,160 @@
+﻿10:49:01 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (64 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiNmQ0ODJiNTdhZDEwM2VlZCIsImlhdCI6MTc5NDk5ODk0MSwiZXhwIjoxNzk0OTk5ODQxfQ.r7xNFlqXsNLp-8pxma5AD_0cV_ktNT9NhXwiuOIFuQY",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI4ZWNmNTJhMGIxZjY5OWFhOWQ5NGRiNjRjNWMyMDVhNyIsImZhbSI6IjM2ZmI0YTk2Njg1ODM5ZTA0ZTZlOTQzYjI3MzAwYjMzIiwiaWF0IjoxNzk0OTk4OTQxLCJleHAiOjE3OTU2MDM3NDF9.LNudBYNCS7K-dOEhhmcVSqRZfgYgE_0z_JEtrZ7yFsw",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:49:01 - INFO - POST http://gateway/api/booking/floors
+{
+  "name": "ui-floor-1524ec2ea5",
+  "level": 3,
+  "width": 600,
+  "height": 400
+}
+
+<- 201 (9 ms)
+{
+  "id": 19,
+  "name": "ui-floor-1524ec2ea5",
+  "level": 3,
+  "width": 600,
+  "height": 400
+}
+10:49:01 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 19,
+  "kind": "room",
+  "name": "A-ebb4d525ce",
+  "capacity": 6,
+  "x": 20,
+  "y": 20,
+  "w": 160,
+  "h": 100
+}
+
+<- 201 (18 ms)
+{
+  "id": 35,
+  "floor_id": 19,
+  "kind": "room",
+  "name": "A-ebb4d525ce",
+  "capacity": 6,
+  "x": 20,
+  "y": 20,
+  "w": 160,
+  "h": 100,
+  "equipment": [],
+  "active": true,
+  "version": 1
+}
+10:49:01 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 19,
+  "kind": "room",
+  "name": "B-9b3c6985e3",
+  "capacity": 6,
+  "x": 200,
+  "y": 20,
+  "w": 160,
+  "h": 100
+}
+
+<- 201 (8 ms)
+{
+  "id": 36,
+  "floor_id": 19,
+  "kind": "room",
+  "name": "B-9b3c6985e3",
+  "capacity": 6,
+  "x": 200,
+  "y": 20,
+  "w": 160,
+  "h": 100,
+  "equipment": [],
+  "active": true,
+  "version": 1
+}
+10:49:01 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 19,
+  "kind": "desk",
+  "name": "D-715bca40f2",
+  "capacity": 1,
+  "x": 20,
+  "y": 200,
+  "w": 60,
+  "h": 40
+}
+
+<- 201 (11 ms)
+{
+  "id": 37,
+  "floor_id": 19,
+  "kind": "desk",
+  "name": "D-715bca40f2",
+  "capacity": 1,
+  "x": 20,
+  "y": 200,
+  "w": 60,
+  "h": 40,
+  "equipment": [],
+  "active": true,
+  "version": 1
+}
+10:49:01 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.3b6ea95d99@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (38 ms)
+{
+  "id": 36,
+  "email": "employee.3b6ea95d99@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:49:01.387146Z"
+}
+10:49:01 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.3b6ea95d99@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (62 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNiIsImVtYWlsIjoiZW1wbG95ZWUuM2I2ZWE5NWQ5OUBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI1ZGNkYmIxMjc4ZTU0YzM4IiwiaWF0IjoxNzk0OTk4OTQxLCJleHAiOjE3OTQ5OTk4NDF9.-ps7oHOOx21xZq4HDPYTRkbOnB24q8OcGAJXJhFWCpY",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNiIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiN2NjMzExNTEzNDhkODU2ZTlhNjQ0OGNlNzNmMzM1ZTEiLCJmYW0iOiI3MjY5MDZkMTI2OGM1OGJjZjM4MGE2OWY3NTZlZDg5NiIsImlhdCI6MTc5NDk5ODk0MSwiZXhwIjoxNzk1NjAzNzQxfQ.QK8mMiz0y3O9JaZSAMLKB51zaMpwOkWzMgAC7VWkeI0",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:49:02 - INFO - POST http://gateway/api/booking/bookings
+{
+  "resource_id": 35,
+  "start": "2026-11-19T15:00:00+03:00",
+  "end": "2026-11-19T16:00:00+03:00"
+}
+
+<- 201 (23 ms)
+{
+  "id": 13,
+  "resource_id": 35,
+  "user_id": 36,
+  "user_email": "employee.3b6ea95d99@officespace.test",
+  "start": "2026-11-19T12:00:00Z",
+  "end": "2026-11-19T13:00:00Z",
+  "status": "pending",
+  "created_at": "2026-11-18T10:49:02.018075Z",
+  "updated_at": "2026-11-18T10:49:02.022610Z",
+  "cancelled_by": null,
+  "checked_in_at": null
+}

@@ -1,0 +1,36 @@
+﻿10:49:06 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.6f9180fb39@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест employee"
+}
+
+<- 201 (29 ms)
+{
+  "id": 58,
+  "email": "employee.6f9180fb39@officespace.test",
+  "full_name": "Тест employee",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:49:06.888705Z"
+}
+10:49:06 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.6f9180fb39@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (29 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1OCIsImVtYWlsIjoiZW1wbG95ZWUuNmY5MTgwZmIzOUBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiJlOWE4YTRhMmVmMGQwMDc4IiwiaWF0IjoxNzk0OTk4OTQ2LCJleHAiOjE3OTQ5OTk4NDZ9.aj0GRJOQd6EfXApDX6foNwPpUTKulUWbFjIR3rG1MJc",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1OCIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiNWE0NWI3YTI1MDVkZjA1YzhjMTRhNjRiOTM0OTFhNDQiLCJmYW0iOiJjNTEzOWVlZjMyZWEyYzhjYzYyMTJmMzQyZjI2NjQ0OSIsImlhdCI6MTc5NDk5ODk0NiwiZXhwIjoxNzk1NjAzNzQ2fQ.DFBKBcUxE-zM603CZfHUe_6nM6nBLDAHIPYXr8DuPQM",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:49:06 - INFO - GET http://gateway/api/auth/users?limit=1
+
+
+<- 403 (2 ms)
+{
+  "detail": "Нет прав: users.manage"
+}

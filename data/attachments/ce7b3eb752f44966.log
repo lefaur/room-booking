@@ -1,0 +1,83 @@
+﻿10:49:14 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.13ed758363@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (19 ms)
+{
+  "id": 165,
+  "email": "employee.13ed758363@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:49:14.838682Z"
+}
+10:49:14 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.13ed758363@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (20 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNjUiLCJlbWFpbCI6ImVtcGxveWVlLjEzZWQ3NTgzNjNAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiYjEzZmVkNmZjODZlN2JjZSIsImlhdCI6MTc5NDk5ODk1NCwiZXhwIjoxNzk0OTk5ODU0fQ.nJCbyMjqHPi2gtMWecfalu6elAHBCj-E1lU2Hkdi5S4",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNjUiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6ImQ5ZjRlZGYzOWQzYTczYTM5ZWQwYmYzN2U4OWVlZDZhIiwiZmFtIjoiZDliZDc2ODViMGViZmU5MzdjMjA4NTk0NGU0ZDM2MWYiLCJpYXQiOjE3OTQ5OTg5NTQsImV4cCI6MTc5NTYwMzc1NH0.4cxK_zOEDpGF7jelOnBkBZuN9ixf91AcM8FtFoA8xIo",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:49:14 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 75,
+  "kind": "room",
+  "name": "A-fd35b881ee",
+  "capacity": 6,
+  "x": 22,
+  "y": 0,
+  "w": 10,
+  "h": 10
+}
+
+<- 201 (4 ms)
+{
+  "id": 95,
+  "floor_id": 75,
+  "kind": "room",
+  "name": "A-fd35b881ee",
+  "capacity": 6,
+  "x": 22,
+  "y": 0,
+  "w": 10,
+  "h": 10,
+  "equipment": [],
+  "active": true,
+  "version": 1
+}
+10:49:14 - INFO - PUT http://gateway/api/booking/settings
+{
+  "max_booking_hours": 1
+}
+
+<- 200 (4 ms)
+{
+  "confirm_timeout_minutes": 15,
+  "max_desk_days": 5,
+  "booking_horizon_days": 30,
+  "reminder_minutes_before": 30,
+  "checkin_open_minutes_before": 10,
+  "no_show_grace_minutes": 15,
+  "max_active_bookings_per_user": 3,
+  "max_booking_hours": 1
+}
+10:49:14 - INFO - POST http://gateway/api/booking/bookings
+{
+  "resource_id": 95,
+  "start": "2026-11-19T10:00:00+03:00",
+  "end": "2026-11-19T11:30:00+03:00"
+}
+
+<- 422 (3 ms)
+{
+  "detail": "Бронь длиннее допустимой (1 ч)"
+}

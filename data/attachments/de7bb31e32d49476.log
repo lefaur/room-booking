@@ -1,0 +1,76 @@
+﻿10:49:09 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (21 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiNTNlODdiYTIwMDE1MTVhMCIsImlhdCI6MTc5NDk5ODk0OSwiZXhwIjoxNzk0OTk5ODQ5fQ._zWCCccHtuY3QvEhuH0SOVt-bhScJ-Gpx058QlpcUT0",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI2N2M4YTg3N2FjMzgwODM4ZjU0Y2YxMzdkMjlmZmQ1MCIsImZhbSI6IjhiNTc3YTA3MjEzZTk1MDgxNGQ5YzBiNjFlZTkxOGQxIiwiaWF0IjoxNzk0OTk4OTQ5LCJleHAiOjE3OTU2MDM3NDl9.sW8bPfMmMCL8nyWlkoHvOZPcuOskeFX10S6oLQ50ybw",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:49:09 - INFO - GET http://gateway/api/scheduler/jobs
+
+
+<- 200 (2 ms)
+[
+  {
+    "name": "expire-pending",
+    "schedule": "каждую минуту",
+    "mode": "manual",
+    "next_run_at": null,
+    "last_run": {
+      "job": "expire-pending",
+      "status": "ok",
+      "trigger": "manual",
+      "started_at": "2026-11-18T10:49:09.040944+00:00",
+      "finished_at": "2026-11-18T10:49:09.054146+00:00",
+      "result": {
+        "job": "expire-pending",
+        "status": "ok",
+        "expired": 1
+      }
+    }
+  },
+  {
+    "name": "send-reminders",
+    "schedule": "каждую минуту",
+    "mode": "manual",
+    "next_run_at": null,
+    "last_run": {
+      "job": "send-reminders",
+      "status": "ok",
+      "trigger": "manual",
+      "started_at": "2026-11-18T10:48:51.821958+00:00",
+      "finished_at": "2026-11-18T10:48:51.884883+00:00",
+      "result": {
+        "job": "send-reminders",
+        "status": "ok",
+        "reminded": 1
+      }
+    }
+  },
+  {
+    "name": "release-no-shows",
+    "schedule": "каждую минуту",
+    "mode": "manual",
+    "next_run_at": null,
+    "last_run": null
+  },
+  {
+    "name": "sync-calendar",
+    "schedule": "ежедневно в 03:00",
+    "mode": "manual",
+    "next_run_at": null,
+    "last_run": null
+  },
+  {
+    "name": "cleanup-tokens",
+    "schedule": "ежедневно в 04:00",
+    "mode": "manual",
+    "next_run_at": null,
+    "last_run": null
+  }
+]

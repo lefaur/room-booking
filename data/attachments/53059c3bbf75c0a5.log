@@ -1,0 +1,284 @@
+﻿10:49:08 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.1208bf2702@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (30 ms)
+{
+  "id": 87,
+  "email": "employee.1208bf2702@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:49:08.938140Z"
+}
+10:49:08 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.1208bf2702@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (33 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NyIsImVtYWlsIjoiZW1wbG95ZWUuMTIwOGJmMjcwMkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiJiYTI1YTQ5ZjdlNDFhNDU1IiwiaWF0IjoxNzk0OTk4OTQ4LCJleHAiOjE3OTQ5OTk4NDh9.ppK68YRqoM-my82ImyhdR5bJ5T2hTFVjYigPq37NrKI",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NyIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiMzI0YTI5ZGNkNzk2YzFiZTg5ZThiNGVjYTViZjNlNzciLCJmYW0iOiJiM2IzZjEwNWM3ZmUzODQ1MjRkZmZhODIyZjg1Y2E2MSIsImlhdCI6MTc5NDk5ODk0OCwiZXhwIjoxNzk1NjAzNzQ4fQ.jV5jlp4_ionj9g2oWUb1tmbRnQuhMLQJ3T1wykcRkYw",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:49:09 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (34 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiNWMzMzM4YzFhNDY5YTMzZSIsImlhdCI6MTc5NDk5ODk0OSwiZXhwIjoxNzk0OTk5ODQ5fQ.yBZOSagYznB6v1AukTVYtf9PxWjEqaT8xPbCOT9pKso",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI3NGM0YzExZmQzMDg4MDgxYTkwZjc3ODY0YzJmNzAxZCIsImZhbSI6IjRkZmQ1ODA5YTJmMTE1YTIyZmE0NTljN2NmZDhhMWE5IiwiaWF0IjoxNzk0OTk4OTQ5LCJleHAiOjE3OTU2MDM3NDl9.Vghs3ZG8J14bYFi3dxNay7fPLexmRNRuuor2azTP_KM",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:49:09 - INFO - POST http://gateway/api/booking/floors
+{
+  "name": "autotest-floor-99602c1a15",
+  "level": 1,
+  "width": 9900,
+  "height": 9900
+}
+
+<- 201 (3 ms)
+{
+  "id": 26,
+  "name": "autotest-floor-99602c1a15",
+  "level": 1,
+  "width": 9900,
+  "height": 9900
+}
+10:49:09 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 26,
+  "kind": "room",
+  "name": "A-08b08e5bcc",
+  "capacity": 6,
+  "x": 0,
+  "y": 0,
+  "w": 10,
+  "h": 10
+}
+
+<- 201 (5 ms)
+{
+  "id": 43,
+  "floor_id": 26,
+  "kind": "room",
+  "name": "A-08b08e5bcc",
+  "capacity": 6,
+  "x": 0,
+  "y": 0,
+  "w": 10,
+  "h": 10,
+  "equipment": [],
+  "active": true,
+  "version": 1
+}
+10:49:09 - INFO - POST http://gateway/api/booking/bookings
+{
+  "resource_id": 43,
+  "start": "2026-11-19T10:00:00+03:00",
+  "end": "2026-11-19T11:00:00+03:00"
+}
+
+<- 201 (8 ms)
+{
+  "id": 18,
+  "resource_id": 43,
+  "user_id": 87,
+  "user_email": "employee.1208bf2702@officespace.test",
+  "start": "2026-11-19T07:00:00Z",
+  "end": "2026-11-19T08:00:00Z",
+  "status": "pending",
+  "created_at": "2026-11-18T10:49:09.022433Z",
+  "updated_at": "2026-11-18T10:49:09.025902Z",
+  "cancelled_by": null,
+  "checked_in_at": null
+}
+10:49:09 - INFO - SQL: UPDATE booking.bookings SET created_at = now() - make_interval(mins => 16) WHERE id = 18
+-> 1 rows
+10:49:09 - INFO - POST http://gateway/api/scheduler/jobs/expire-pending/run
+
+
+<- 200 (15 ms)
+{
+  "job": "expire-pending",
+  "status": "ok",
+  "trigger": "manual",
+  "started_at": "2026-11-18T10:49:09.040944+00:00",
+  "finished_at": "2026-11-18T10:49:09.054146+00:00",
+  "result": {
+    "job": "expire-pending",
+    "status": "ok",
+    "expired": 1
+  }
+}
+10:49:09 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22employee.1208bf2702%40officespace.test%22&limit=50
+
+
+<- 200 (2 ms)
+{
+  "total": 134,
+  "unread": 122,
+  "count": 1,
+  "messages_count": 1,
+  "start": 0,
+  "tags": [],
+  "messages": [
+    {
+      "ID": "Ryd9RAejk85PeHjAwD2fJm",
+      "MessageID": "nxVmTtcRtM54AEYcB3UE75@mailpit",
+      "Read": false,
+      "From": {
+        "Name": "OfficeSpace",
+        "Address": "no-reply@officespace.test"
+      },
+      "To": [
+        {
+          "Name": "",
+          "Address": "employee.1208bf2702@officespace.test"
+        }
+      ],
+      "Cc": [],
+      "Bcc": [],
+      "ReplyTo": [],
+      "Subject": "Добро пожаловать в OfficeSpace",
+      "Created": "2026-11-18T10:49:08.981Z",
+      "Tags": [],
+      "Size": 733,
+      "Attachments": 0,
+      "Snippet": "Тест сотрудник, вы зарегистрированы. Войти: http://localhost:8080/login"
+    }
+  ]
+}
+10:49:09 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22employee.1208bf2702%40officespace.test%22&limit=50
+
+
+<- 200 (3 ms)
+{
+  "total": 136,
+  "unread": 122,
+  "count": 3,
+  "messages_count": 3,
+  "start": 0,
+  "tags": [],
+  "messages": [
+    {
+      "ID": "mYMBPVtseWCPbVGTrv5yE8",
+      "MessageID": "AUS9n4kbR3HrGfK5mqkjc9@mailpit",
+      "Read": false,
+      "From": {
+        "Name": "OfficeSpace",
+        "Address": "no-reply@officespace.test"
+      },
+      "To": [
+        {
+          "Name": "",
+          "Address": "employee.1208bf2702@officespace.test"
+        }
+      ],
+      "Cc": [],
+      "Bcc": [],
+      "ReplyTo": [],
+      "Subject": "Бронь не подтверждена и снята: A-08b08e5bcc",
+      "Created": "2026-11-18T10:49:09.212Z",
+      "Tags": [],
+      "Size": 825,
+      "Attachments": 0,
+      "Snippet": "A-08b08e5bcc: 19.11.2026 10:00 – 19.11.2026 11:00 Время подтверждения вышло, ресурс снова свободен."
+    },
+    {
+      "ID": "YCwWGX5tQ3R7CzzfWXoXaK",
+      "MessageID": "JioET6rvMvbrHmcFof2CMe@mailpit",
+      "Read": false,
+      "From": {
+        "Name": "OfficeSpace",
+        "Address": "no-reply@officespace.test"
+      },
+      "To": [
+        {
+          "Name": "",
+          "Address": "employee.1208bf2702@officespace.test"
+        }
+      ],
+      "Cc": [],
+      "Bcc": [],
+      "ReplyTo": [],
+      "Subject": "Подтвердите бронь: A-08b08e5bcc",
+      "Created": "2026-11-18T10:49:09.206Z",
+      "Tags": [],
+      "Size": 826,
+      "Attachments": 0,
+      "Snippet": "A-08b08e5bcc: 19.11.2026 10:00 – 19.11.2026 11:00 Подтвердите до 18.11.2026 14:04, иначе бронь снимется. http://localhost:8080/bookings/18"
+    },
+    {
+      "ID": "Ryd9RAejk85PeHjAwD2fJm",
+      "MessageID": "nxVmTtcRtM54AEYcB3UE75@mailpit",
+      "Read": false,
+      "From": {
+        "Name": "OfficeSpace",
+        "Address": "no-reply@officespace.test"
+      },
+      "To": [
+        {
+          "Name": "",
+          "Address": "employee.1208bf2702@officespace.test"
+        }
+      ],
+      "Cc": [],
+      "Bcc": [],
+      "ReplyTo": [],
+      "Subject": "Добро пожаловать в OfficeSpace",
+      "Created": "2026-11-18T10:49:08.981Z",
+      "Tags": [],
+      "Size": 733,
+      "Attachments": 0,
+      "Snippet": "Тест сотрудник, вы зарегистрированы. Войти: http://localhost:8080/login"
+    }
+  ]
+}
+10:49:09 - INFO - GET http://mailpit:8025/api/v1/message/mYMBPVtseWCPbVGTrv5yE8
+
+
+<- 200 (2 ms)
+{
+  "ID": "mYMBPVtseWCPbVGTrv5yE8",
+  "MessageID": "AUS9n4kbR3HrGfK5mqkjc9@mailpit",
+  "From": {
+    "Name": "OfficeSpace",
+    "Address": "no-reply@officespace.test"
+  },
+  "To": [
+    {
+      "Name": "",
+      "Address": "employee.1208bf2702@officespace.test"
+    }
+  ],
+  "Cc": [],
+  "Bcc": [],
+  "ReplyTo": [],
+  "ReturnPath": "no-reply@officespace.test",
+  "Subject": "Бронь не подтверждена и снята: A-08b08e5bcc",
+  "ListUnsubscribe": {
+    "Header": "",
+    "Links": [],
+    "Errors": "",
+    "HeaderPost": ""
+  },
+  "Date": "2026-11-18T10:49:09.212Z",
+  "Tags": [],
+  "Text": "A-08b08e5bcc: 19.11.2026 10:00 – 19.11.2026 11:00\nВремя подтверждения вышло, ресурс снова свободен.\n",
+  "HTML": "",
+  "Size": 825,
+  "Inline": [],
+  "Attachments": []
+}

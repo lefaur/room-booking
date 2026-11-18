@@ -1,0 +1,95 @@
+﻿10:48:49 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.f8e8960f9d@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (41 ms)
+{
+  "id": 4,
+  "email": "employee.f8e8960f9d@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:48:49.538840Z"
+}
+10:48:49 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.f8e8960f9d@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (46 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0IiwiZW1haWwiOiJlbXBsb3llZS5mOGU4OTYwZjlkQG9mZmljZXNwYWNlLnRlc3QiLCJyb2xlIjoiZW1wbG95ZWUiLCJwZXJtcyI6WyJib29raW5ncy5jcmVhdGUiXSwidHlwZSI6ImFjY2VzcyIsImp0aSI6IjJiMmE1OTQ0MzUxYTBlNzgiLCJpYXQiOjE3OTQ5OTg5MjksImV4cCI6MTc5NDk5OTgyOX0.3dUCbk5LjniL8De9PI93a8Q9xEVOQt_1R2AOjosJXYk",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0IiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiIxMzRkYTgyYThkNGRjMDA1ZWRmZGM4ZDNmYTdmOWFiMSIsImZhbSI6IjYyYTg5Mzg3MzE5MWY2Y2NiMmUyMTUyNmVlODI1MzE4IiwiaWF0IjoxNzk0OTk4OTI5LCJleHAiOjE3OTU2MDM3Mjl9.32SjxIf8Qb_CzJlRCq3ODwqlmdIlxvgz4Gs5xI4yq3s",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:48:49 - INFO - POST http://gateway/api/tg/link-code
+
+
+<- 201 (5 ms)
+{
+  "code": "19BF6B63",
+  "expires_at": "2026-11-18T10:58:49.593533+00:00",
+  "command": "/start 19BF6B63"
+}
+10:48:49 - INFO - POST http://stubs:8000/_control/telegram/messages
+{
+  "chat_id": 60472329924,
+  "text": "/start 19BF6B63"
+}
+
+<- 200 (4 ms)
+{
+  "update_id": 3,
+  "message": {
+    "message_id": 3,
+    "date": 1794998929,
+    "text": "/start 19BF6B63",
+    "chat": {
+      "id": 60472329924,
+      "type": "private"
+    },
+    "from": {
+      "id": 60472329924,
+      "is_bot": false,
+      "username": "tester"
+    }
+  }
+}
+10:48:49 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=60472329924
+
+
+<- 200 (2 ms)
+[]
+10:48:49 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=60472329924
+
+
+<- 200 (2 ms)
+[
+  {
+    "message_id": 7,
+    "chat": {
+      "id": 60472329924,
+      "type": "private"
+    },
+    "date": 1794998929,
+    "text": "Готово! Аккаунт employee.f8e8960f9d@officespace.test привязан. Сюда будут приходить уведомления о бронях.",
+    "reply_markup": null
+  }
+]
+10:48:49 - INFO - DELETE http://gateway/api/tg/link
+
+
+<- 204 (7 ms)
+
+10:48:49 - INFO - GET http://gateway/api/tg/link
+
+
+<- 404 (4 ms)
+{
+  "detail": "Telegram не привязан"
+}

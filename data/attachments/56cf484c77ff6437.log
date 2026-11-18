@@ -1,0 +1,115 @@
+﻿10:49:15 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.7492066849@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (19 ms)
+{
+  "id": 169,
+  "email": "employee.7492066849@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:49:15.249621Z"
+}
+10:49:15 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.7492066849@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (20 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNjkiLCJlbWFpbCI6ImVtcGxveWVlLjc0OTIwNjY4NDlAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiZGJmMzhmN2U5Y2EyNjY4MyIsImlhdCI6MTc5NDk5ODk1NSwiZXhwIjoxNzk0OTk5ODU1fQ.9IhsYmUZq3hr6Ux_vJPmDZodRQ6pL1LE-ChJ38BY6HU",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNjkiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6ImIwNjBjY2E5YzBlYjM0OWE4NDg2Mzg0YmM1MzhmZWI3IiwiZmFtIjoiMGQwOWMwOTQ4MDIxNWQ0MWEzNWYzOGFmN2UyM2RiY2IiLCJpYXQiOjE3OTQ5OTg5NTUsImV4cCI6MTc5NTYwMzc1NX0._8w4g0lbte3TfMripOqIYAJdx9Gs5T_vnRPe-fQILtg",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:49:15 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 75,
+  "kind": "desk",
+  "name": "D1-dd4a33603a",
+  "capacity": 1,
+  "x": 66,
+  "y": 0,
+  "w": 10,
+  "h": 10
+}
+
+<- 201 (5 ms)
+{
+  "id": 99,
+  "floor_id": 75,
+  "kind": "desk",
+  "name": "D1-dd4a33603a",
+  "capacity": 1,
+  "x": 66,
+  "y": 0,
+  "w": 10,
+  "h": 10,
+  "equipment": [],
+  "active": true,
+  "version": 1
+}
+10:49:15 - INFO - PUT http://stubs:8000/_control/calendar
+{
+  "mode": "ok",
+  "days": {
+    "2026": [
+      {
+        "date": "2026-11-25",
+        "type": "holiday",
+        "title": "День автотеста"
+      },
+      {
+        "date": "2026-11-28",
+        "type": "working",
+        "title": "Перенос"
+      }
+    ],
+    "2027": []
+  }
+}
+
+<- 200 (1 ms)
+{
+  "mode": "ok",
+  "years": [
+    2026,
+    2027
+  ]
+}
+10:49:15 - INFO - POST http://gateway/api/scheduler/jobs/sync-calendar/run
+
+
+<- 200 (23 ms)
+{
+  "job": "sync-calendar",
+  "status": "ok",
+  "trigger": "manual",
+  "started_at": "2026-11-18T10:49:15.280949+00:00",
+  "finished_at": "2026-11-18T10:49:15.301868+00:00",
+  "result": {
+    "job": "sync-calendar",
+    "status": "ok",
+    "years": [
+      2026,
+      2027
+    ],
+    "days": 2
+  }
+}
+10:49:15 - INFO - POST http://gateway/api/booking/bookings
+{
+  "resource_id": 99,
+  "date_from": "2026-11-24",
+  "date_to": "2026-11-26"
+}
+
+<- 422 (4 ms)
+{
+  "detail": "2026-11-25 — нерабочий день День автотеста"
+}

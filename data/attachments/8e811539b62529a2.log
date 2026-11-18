@@ -1,0 +1,75 @@
+﻿10:49:07 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "manager.50907ce0d0@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест manager"
+}
+
+<- 201 (43 ms)
+{
+  "id": 67,
+  "email": "manager.50907ce0d0@officespace.test",
+  "full_name": "Тест manager",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:49:07.413694Z"
+}
+10:49:07 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (55 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiMzIwZjM1NWIyNjM2YjYwMiIsImlhdCI6MTc5NDk5ODk0NywiZXhwIjoxNzk0OTk5ODQ3fQ._jjyrNNKDrK3ocDILuRWH4UduK8NHiXuG9bl91Mro44",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI2YjEzN2RjYmY4YTg0MzI2ZTIxNjNhMmNhMWQxN2I0MSIsImZhbSI6ImY4MjZkOGMxNjE1NmM5OGJmMGFlYWJhYjRhMWYyZGRiIiwiaWF0IjoxNzk0OTk4OTQ3LCJleHAiOjE3OTU2MDM3NDd9.1_tW-UWKhtRmMBOYX7dStAsWpaFHbpXttYiU5Hb-em0",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:49:07 - INFO - PATCH http://gateway/api/auth/users/67
+{
+  "role": "manager"
+}
+
+<- 200 (6 ms)
+{
+  "id": 67,
+  "email": "manager.50907ce0d0@officespace.test",
+  "full_name": "Тест manager",
+  "role": "manager",
+  "is_active": true,
+  "created_at": "2026-11-18T10:49:07.413694Z"
+}
+10:49:07 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "manager.50907ce0d0@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (45 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NyIsImVtYWlsIjoibWFuYWdlci41MDkwN2NlMGQwQG9mZmljZXNwYWNlLnRlc3QiLCJyb2xlIjoibWFuYWdlciIsInBlcm1zIjpbImJvb2tpbmdzLmNhbmNlbF9hbnkiLCJib29raW5ncy5jcmVhdGUiLCJib29raW5ncy5yZWFkX2FsbCJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiMTQ3MzMxNjgwY2IxZjY5YiIsImlhdCI6MTc5NDk5ODk0NywiZXhwIjoxNzk0OTk5ODQ3fQ.yxL7sPKW-0u6xDV4HREOHcZYWiFizGVumHPpyiZNu50",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NyIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiNGE4ZTc5MDIzNmMxMGM5MGZkMDdjYjRjOTQxZDUzNjUiLCJmYW0iOiI1MTBlNWEyMDVmOGQ3MDEwMmM0M2M3MWRiYmIyOWI4NSIsImlhdCI6MTc5NDk5ODk0NywiZXhwIjoxNzk1NjAzNzQ3fQ.3TvTH3jMz1jWDxwel8a4-S_4fLpenZsOMtTd0ZZpwYM",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:49:07 - INFO - GET http://gateway/api/booking/bookings?scope=all&limit=1
+
+
+<- 200 (12 ms)
+[
+  {
+    "id": 1,
+    "resource_id": 1,
+    "user_id": 7,
+    "user_email": "employee.ce5056596d@officespace.test",
+    "start": "2026-11-19T07:00:00Z",
+    "end": "2026-11-19T08:00:00Z",
+    "status": "confirmed",
+    "created_at": "2026-11-18T10:48:50.650896Z",
+    "updated_at": "2026-11-18T10:48:50.994143Z",
+    "cancelled_by": null,
+    "checked_in_at": null
+  }
+]

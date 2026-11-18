@@ -1,0 +1,208 @@
+﻿10:48:53 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (45 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiNmU2MjQ5NGQ3YjEyNWQ1NCIsImlhdCI6MTc5NDk5ODkzMywiZXhwIjoxNzk0OTk5ODMzfQ.dxND1VjmtHlMW6ZVosjoy1-xJlTq3DUs_R6zkWAvDTI",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI4NmIwNjRlNDFkZWUzOGU3MmFjMTJhYWZlOWQyNjE5MyIsImZhbSI6ImYxZmVkNTk3N2NmMTMyMjUxMmEyY2I0YWI3YTQzNzBkIiwiaWF0IjoxNzk0OTk4OTMzLCJleHAiOjE3OTU2MDM3MzN9.6Pe3gDKPvJ4J7x4hGVrEBHGiUym44mF9ablHYuCK0P8",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:48:53 - INFO - POST http://gateway/api/booking/floors
+{
+  "name": "ui-floor-550c1a337c",
+  "level": 3,
+  "width": 600,
+  "height": 400
+}
+
+<- 201 (12 ms)
+{
+  "id": 11,
+  "name": "ui-floor-550c1a337c",
+  "level": 3,
+  "width": 600,
+  "height": 400
+}
+10:48:53 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 11,
+  "kind": "room",
+  "name": "A-a5f29e434c",
+  "capacity": 6,
+  "x": 20,
+  "y": 20,
+  "w": 80,
+  "h": 60
+}
+
+<- 201 (11 ms)
+{
+  "id": 13,
+  "floor_id": 11,
+  "kind": "room",
+  "name": "A-a5f29e434c",
+  "capacity": 6,
+  "x": 20,
+  "y": 20,
+  "w": 80,
+  "h": 60,
+  "equipment": [],
+  "active": true,
+  "version": 1
+}
+10:48:53 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 11,
+  "kind": "room",
+  "name": "B-6414576718",
+  "capacity": 6,
+  "x": 300,
+  "y": 200,
+  "w": 80,
+  "h": 60
+}
+
+<- 201 (13 ms)
+{
+  "id": 14,
+  "floor_id": 11,
+  "kind": "room",
+  "name": "B-6414576718",
+  "capacity": 6,
+  "x": 300,
+  "y": 200,
+  "w": 80,
+  "h": 60,
+  "equipment": [],
+  "active": true,
+  "version": 1
+}
+10:48:53 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "facility.57727cf881@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест АХО"
+}
+
+<- 201 (70 ms)
+{
+  "id": 19,
+  "email": "facility.57727cf881@officespace.test",
+  "full_name": "Тест АХО",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:48:53.323127Z"
+}
+10:48:53 - INFO - PATCH http://gateway/api/auth/users/19
+{
+  "role": "facility"
+}
+
+<- 200 (9 ms)
+{
+  "id": 19,
+  "email": "facility.57727cf881@officespace.test",
+  "full_name": "Тест АХО",
+  "role": "facility",
+  "is_active": true,
+  "created_at": "2026-11-18T10:48:53.323127Z"
+}
+10:48:53 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "facility.57727cf881@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (54 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOSIsImVtYWlsIjoiZmFjaWxpdHkuNTc3MjdjZjg4MUBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImZhY2lsaXR5IiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIiwiZmxvb3JzLndyaXRlIiwicmVzb3VyY2VzLndyaXRlIiwic2V0dGluZ3Mud3JpdGUiXSwidHlwZSI6ImFjY2VzcyIsImp0aSI6IjlhY2MxZjk1M2Q0M2JjNWMiLCJpYXQiOjE3OTQ5OTg5MzMsImV4cCI6MTc5NDk5OTgzM30.mg9aBJ6XoO73zeC5l_ChENSwyhRZ4biJSDIzLK5EXWU",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxOSIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiNzVhZWEyNjIzYWM0MmU0MzFiMzY2MzUxOWY1MDJlZmEiLCJmYW0iOiI3YmUxMzQ5OWRjNjczZjAzM2FlOTY5ZGZhYjE3YTQyYSIsImlhdCI6MTc5NDk5ODkzMywiZXhwIjoxNzk1NjAzNzMzfQ.0RthQT_iR-8NhtXdS1C4fxutm_Z5_fnAIsCnenDB0Gw",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:48:54 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "facility.1469e7d39a@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест АХО 2"
+}
+
+<- 201 (48 ms)
+{
+  "id": 21,
+  "email": "facility.1469e7d39a@officespace.test",
+  "full_name": "Тест АХО 2",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:48:54.284590Z"
+}
+10:48:54 - INFO - PATCH http://gateway/api/auth/users/21
+{
+  "role": "facility"
+}
+
+<- 200 (17 ms)
+{
+  "id": 21,
+  "email": "facility.1469e7d39a@officespace.test",
+  "full_name": "Тест АХО 2",
+  "role": "facility",
+  "is_active": true,
+  "created_at": "2026-11-18T10:48:54.284590Z"
+}
+10:48:54 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "facility.1469e7d39a@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (54 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMSIsImVtYWlsIjoiZmFjaWxpdHkuMTQ2OWU3ZDM5YUBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImZhY2lsaXR5IiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIiwiZmxvb3JzLndyaXRlIiwicmVzb3VyY2VzLndyaXRlIiwic2V0dGluZ3Mud3JpdGUiXSwidHlwZSI6ImFjY2VzcyIsImp0aSI6IjIzYzQwYjEwZmQzNzhkOTIiLCJpYXQiOjE3OTQ5OTg5MzQsImV4cCI6MTc5NDk5OTgzNH0.27WvP4tNtU6SzH71Q4FvoUT9LEN0A5WOz_Ap9s2c4eU",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMSIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiMGM4MmU5NTMwM2I3MGEwYTUxOTYxNTg5MmM2YTI2N2QiLCJmYW0iOiJhYTAyMGM3NGYzZTY5MTdlYmUzNTQ2M2NkZTc0YTg5ZiIsImlhdCI6MTc5NDk5ODkzNCwiZXhwIjoxNzk1NjAzNzM0fQ.aT_rfDtFK946-cv7JhYDs0mcWi9AFzrPZikOgO0NpWk",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:48:54 - INFO - PATCH http://gateway/api/booking/resources/13
+{
+  "version": 1,
+  "capacity": 12
+}
+
+<- 200 (12 ms)
+{
+  "id": 13,
+  "floor_id": 11,
+  "kind": "room",
+  "name": "A-a5f29e434c",
+  "capacity": 12,
+  "x": 20,
+  "y": 20,
+  "w": 80,
+  "h": 60,
+  "equipment": [],
+  "active": true,
+  "version": 2
+}
+10:48:54 - INFO - GET http://gateway/api/booking/resources/13
+
+
+<- 200 (4 ms)
+{
+  "id": 13,
+  "floor_id": 11,
+  "kind": "room",
+  "name": "A-a5f29e434c",
+  "capacity": 12,
+  "x": 20,
+  "y": 20,
+  "w": 80,
+  "h": 60,
+  "equipment": [],
+  "active": true,
+  "version": 2
+}

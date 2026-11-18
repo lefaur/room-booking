@@ -1,0 +1,351 @@
+﻿10:48:51 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.2cf4d51abc@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (21 ms)
+{
+  "id": 13,
+  "email": "employee.2cf4d51abc@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:48:51.391974Z"
+}
+10:48:51 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.2cf4d51abc@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (28 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMyIsImVtYWlsIjoiZW1wbG95ZWUuMmNmNGQ1MWFiY0BvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiIxMzYxMDVhZjJmOTBhNDAzIiwiaWF0IjoxNzk0OTk4OTMxLCJleHAiOjE3OTQ5OTk4MzF9.wBBI8HsGjshA5CII7WStDPrmw044tmfqu570UqGooY8",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMyIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiMWE1MjY1NGFjYWE5ZmJkY2MwMzU3ZWRkNjgxOTI5OTEiLCJmYW0iOiIwZDM1NDRiN2Y0MTJjZDFhMDU4MDc2ZTFiMWI3YTU3OSIsImlhdCI6MTc5NDk5ODkzMSwiZXhwIjoxNzk1NjAzNzMxfQ.k67cuaLPhmKNq9oIykxJEQ05RDjVbItdhOSzx4f-Xeg",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:48:51 - INFO - POST http://gateway/api/tg/link-code
+
+
+<- 201 (5 ms)
+{
+  "code": "B2AD629E",
+  "expires_at": "2026-11-18T10:58:51.427182+00:00",
+  "command": "/start B2AD629E"
+}
+10:48:51 - INFO - POST http://stubs:8000/_control/telegram/messages
+{
+  "chat_id": 461934413588,
+  "text": "/start B2AD629E"
+}
+
+<- 200 (2 ms)
+{
+  "update_id": 14,
+  "message": {
+    "message_id": 28,
+    "date": 1794998931,
+    "text": "/start B2AD629E",
+    "chat": {
+      "id": 461934413588,
+      "type": "private"
+    },
+    "from": {
+      "id": 461934413588,
+      "is_bot": false,
+      "username": "tester"
+    }
+  }
+}
+10:48:51 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=461934413588
+
+
+<- 200 (1 ms)
+[]
+10:48:51 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=461934413588
+
+
+<- 200 (1 ms)
+[
+  {
+    "message_id": 29,
+    "chat": {
+      "id": 461934413588,
+      "type": "private"
+    },
+    "date": 1794998931,
+    "text": "Готово! Аккаунт employee.2cf4d51abc@officespace.test привязан. Сюда будут приходить уведомления о бронях.",
+    "reply_markup": null
+  }
+]
+10:48:51 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (21 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiZTJjZmZiMDhlMjg0YTdlNyIsImlhdCI6MTc5NDk5ODkzMSwiZXhwIjoxNzk0OTk5ODMxfQ.Bbf9NXXciXZXaLjGbvMHOrSF5SxfebIdYMt0_xkf4Bw",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI3YjM5Mzc3NDk2NjdmZGE5MTY4NGE0ODNmYzU5ZWMxZiIsImZhbSI6ImU4YzVhZjRmY2U5MTIwNjU5MGNjMDUyOTI4YTM2YzM2IiwiaWF0IjoxNzk0OTk4OTMxLCJleHAiOjE3OTU2MDM3MzF9.-6RedMRVjw5aTlfJowLJiLjSj6INyc5vkl7o4TlLdTY",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:48:51 - INFO - POST http://gateway/api/booking/floors
+{
+  "name": "autotest-floor-89e8074650",
+  "level": 1,
+  "width": 9900,
+  "height": 9900
+}
+
+<- 201 (4 ms)
+{
+  "id": 6,
+  "name": "autotest-floor-89e8074650",
+  "level": 1,
+  "width": 9900,
+  "height": 9900
+}
+10:48:51 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 6,
+  "kind": "room",
+  "name": "A-14bbd70a96",
+  "capacity": 6,
+  "x": 0,
+  "y": 0,
+  "w": 10,
+  "h": 10
+}
+
+<- 201 (34 ms)
+{
+  "id": 6,
+  "floor_id": 6,
+  "kind": "room",
+  "name": "A-14bbd70a96",
+  "capacity": 6,
+  "x": 0,
+  "y": 0,
+  "w": 10,
+  "h": 10,
+  "equipment": [],
+  "active": true,
+  "version": 1
+}
+10:48:51 - INFO - POST http://gateway/api/booking/bookings
+{
+  "resource_id": 6,
+  "start": "2026-11-19T10:00:00+03:00",
+  "end": "2026-11-19T11:00:00+03:00"
+}
+
+<- 201 (7 ms)
+{
+  "id": 6,
+  "resource_id": 6,
+  "user_id": 13,
+  "user_email": "employee.2cf4d51abc@officespace.test",
+  "start": "2026-11-19T07:00:00Z",
+  "end": "2026-11-19T08:00:00Z",
+  "status": "pending",
+  "created_at": "2026-11-18T10:48:51.796877Z",
+  "updated_at": "2026-11-18T10:48:51.800230Z",
+  "cancelled_by": null,
+  "checked_in_at": null
+}
+10:48:51 - INFO - POST http://gateway/api/booking/bookings/6/confirm
+
+
+<- 200 (4 ms)
+{
+  "id": 6,
+  "resource_id": 6,
+  "user_id": 13,
+  "user_email": "employee.2cf4d51abc@officespace.test",
+  "start": "2026-11-19T07:00:00Z",
+  "end": "2026-11-19T08:00:00Z",
+  "status": "confirmed",
+  "created_at": "2026-11-18T10:48:51.796877Z",
+  "updated_at": "2026-11-18T10:48:51.805132Z",
+  "cancelled_by": null,
+  "checked_in_at": null
+}
+10:48:51 - INFO - SQL: UPDATE booking.bookings SET start_at = now() + make_interval(mins => 5), end_at = now() + make_interval(mins => 5) + '0 days 3600.000000 seconds'::interval WHERE id = 6
+-> 1 rows
+10:48:51 - INFO - POST http://gateway/api/scheduler/jobs/send-reminders/run
+
+
+<- 200 (65 ms)
+{
+  "job": "send-reminders",
+  "status": "ok",
+  "trigger": "manual",
+  "started_at": "2026-11-18T10:48:51.821958+00:00",
+  "finished_at": "2026-11-18T10:48:51.884883+00:00",
+  "result": {
+    "job": "send-reminders",
+    "status": "ok",
+    "reminded": 1
+  }
+}
+10:48:51 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=461934413588
+
+
+<- 200 (1 ms)
+[
+  {
+    "message_id": 29,
+    "chat": {
+      "id": 461934413588,
+      "type": "private"
+    },
+    "date": 1794998931,
+    "text": "Готово! Аккаунт employee.2cf4d51abc@officespace.test привязан. Сюда будут приходить уведомления о бронях.",
+    "reply_markup": null
+  }
+]
+10:48:52 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=461934413588
+
+
+<- 200 (2 ms)
+[
+  {
+    "message_id": 29,
+    "chat": {
+      "id": 461934413588,
+      "type": "private"
+    },
+    "date": 1794998931,
+    "text": "Готово! Аккаунт employee.2cf4d51abc@officespace.test привязан. Сюда будут приходить уведомления о бронях.",
+    "reply_markup": null
+  },
+  {
+    "message_id": 36,
+    "chat": {
+      "id": 461934413588,
+      "type": "private"
+    },
+    "date": 1794998931,
+    "text": "Новая бронь #6: A-14bbd70a96, 19.11 10:00 – 19.11 11:00\nПодтвердите до 18.11 14:03",
+    "reply_markup": "{\"inline_keyboard\": [[{\"text\": \"Подтвердить\", \"callback_data\": \"confirm:6\"}, {\"text\": \"Отменить\", \"callback_data\": \"cancel:6\"}]]}"
+  },
+  {
+    "message_id": 37,
+    "chat": {
+      "id": 461934413588,
+      "type": "private"
+    },
+    "date": 1794998931,
+    "text": "Бронь #6 подтверждена: A-14bbd70a96, 19.11 10:00 – 19.11 11:00",
+    "reply_markup": "{\"inline_keyboard\": [[{\"text\": \"Отменить\", \"callback_data\": \"cancel:6\"}]]}"
+  },
+  {
+    "message_id": 39,
+    "chat": {
+      "id": 461934413588,
+      "type": "private"
+    },
+    "date": 1794998932,
+    "text": "Скоро начало: A-14bbd70a96, 18.11 13:53 – 18.11 14:53\nОтметьтесь, когда придёте",
+    "reply_markup": "{\"inline_keyboard\": [[{\"text\": \"Я на месте\", \"callback_data\": \"check-in:6\"}, {\"text\": \"Отменить\", \"callback_data\": \"cancel:6\"}]]}"
+  }
+]
+10:48:52 - INFO - POST http://stubs:8000/_control/telegram/callbacks
+{
+  "chat_id": 461934413588,
+  "data": "check-in:6"
+}
+
+<- 200 (5 ms)
+{
+  "update_id": 21,
+  "callback_query": {
+    "id": "6",
+    "data": "check-in:6",
+    "from": {
+      "id": 461934413588,
+      "is_bot": false
+    },
+    "message": {
+      "message_id": 0,
+      "chat": {
+        "id": 461934413588,
+        "type": "private"
+      }
+    }
+  }
+}
+10:48:52 - INFO - GET http://stubs:8000/_control/telegram/callback-answers
+
+
+<- 200 (4 ms)
+[
+  {
+    "callback_query_id": "1",
+    "text": "Бронь подтверждена",
+    "show_alert": false
+  },
+  {
+    "callback_query_id": "2",
+    "text": "Бронь отменена",
+    "show_alert": false
+  },
+  {
+    "callback_query_id": "3",
+    "text": "Нельзя подтвердить бронь в статусе cancelled",
+    "show_alert": true
+  },
+  {
+    "callback_query_id": "4",
+    "text": "Аккаунт не привязан",
+    "show_alert": true
+  },
+  {
+    "callback_query_id": "5",
+    "text": "Нет такой брони",
+    "show_alert": true
+  }
+]
+10:48:52 - INFO - GET http://stubs:8000/_control/telegram/callback-answers
+
+
+<- 200 (2 ms)
+[
+  {
+    "callback_query_id": "1",
+    "text": "Бронь подтверждена",
+    "show_alert": false
+  },
+  {
+    "callback_query_id": "2",
+    "text": "Бронь отменена",
+    "show_alert": false
+  },
+  {
+    "callback_query_id": "3",
+    "text": "Нельзя подтвердить бронь в статусе cancelled",
+    "show_alert": true
+  },
+  {
+    "callback_query_id": "4",
+    "text": "Аккаунт не привязан",
+    "show_alert": true
+  },
+  {
+    "callback_query_id": "5",
+    "text": "Нет такой брони",
+    "show_alert": true
+  },
+  {
+    "callback_query_id": "6",
+    "text": "Отметка принята",
+    "show_alert": false
+  }
+]
+10:48:52 - INFO - SQL: SELECT status FROM booking.bookings WHERE id = 6
+-> [{'status': 'checked_in'}]

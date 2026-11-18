@@ -1,0 +1,6 @@
+джоба,расписание
+expire-pending,каждую минуту
+send-reminders,каждую минуту
+release-no-shows,каждую минуту
+sync-calendar,ежедневно в 03:00
+cleanup-tokens,ежедневно в 04:00

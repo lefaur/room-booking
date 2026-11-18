@@ -1,0 +1,70 @@
+﻿10:49:07 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "admin.70edf8cca3@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест admin"
+}
+
+<- 201 (32 ms)
+{
+  "id": 61,
+  "email": "admin.70edf8cca3@officespace.test",
+  "full_name": "Тест admin",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:49:07.035867Z"
+}
+10:49:07 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (36 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiY2JiMjIwMTIwY2UyZDRmMCIsImlhdCI6MTc5NDk5ODk0NywiZXhwIjoxNzk0OTk5ODQ3fQ.PWbBM0iISdFTLNvwC-towj_pLMZy4gtd41K5VppfIvU",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI5YWU1OTQwNjhhNjQ5NzUzMjg3MGVhYTVjNjE3YzRkYSIsImZhbSI6ImY3MTkxYTk0YWYwOThiMGQzY2MzMWFiODNkMDAxNGI2IiwiaWF0IjoxNzk0OTk4OTQ3LCJleHAiOjE3OTU2MDM3NDd9.0g-v2kf1HNx-hoT0rqqiDoqjwM5RVhOU_AqWUH0eP-8",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:49:07 - INFO - PATCH http://gateway/api/auth/users/61
+{
+  "role": "admin"
+}
+
+<- 200 (22 ms)
+{
+  "id": 61,
+  "email": "admin.70edf8cca3@officespace.test",
+  "full_name": "Тест admin",
+  "role": "admin",
+  "is_active": true,
+  "created_at": "2026-11-18T10:49:07.035867Z"
+}
+10:49:07 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin.70edf8cca3@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (38 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MSIsImVtYWlsIjoiYWRtaW4uNzBlZGY4Y2NhM0BvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiYzY4MmJkNTUwY2ZmMzJlMCIsImlhdCI6MTc5NDk5ODk0NywiZXhwIjoxNzk0OTk5ODQ3fQ.5pBLvlcenu-VSO0WHpHI4_hZXUQ9kV450FD263r41cg",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MSIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiZTFkZGU5ZWQ4MGIwMTlkMWM5ZDRhMmE2YmIxODViNTkiLCJmYW0iOiI2NzkwZmRjZTRjNWNlNTg3MTQ1NGZmMmI0ZTNjNGU2NSIsImlhdCI6MTc5NDk5ODk0NywiZXhwIjoxNzk1NjAzNzQ3fQ.s1jHYuGxEcNwEZTVUAVqyS_9VNBJhEfS25-MzNnhsFo",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:49:07 - INFO - GET http://gateway/api/auth/users?limit=1
+
+
+<- 200 (9 ms)
+[
+  {
+    "id": 1,
+    "email": "admin@officespace.test",
+    "full_name": "Администратор",
+    "role": "admin",
+    "is_active": true,
+    "created_at": "2026-11-18T10:47:34.233283Z"
+  }
+]

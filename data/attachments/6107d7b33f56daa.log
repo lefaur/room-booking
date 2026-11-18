@@ -1,0 +1,85 @@
+﻿10:49:02 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (43 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiNjMyMzhlMTBiMWUzNDNjYiIsImlhdCI6MTc5NDk5ODk0MiwiZXhwIjoxNzk0OTk5ODQyfQ.5PaLvOL3zWMf9i0JBAONT-WhkkG-Iq4W4t3zBJ27IoA",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiJiMGViMGQ1ZDAxODlmMGI2NjU5NjVjODg4M2E4MGY5MSIsImZhbSI6ImUwYTA1ZWRkNzEwNmEwOGVmMDM0YzllNTdhZmFhMWJhIiwiaWF0IjoxNzk0OTk4OTQyLCJleHAiOjE3OTU2MDM3NDJ9.jrY6-NXHqVs0sdiLrbkO5B9XVzpue5Zj2X1P8uaH0Iw",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:49:02 - INFO - POST http://gateway/api/booking/floors
+{
+  "name": "ui-floor-ea5f2faaa6",
+  "level": 3,
+  "width": 600,
+  "height": 400
+}
+
+<- 201 (15 ms)
+{
+  "id": 20,
+  "name": "ui-floor-ea5f2faaa6",
+  "level": 3,
+  "width": 600,
+  "height": 400
+}
+10:49:02 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 20,
+  "kind": "room",
+  "name": "A-3151c2427f",
+  "capacity": 6,
+  "x": 20,
+  "y": 20,
+  "w": 160,
+  "h": 100
+}
+
+<- 201 (6 ms)
+{
+  "id": 38,
+  "floor_id": 20,
+  "kind": "room",
+  "name": "A-3151c2427f",
+  "capacity": 6,
+  "x": 20,
+  "y": 20,
+  "w": 160,
+  "h": 100,
+  "equipment": [],
+  "active": true,
+  "version": 1
+}
+10:49:02 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.6cb014e890@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (37 ms)
+{
+  "id": 37,
+  "email": "employee.6cb014e890@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:49:02.141362Z"
+}
+10:49:02 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.6cb014e890@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (43 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNyIsImVtYWlsIjoiZW1wbG95ZWUuNmNiMDE0ZTg5MEBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiJkMTc2MzBmZGUyM2RmMzAxIiwiaWF0IjoxNzk0OTk4OTQyLCJleHAiOjE3OTQ5OTk4NDJ9.Vr2voYJSrugJpncP7irLE5dEiL8rg-sBoKK9d3kMEcs",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNyIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiNmVjYTZkNGQ4MjUwMmMwNTg2YjRkYTkyM2E0OWYxZGIiLCJmYW0iOiIyYzQ1YTYzMjlkMDFlMmJkNWIyNzNjNGUwYjg3MmM3ZSIsImlhdCI6MTc5NDk5ODk0MiwiZXhwIjoxNzk1NjAzNzQyfQ.05fs4PqC9CDWKhjJSw6gh2YRzA2-edkQXQomG4TwOOQ",
+  "token_type": "bearer",
+  "expires_in": 900
+}
