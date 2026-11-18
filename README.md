@@ -1,5 +1,7 @@
 # room-booking
 
+[![tests](https://github.com/lefaur/room-booking/actions/workflows/tests.yml/badge.svg)](https://github.com/lefaur/room-booking/actions/workflows/tests.yml) [![Allure](https://img.shields.io/badge/Allure-отчёт_последнего_прогона-orange)](https://lefaur.github.io/room-booking/)
+
 Учебный стенд для автотестов: **OfficeSpace**, сервис бронирования переговорок и рабочих мест в офисе (микросервисы на FastAPI и PostgreSQL за nginx), и **BDD-фреймворк автотестов** к нему на Behave.
 
 Приложение написано специально как мишень для тестирования: в нём есть роли и права, JWT с ротацией refresh-токенов, гонки за один ресурс, глобальные правила, оптимистическая блокировка, события через RabbitMQ, письма, Telegram-бот, планировщик джоб и внешняя интеграция с производственным календарём.
