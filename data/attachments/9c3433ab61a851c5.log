@@ -1,0 +1,22 @@
+﻿11:34:28 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.a260ce9ce1@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (36 ms)
+{
+  "id": 72,
+  "email": "employee.a260ce9ce1@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T11:34:28.095766Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.a260ce9ce1@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+11:34:28 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 72
+-> [{'password_hash': 'pbkdf2_sha256$100000$81cb081b42cccd03f46b1ae48d42c7d4$56bfb1ebd1ada5a273d32ae9be2f0e2714884b5af9e8cd82a7b3e15e741ce6fd'}]
+11:34:28 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 4 мс

@@ -1,0 +1,274 @@
+﻿11:34:15 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.fdc91bc27b@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (33 ms)
+{
+  "id": 13,
+  "email": "employee.fdc91bc27b@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T11:34:15.550494Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.fdc91bc27b@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+11:34:15 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 13
+-> [{'password_hash': 'pbkdf2_sha256$100000$9a1109345be8b324ba3164873d064db7$ccdbf16869ea051e2aa563c8157bd4f770599db2fab9986595499a93721dc4a9'}]
+11:34:15 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 2 мс
+11:34:15 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.e45068c39d@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (29 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNCIsImVtYWlsIjoiZW1wbG95ZWUuZTQ1MDY4YzM5ZEBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI2ZjM0NTA2NGQxMTRjNzk4IiwiaWF0IjoxNzk1MDAxNjU1LCJleHAiOjE3OTUwMDI1NTV9.k4d1zd4B-1ktpjGQgFmS1MsNWNDqQhF0CRu61IZH0zE",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNCIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiMTIxNzVlMDk2OWVkM2RkMDk2YzYyOWUyNTQxMWVmZTkiLCJmYW0iOiJmNGExYmJlZWE4YzE5ZmU5ZGFhMGY4MTE3NTMyNzFmNCIsImlhdCI6MTc5NTAwMTY1NSwiZXhwIjoxNzk1NjA2NDU1fQ.SSCKdQg-d3-HxAItnJBY28ak2rYbEA1TO7qYDaL0d3I",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.e45068c39d@officespace.test", "password": "Passw0rd123"}'
+11:34:15 - INFO - POST http://gateway/api/tg/link-code
+
+
+<- 201 (7 ms)
+{
+  "code": "1B91BDF2",
+  "expires_at": "2026-11-18T11:44:15.605645+00:00",
+  "command": "/start 1B91BDF2"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/tg/link-code -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNCIsImVtYWlsIjoiZW1wbG95ZWUuZTQ1MDY4YzM5ZEBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI2ZjM0NTA2NGQxMTRjNzk4IiwiaWF0IjoxNzk1MDAxNjU1LCJleHAiOjE3OTUwMDI1NTV9.k4d1zd4B-1ktpjGQgFmS1MsNWNDqQhF0CRu61IZH0zE'
+11:34:15 - INFO - POST http://stubs:8000/_control/telegram/messages
+{
+  "chat_id": 659290320320,
+  "text": "/start 1B91BDF2"
+}
+
+<- 200 (2 ms)
+{
+  "update_id": 7,
+  "message": {
+    "message_id": 12,
+    "date": 1795001655,
+    "text": "/start 1B91BDF2",
+    "chat": {
+      "id": 659290320320,
+      "type": "private"
+    },
+    "from": {
+      "id": 659290320320,
+      "is_bot": false,
+      "username": "tester"
+    }
+  }
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://stubs:8000/_control/telegram/messages -H 'Content-Type: application/json' --data-raw '{"chat_id": 659290320320, "text": "/start 1B91BDF2"}'
+11:34:15 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=659290320320
+
+
+<- 200 (1 ms)
+[]
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://stubs:8000/_control/telegram/sent?chat_id=659290320320'
+11:34:15 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=659290320320
+
+
+<- 200 (1 ms)
+[
+  {
+    "message_id": 15,
+    "chat": {
+      "id": 659290320320,
+      "type": "private"
+    },
+    "date": 1795001655,
+    "text": "Готово! Аккаунт employee.e45068c39d@officespace.test привязан. Сюда будут приходить уведомления о бронях.",
+    "reply_markup": null
+  }
+]
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://stubs:8000/_control/telegram/sent?chat_id=659290320320'
+11:34:15 - INFO - SQL-подготовка одной транзакцией: booking.floors ×1, 2 мс
+11:34:15 - INFO - SQL-подготовка одной транзакцией: booking.resources ×1, 2 мс
+11:34:15 - INFO - POST http://gateway/api/booking/bookings
+{
+  "resource_id": 2,
+  "start": "2026-11-19T10:00:00+03:00",
+  "end": "2026-11-19T11:00:00+03:00"
+}
+
+<- 201 (30 ms)
+{
+  "id": 3,
+  "resource_id": 2,
+  "user_id": 14,
+  "user_email": "employee.e45068c39d@officespace.test",
+  "start": "2026-11-19T07:00:00Z",
+  "end": "2026-11-19T08:00:00Z",
+  "status": "pending",
+  "created_at": "2026-11-18T11:34:15.933114Z",
+  "updated_at": "2026-11-18T11:34:15.945430Z",
+  "cancelled_by": null,
+  "checked_in_at": null
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/booking/bookings -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNCIsImVtYWlsIjoiZW1wbG95ZWUuZTQ1MDY4YzM5ZEBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI2ZjM0NTA2NGQxMTRjNzk4IiwiaWF0IjoxNzk1MDAxNjU1LCJleHAiOjE3OTUwMDI1NTV9.k4d1zd4B-1ktpjGQgFmS1MsNWNDqQhF0CRu61IZH0zE' -H 'Content-Type: application/json' --data-raw '{"resource_id": 2, "start": "2026-11-19T10:00:00+03:00", "end": "2026-11-19T11:00:00+03:00"}'
+11:34:15 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=659290320320
+
+
+<- 200 (1 ms)
+[
+  {
+    "message_id": 15,
+    "chat": {
+      "id": 659290320320,
+      "type": "private"
+    },
+    "date": 1795001655,
+    "text": "Готово! Аккаунт employee.e45068c39d@officespace.test привязан. Сюда будут приходить уведомления о бронях.",
+    "reply_markup": null
+  }
+]
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://stubs:8000/_control/telegram/sent?chat_id=659290320320'
+11:34:16 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=659290320320
+
+
+<- 200 (1 ms)
+[
+  {
+    "message_id": 15,
+    "chat": {
+      "id": 659290320320,
+      "type": "private"
+    },
+    "date": 1795001655,
+    "text": "Готово! Аккаунт employee.e45068c39d@officespace.test привязан. Сюда будут приходить уведомления о бронях.",
+    "reply_markup": null
+  },
+  {
+    "message_id": 21,
+    "chat": {
+      "id": 659290320320,
+      "type": "private"
+    },
+    "date": 1795001656,
+    "text": "Новая бронь #3: A-ea2948eb2d, 19.11 10:00 – 19.11 11:00\nПодтвердите до 18.11 14:49",
+    "reply_markup": "{\"inline_keyboard\": [[{\"text\": \"Подтвердить\", \"callback_data\": \"confirm:3\"}, {\"text\": \"Отменить\", \"callback_data\": \"cancel:3\"}]]}"
+  }
+]
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://stubs:8000/_control/telegram/sent?chat_id=659290320320'
+11:34:16 - INFO - POST http://stubs:8000/_control/telegram/callbacks
+{
+  "chat_id": 659290320320,
+  "data": "confirm:3"
+}
+
+<- 200 (2 ms)
+{
+  "update_id": 11,
+  "callback_query": {
+    "id": "2",
+    "data": "confirm:3",
+    "from": {
+      "id": 659290320320,
+      "is_bot": false
+    },
+    "message": {
+      "message_id": 0,
+      "chat": {
+        "id": 659290320320,
+        "type": "private"
+      }
+    }
+  }
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://stubs:8000/_control/telegram/callbacks -H 'Content-Type: application/json' --data-raw '{"chat_id": 659290320320, "data": "confirm:3"}'
+11:34:16 - INFO - GET http://stubs:8000/_control/telegram/callback-answers
+
+
+<- 200 (1 ms)
+[]
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET http://stubs:8000/_control/telegram/callback-answers
+11:34:16 - INFO - GET http://stubs:8000/_control/telegram/callback-answers
+
+
+<- 200 (1 ms)
+[
+  {
+    "callback_query_id": "1",
+    "text": "Бронь отменена",
+    "show_alert": false
+  },
+  {
+    "callback_query_id": "2",
+    "text": "Бронь подтверждена",
+    "show_alert": false
+  }
+]
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET http://stubs:8000/_control/telegram/callback-answers
+11:34:16 - INFO - SQL: SELECT status FROM booking.bookings WHERE id = 3
+-> [{'status': 'confirmed'}]
+11:34:16 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=659290320320
+
+
+<- 200 (1 ms)
+[
+  {
+    "message_id": 15,
+    "chat": {
+      "id": 659290320320,
+      "type": "private"
+    },
+    "date": 1795001655,
+    "text": "Готово! Аккаунт employee.e45068c39d@officespace.test привязан. Сюда будут приходить уведомления о бронях.",
+    "reply_markup": null
+  },
+  {
+    "message_id": 21,
+    "chat": {
+      "id": 659290320320,
+      "type": "private"
+    },
+    "date": 1795001656,
+    "text": "Новая бронь #3: A-ea2948eb2d, 19.11 10:00 – 19.11 11:00\nПодтвердите до 18.11 14:49",
+    "reply_markup": "{\"inline_keyboard\": [[{\"text\": \"Подтвердить\", \"callback_data\": \"confirm:3\"}, {\"text\": \"Отменить\", \"callback_data\": \"cancel:3\"}]]}"
+  },
+  {
+    "message_id": 25,
+    "chat": {
+      "id": 659290320320,
+      "type": "private"
+    },
+    "date": 1795001656,
+    "text": "Бронь #3 подтверждена: A-ea2948eb2d, 19.11 10:00 – 19.11 11:00",
+    "reply_markup": "{\"inline_keyboard\": [[{\"text\": \"Отменить\", \"callback_data\": \"cancel:3\"}]]}"
+  }
+]
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://stubs:8000/_control/telegram/sent?chat_id=659290320320'

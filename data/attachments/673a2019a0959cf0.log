@@ -1,0 +1,79 @@
+﻿11:34:37 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.2f6c2cd896@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (31 ms)
+{
+  "id": 249,
+  "email": "employee.2f6c2cd896@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T11:34:37.041787Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.2f6c2cd896@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+11:34:37 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 249
+-> [{'password_hash': 'pbkdf2_sha256$100000$9ebdbc2c263d6df8c6ac1aca8a0208a0$c03b158bac5b0057d1fb849477c8347193f5c32d4d20b35f8243d195126f054a'}]
+11:34:37 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 5 мс
+11:34:37 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "facility.e443dacebe@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (37 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNTEiLCJlbWFpbCI6ImZhY2lsaXR5LmU0NDNkYWNlYmVAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJmYWNpbGl0eSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSIsImZsb29ycy53cml0ZSIsInJlc291cmNlcy53cml0ZSIsInNldHRpbmdzLndyaXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiJkYTRlODAzYWU3YTYxZTdiIiwiaWF0IjoxNzk1MDAxNjc3LCJleHAiOjE3OTUwMDI1Nzd9.DdLQ4gY4iSaiSsXjwFQkF_3cUWFqcUGzIILb1ILBdjE",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNTEiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6IjM2ZjEzMjRiMWY1ZjUxNjFlNzcxMTRkMDZiZjI5NDkyIiwiZmFtIjoiYWM2ZDE5MDYwMGYyOWM2M2I1YjBiZDgzYThjNGVhZmQiLCJpYXQiOjE3OTUwMDE2NzcsImV4cCI6MTc5NTYwNjQ3N30.n8q_V56nT9lajjathraw2jXomLna-sH62dsoKIaDbVI",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "facility.e443dacebe@officespace.test", "password": "Passw0rd123"}'
+11:34:37 - INFO - POST http://gateway/api/booking/floors
+{
+  "name": "floor-0c13970b29",
+  "level": 2,
+  "width": 100,
+  "height": 60
+}
+
+<- 201 (7 ms)
+{
+  "id": 60,
+  "name": "floor-0c13970b29",
+  "level": 2,
+  "width": 100,
+  "height": 60
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/booking/floors -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNTEiLCJlbWFpbCI6ImZhY2lsaXR5LmU0NDNkYWNlYmVAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJmYWNpbGl0eSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSIsImZsb29ycy53cml0ZSIsInJlc291cmNlcy53cml0ZSIsInNldHRpbmdzLndyaXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiJkYTRlODAzYWU3YTYxZTdiIiwiaWF0IjoxNzk1MDAxNjc3LCJleHAiOjE3OTUwMDI1Nzd9.DdLQ4gY4iSaiSsXjwFQkF_3cUWFqcUGzIILb1ILBdjE' -H 'Content-Type: application/json' --data-raw '{"name": "floor-0c13970b29", "level": 2, "width": 100, "height": 60}'
+11:34:37 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 60,
+  "kind": "room",
+  "name": "A-06ffc33434",
+  "capacity": 6,
+  "x": 95,
+  "y": 0,
+  "w": 10,
+  "h": 10,
+  "equipment": [
+    "whiteboard"
+  ]
+}
+
+<- 422 (8 ms)
+{
+  "detail": "Ресурс выходит за границы плана этажа"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/booking/resources -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNTEiLCJlbWFpbCI6ImZhY2lsaXR5LmU0NDNkYWNlYmVAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJmYWNpbGl0eSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSIsImZsb29ycy53cml0ZSIsInJlc291cmNlcy53cml0ZSIsInNldHRpbmdzLndyaXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiJkYTRlODAzYWU3YTYxZTdiIiwiaWF0IjoxNzk1MDAxNjc3LCJleHAiOjE3OTUwMDI1Nzd9.DdLQ4gY4iSaiSsXjwFQkF_3cUWFqcUGzIILb1ILBdjE' -H 'Content-Type: application/json' --data-raw '{"floor_id": 60, "kind": "room", "name": "A-06ffc33434", "capacity": 6, "x": 95, "y": 0, "w": 10, "h": 10, "equipment": ["whiteboard"]}'

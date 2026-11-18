@@ -1,0 +1,100 @@
+﻿11:34:31 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.cc01ce8389@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (28 ms)
+{
+  "id": 103,
+  "email": "employee.cc01ce8389@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T11:34:31.298028Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.cc01ce8389@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+11:34:31 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 103
+-> [{'password_hash': 'pbkdf2_sha256$100000$29f898aecdf1cf55e0bdb72254aaecdd$57174f5b237065305fdfd30a79132ab9357d155225a2b1cc5bb650436bf9a3ad'}]
+11:34:31 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 2 мс
+11:34:31 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.abc9564493@officespace.test",
+  "password": "Wrong12345"
+}
+
+<- 401 (21 ms)
+{
+  "detail": "Неверный email или пароль"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.abc9564493@officespace.test", "password": "Wrong12345"}'
+11:34:31 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.abc9564493@officespace.test",
+  "password": "Wrong12345"
+}
+
+<- 401 (23 ms)
+{
+  "detail": "Неверный email или пароль"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.abc9564493@officespace.test", "password": "Wrong12345"}'
+11:34:31 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.abc9564493@officespace.test",
+  "password": "Wrong12345"
+}
+
+<- 401 (20 ms)
+{
+  "detail": "Неверный email или пароль"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.abc9564493@officespace.test", "password": "Wrong12345"}'
+11:34:31 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.abc9564493@officespace.test",
+  "password": "Wrong12345"
+}
+
+<- 401 (24 ms)
+{
+  "detail": "Неверный email или пароль"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.abc9564493@officespace.test", "password": "Wrong12345"}'
+11:34:31 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.abc9564493@officespace.test",
+  "password": "Wrong12345"
+}
+
+<- 401 (20 ms)
+{
+  "detail": "Неверный email или пароль"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.abc9564493@officespace.test", "password": "Wrong12345"}'
+11:34:31 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.abc9564493@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 429 (3 ms)
+{
+  "detail": "Слишком много неудачных попыток входа, попробуйте позже"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.abc9564493@officespace.test", "password": "Passw0rd123"}'

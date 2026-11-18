@@ -1,0 +1,33 @@
+﻿11:34:30 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (33 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiMTJiZmY1ODBmZWQ1NWYzNyIsImlhdCI6MTc5NTAwMTY3MCwiZXhwIjoxNzk1MDAyNTcwfQ.UYcApyLMz4bbfqnN-U3h0UA8X8MgXXj3iw7uNBdwOlY",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiJmNGEwYTk0YjExYWQ3YmM1NjA1OTFiZjcxNDMxZmMwZCIsImZhbSI6ImY0OWExOGZhMjM0NDQ3YjQ2MDdhNWEyN2FkNTYwZjRmIiwiaWF0IjoxNzk1MDAxNjcwLCJleHAiOjE3OTU2MDY0NzB9.xs80-pZnXXGq1_caci4gE0QicAhXFuyXF6dtGafm0OQ",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "admin@officespace.test", "password": "Admin12345"}'
+11:34:30 - INFO - GET http://gateway/api/auth/users?email=ui.7d15d6ffa4%40officespace.test
+
+
+<- 200 (7 ms)
+[
+  {
+    "id": 79,
+    "email": "ui.7d15d6ffa4@officespace.test",
+    "full_name": "UI dd4dc0cd86",
+    "role": "employee",
+    "is_active": true,
+    "created_at": "2026-11-18T11:34:30.047880Z"
+  }
+]
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://gateway/api/auth/users?email=ui.7d15d6ffa4%40officespace.test' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiMTJiZmY1ODBmZWQ1NWYzNyIsImlhdCI6MTc5NTAwMTY3MCwiZXhwIjoxNzk1MDAyNTcwfQ.UYcApyLMz4bbfqnN-U3h0UA8X8MgXXj3iw7uNBdwOlY'

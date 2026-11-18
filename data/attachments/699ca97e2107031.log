@@ -1,0 +1,53 @@
+﻿11:34:31 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.7e0ba8ca51@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (30 ms)
+{
+  "id": 117,
+  "email": "employee.7e0ba8ca51@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T11:34:31.743482Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.7e0ba8ca51@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+11:34:31 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 117
+-> [{'password_hash': 'pbkdf2_sha256$100000$293078e064191bda44e7550801b4b1b2$eefabce33db833f557d2bbf86a3b8c4c75b69531be144289bfaee3676b68cdf4'}]
+11:34:31 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 3 мс
+11:34:31 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.aee1acd8b9@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (31 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTgiLCJlbWFpbCI6ImVtcGxveWVlLmFlZTFhY2Q4YjlAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiYzE0NzZkM2EyYWVmODY5MCIsImlhdCI6MTc5NTAwMTY3MSwiZXhwIjoxNzk1MDAyNTcxfQ.yY8yMG36-tlmH422jBJn9EKy212AKFHrEZy1cegULnQ",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTgiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6IjUxODhhNTgyNjYwNmMxOGYwY2NiYzA5MTAxM2MyNGFlIiwiZmFtIjoiOTE2MWQ5YjIyNjhiZTI2ODViN2I1Y2MwNTQzNTc2NzMiLCJpYXQiOjE3OTUwMDE2NzEsImV4cCI6MTc5NTYwNjQ3MX0.31cs3_uXgFuNQ7Vfy07yGB9LqdX_t3vmg8mbpy2Kc_w",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.aee1acd8b9@officespace.test", "password": "Passw0rd123"}'
+11:34:31 - INFO - POST http://gateway/api/booking/floors
+{
+  "name": "perm-floor-07fa3c2bd8",
+  "level": 1,
+  "width": 100,
+  "height": 100
+}
+
+<- 403 (3 ms)
+{
+  "detail": "Нет прав: floors.write"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/booking/floors -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTgiLCJlbWFpbCI6ImVtcGxveWVlLmFlZTFhY2Q4YjlAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiYzE0NzZkM2EyYWVmODY5MCIsImlhdCI6MTc5NTAwMTY3MSwiZXhwIjoxNzk1MDAyNTcxfQ.yY8yMG36-tlmH422jBJn9EKy212AKFHrEZy1cegULnQ' -H 'Content-Type: application/json' --data-raw '{"name": "perm-floor-07fa3c2bd8", "level": 1, "width": 100, "height": 100}'

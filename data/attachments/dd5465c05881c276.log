@@ -1,0 +1,68 @@
+﻿11:34:31 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.5d9e742139@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (19 ms)
+{
+  "id": 107,
+  "email": "employee.5d9e742139@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T11:34:31.341710Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.5d9e742139@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+11:34:31 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 107
+-> [{'password_hash': 'pbkdf2_sha256$100000$9e3f688f2a5665e2c0bb53c48200f856$3609c7b42d5d8566eb3a2d62c598537048ae785184eda34f7dbc9e7ee3e0dd4c'}]
+11:34:31 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 1 мс
+11:34:31 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (22 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiNjBhODExMjgzMzFlNzAwMyIsImlhdCI6MTc5NTAwMTY3MSwiZXhwIjoxNzk1MDAyNTcxfQ.VohUpPQNWxD0muvnA8aSG5NZbZ-yy69yez-LbEbddt4",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiIzMGE2OGYxYjJhMjVkYzJiZWU3ZTZhZmIxMzQ5ZTAxYSIsImZhbSI6IjA0MTNiZjc2ZWI5MDJmZjE4MWNkYjdkZGUxMjQ1MjdmIiwiaWF0IjoxNzk1MDAxNjcxLCJleHAiOjE3OTU2MDY0NzF9.L4n-9JYYxoJZ_bqiqq3z6mErouB9HftydE0LXnmSpGg",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "admin@officespace.test", "password": "Admin12345"}'
+11:34:31 - INFO - PATCH http://gateway/api/auth/users/108
+{
+  "is_active": false
+}
+
+<- 200 (5 ms)
+{
+  "id": 108,
+  "email": "employee.bfcd6e9b41@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": false,
+  "created_at": "2026-11-18T11:34:31.349839Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X PATCH http://gateway/api/auth/users/108 -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiNjBhODExMjgzMzFlNzAwMyIsImlhdCI6MTc5NTAwMTY3MSwiZXhwIjoxNzk1MDAyNTcxfQ.VohUpPQNWxD0muvnA8aSG5NZbZ-yy69yez-LbEbddt4' -H 'Content-Type: application/json' --data-raw '{"is_active": false}'
+11:34:31 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.bfcd6e9b41@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 403 (23 ms)
+{
+  "detail": "Учётная запись отключена"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.bfcd6e9b41@officespace.test", "password": "Passw0rd123"}'

@@ -1,0 +1,187 @@
+﻿11:34:32 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.4984003a23@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (26 ms)
+{
+  "id": 147,
+  "email": "employee.4984003a23@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T11:34:32.639316Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.4984003a23@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+11:34:32 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 147
+-> [{'password_hash': 'pbkdf2_sha256$100000$1eed0b3ed08f085d292f27f77fdf99d2$152a0f624334308a07474a8c5bb8afd12e074efa5f94ded9b149667f08cfc2cd'}]
+11:34:32 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 2 мс
+11:34:32 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.a3234446ee@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (34 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDgiLCJlbWFpbCI6ImVtcGxveWVlLmEzMjM0NDQ2ZWVAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiZGUxOGUwNjUyYzY4NTg4YyIsImlhdCI6MTc5NTAwMTY3MiwiZXhwIjoxNzk1MDAyNTcyfQ.BsJMBTCQyQMui9YLt1JE_lkLFI0rTqZSOz4vZrDUYJQ",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDgiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6ImZhZDM0OTUzMDk2Y2FhZDA5NzNlNjRjZTMyZDA3ZDM0IiwiZmFtIjoiZTc2MzJiY2ZmYzBjZGIxNWRjMmYyNzJlN2Q2OWQxNjEiLCJpYXQiOjE3OTUwMDE2NzIsImV4cCI6MTc5NTYwNjQ3Mn0.PdbNrgEb32lNrFRO7wJdv78-FfMDBz4UXgubDnhK6-Q",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.a3234446ee@officespace.test", "password": "Passw0rd123"}'
+11:34:32 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22employee.a3234446ee%40officespace.test%22&limit=50
+
+
+<- 200 (4 ms)
+{
+  "total": 108,
+  "unread": 103,
+  "count": 0,
+  "messages_count": 0,
+  "start": 0,
+  "tags": [],
+  "messages": []
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://mailpit:8025/api/v1/search?query=to%3A%22employee.a3234446ee%40officespace.test%22&limit=50'
+11:34:32 - INFO - POST http://gateway/api/auth/password/forgot
+{
+  "email": "employee.a3234446ee@officespace.test"
+}
+
+<- 202 (4 ms)
+{
+  "detail": "Если такой email зарегистрирован, мы отправили письмо со ссылкой для сброса пароля"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/password/forgot -H 'Content-Type: application/json' --data-raw '{"email": "employee.a3234446ee@officespace.test"}'
+11:34:32 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22employee.a3234446ee%40officespace.test%22&limit=50
+
+
+<- 200 (1 ms)
+{
+  "total": 108,
+  "unread": 103,
+  "count": 0,
+  "messages_count": 0,
+  "start": 0,
+  "tags": [],
+  "messages": []
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://mailpit:8025/api/v1/search?query=to%3A%22employee.a3234446ee%40officespace.test%22&limit=50'
+11:34:33 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22employee.a3234446ee%40officespace.test%22&limit=50
+
+
+<- 200 (2 ms)
+{
+  "total": 114,
+  "unread": 108,
+  "count": 1,
+  "messages_count": 1,
+  "start": 0,
+  "tags": [],
+  "messages": [
+    {
+      "ID": "FDNaW4dHZ2fg5oxasp5eTn",
+      "MessageID": "TP3BpNeY6Rtp9mRPKH2KRB@mailpit",
+      "Read": false,
+      "From": {
+        "Name": "OfficeSpace",
+        "Address": "no-reply@officespace.test"
+      },
+      "To": [
+        {
+          "Name": "",
+          "Address": "employee.a3234446ee@officespace.test"
+        }
+      ],
+      "Cc": [],
+      "Bcc": [],
+      "ReplyTo": [],
+      "Subject": "Сброс пароля",
+      "Created": "2026-11-18T11:34:32.817Z",
+      "Tags": [],
+      "Size": 979,
+      "Attachments": 0,
+      "Snippet": "Чтобы задать новый пароль, перейдите по ссылке до 18.11.2026 15:04: http://localhost:8080/reset-password?token=YdS-Gc-qHyYndLp0TNKyOxkjed22nTPFi-uueUwvSkE Е..."
+    }
+  ]
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://mailpit:8025/api/v1/search?query=to%3A%22employee.a3234446ee%40officespace.test%22&limit=50'
+11:34:33 - INFO - GET http://mailpit:8025/api/v1/message/FDNaW4dHZ2fg5oxasp5eTn
+
+
+<- 200 (2 ms)
+{
+  "ID": "FDNaW4dHZ2fg5oxasp5eTn",
+  "MessageID": "TP3BpNeY6Rtp9mRPKH2KRB@mailpit",
+  "From": {
+    "Name": "OfficeSpace",
+    "Address": "no-reply@officespace.test"
+  },
+  "To": [
+    {
+      "Name": "",
+      "Address": "employee.a3234446ee@officespace.test"
+    }
+  ],
+  "Cc": [],
+  "Bcc": [],
+  "ReplyTo": [],
+  "ReturnPath": "no-reply@officespace.test",
+  "Subject": "Сброс пароля",
+  "ListUnsubscribe": {
+    "Header": "",
+    "Links": [],
+    "Errors": "",
+    "HeaderPost": ""
+  },
+  "Date": "2026-11-18T11:34:32.817Z",
+  "Tags": [],
+  "Text": "Чтобы задать новый пароль, перейдите по ссылке до 18.11.2026 15:04:\nhttp://localhost:8080/reset-password?token=YdS-Gc-qHyYndLp0TNKyOxkjed22nTPFi-uueUwvSkE\n\nЕсли вы не запрашивали сброс, просто проигнорируйте письмо.\n",
+  "HTML": "",
+  "Size": 979,
+  "Inline": [],
+  "Attachments": []
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET http://mailpit:8025/api/v1/message/FDNaW4dHZ2fg5oxasp5eTn
+11:34:33 - INFO - POST http://gateway/api/auth/password/reset
+{
+  "token": "YdS-Gc-qHyYndLp0TNKyOxkjed22nTPFi-uueUwvSkE",
+  "new_password": "NewPassw0rd1"
+}
+
+<- 204 (26 ms)
+
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/password/reset -H 'Content-Type: application/json' --data-raw '{"token": "YdS-Gc-qHyYndLp0TNKyOxkjed22nTPFi-uueUwvSkE", "new_password": "NewPassw0rd1"}'
+11:34:33 - INFO - POST http://gateway/api/auth/refresh
+{
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDgiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6ImZhZDM0OTUzMDk2Y2FhZDA5NzNlNjRjZTMyZDA3ZDM0IiwiZmFtIjoiZTc2MzJiY2ZmYzBjZGIxNWRjMmYyNzJlN2Q2OWQxNjEiLCJpYXQiOjE3OTUwMDE2NzIsImV4cCI6MTc5NTYwNjQ3Mn0.PdbNrgEb32lNrFRO7wJdv78-FfMDBz4UXgubDnhK6-Q"
+}
+
+<- 401 (4 ms)
+{
+  "detail": "Refresh-токен отозван"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/refresh -H 'Content-Type: application/json' --data-raw '{"refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNDgiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6ImZhZDM0OTUzMDk2Y2FhZDA5NzNlNjRjZTMyZDA3ZDM0IiwiZmFtIjoiZTc2MzJiY2ZmYzBjZGIxNWRjMmYyNzJlN2Q2OWQxNjEiLCJpYXQiOjE3OTUwMDE2NzIsImV4cCI6MTc5NTYwNjQ3Mn0.PdbNrgEb32lNrFRO7wJdv78-FfMDBz4UXgubDnhK6-Q"}'
+11:34:33 - INFO - SQL: SELECT count(*) AS total, count(*) FILTER (WHERE revoked_at IS NULL) AS alive FROM auth.refresh_tokens WHERE user_id = 148
+-> [{'total': 1, 'alive': 0}]

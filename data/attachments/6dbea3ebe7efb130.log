@@ -1,0 +1,10 @@
+﻿11:34:33 - INFO - POST http://gateway/api/auth/internal/jobs/cleanup-tokens
+
+
+<- 404 (1 ms)
+{
+  "detail": "Not Found"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/internal/jobs/cleanup-tokens
