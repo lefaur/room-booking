@@ -1,0 +1,38 @@
+﻿13:08:53 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.ccd18dab67@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (62 ms)
+{
+  "id": 41,
+  "email": "employee.ccd18dab67@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T13:08:53.268521Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.ccd18dab67@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+13:08:53 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 41
+-> [{'password_hash': 'pbkdf2_sha256$100000$9c464e97d4d2916d003a77db72808d76$af214915a1f6a0640ac8cfad987547d46cf77c37f9056afa68a10f98b579aba6'}]
+13:08:53 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 2 мс
+13:08:53 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.10a89236af@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (36 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MiIsImVtYWlsIjoiZW1wbG95ZWUuMTBhODkyMzZhZkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI4MGQyODE0N2U3ZjI0OTI3IiwiaWF0IjoxNzk1MDA3MzMzLCJleHAiOjE3OTUwMDgyMzN9.zo4TwAaDSOF7bYFXmRgoWd2Q9wwiop6UmYYHZNhaRJk",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0MiIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiMWNlZjFmYzU4ZTFiOTBhMDc5N2Q5YjM0MWU0MDE4MDQiLCJmYW0iOiIzNzQ4NDg4ODk2YzcxNGRmMGUzYjlhZGI4YzVhZjBhMCIsImlhdCI6MTc5NTAwNzMzMywiZXhwIjoxNzk1NjEyMTMzfQ.Ncx-JF2A5rpj19p6a-cPjZFUaP4Mag-NnS8DEKx73fQ",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.10a89236af@officespace.test", "password": "Passw0rd123"}'

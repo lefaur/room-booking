@@ -1,0 +1,35 @@
+﻿13:09:07 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.53f3c0e20d@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (23 ms)
+{
+  "id": 143,
+  "email": "employee.53f3c0e20d@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T13:09:07.032423Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.53f3c0e20d@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+13:09:07 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 143
+-> [{'password_hash': 'pbkdf2_sha256$100000$f87be884588769997d84239d25428e24$7f8d0ec63c67b442d15902e926373ac1df37c3bb59d4d1c6d2e0b91640fe73ad'}]
+13:09:07 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 2 мс
+13:09:07 - INFO - POST http://gateway/api/auth/password/reset
+{
+  "token": "6bb4a164e17d4dc4bae6e430b9d609c6",
+  "new_password": "NewPassw0rd1"
+}
+
+<- 400 (3 ms)
+{
+  "detail": "Ссылка для сброса недействительна или устарела"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/password/reset -H 'Content-Type: application/json' --data-raw '{"token": "6bb4a164e17d4dc4bae6e430b9d609c6", "new_password": "NewPassw0rd1"}'

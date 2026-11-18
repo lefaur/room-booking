@@ -1,0 +1,10 @@
+﻿13:09:08 - INFO - GET http://gateway/api/booking/internal/bookings?user_id=1
+
+
+<- 404 (2 ms)
+{
+  "detail": "Not Found"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://gateway/api/booking/internal/bookings?user_id=1'

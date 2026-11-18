@@ -1,0 +1,76 @@
+﻿13:08:50 - INFO - SQL-подготовка одной транзакцией: booking.floors ×1, booking.resources ×2, 13 мс
+13:08:50 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.7c633895a0@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (43 ms)
+{
+  "id": 30,
+  "email": "employee.7c633895a0@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T13:08:50.260844Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.7c633895a0@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+13:08:50 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 30
+-> [{'password_hash': 'pbkdf2_sha256$100000$e14fc9a1fa84cf979e687d368a15d9b3$06c2908e1b3976a344d0cb59a57118b85726efff596985c0d0aa3c37c2191aab'}]
+13:08:50 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 1 мс
+13:08:50 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "facility.f5e145b3c4@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (69 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMSIsImVtYWlsIjoiZmFjaWxpdHkuZjVlMTQ1YjNjNEBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImZhY2lsaXR5IiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIiwiZmxvb3JzLndyaXRlIiwicmVzb3VyY2VzLndyaXRlIiwic2V0dGluZ3Mud3JpdGUiXSwidHlwZSI6ImFjY2VzcyIsImp0aSI6IjA2ZjdjM2FmYTU2MzM3YzQiLCJpYXQiOjE3OTUwMDczMzAsImV4cCI6MTc5NTAwODIzMH0.C7fNfrfYtu7IQ9js_fSpI9k0Ntk2RtcZkYoIJozsyQs",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMSIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiNzkzOTIzNDAwOGY0YjVjODc0ODdhN2YyYWU3Y2FkYWQiLCJmYW0iOiI1OTA5NGI2NWYwNTlkYjlmZmNhYWY0ZTc4ZjJmODk4NiIsImlhdCI6MTc5NTAwNzMzMCwiZXhwIjoxNzk1NjEyMTMwfQ.1sRj2FnHQeJctJtRFOg1y5tRL-A6-WKDRO0LZMDKnaw",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "facility.f5e145b3c4@officespace.test", "password": "Passw0rd123"}'
+13:08:52 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (38 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiZjNlMjcwNTQ2MWI5ZWJmOSIsImlhdCI6MTc5NTAwNzMzMiwiZXhwIjoxNzk1MDA4MjMyfQ.9Ui8YqXckiZtMQ437ipvRts0TYAHLjJk5On7oWJulvY",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI5ZGVmZTk1YmU5ZWNkZTY5MGM0N2MwOTI2NjRkOTVmZiIsImZhbSI6ImIxY2VlOWIyMTMyZDNlZDg3ZjM1OWM0MTllMTM4NDI5IiwiaWF0IjoxNzk1MDA3MzMyLCJleHAiOjE3OTU2MTIxMzJ9.K0hSMNfcQ9q_T5tDt5W5kS7cgzo75cfOr_1yyAMdicI",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "admin@officespace.test", "password": "Admin12345"}'
+13:08:52 - INFO - GET http://gateway/api/booking/resources/9
+
+
+<- 200 (5 ms)
+{
+  "id": 9,
+  "floor_id": 9,
+  "kind": "room",
+  "name": "A-179a8a135c",
+  "capacity": 6,
+  "x": 120,
+  "y": 70,
+  "w": 80,
+  "h": 60,
+  "equipment": [],
+  "active": true,
+  "version": 2
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET http://gateway/api/booking/resources/9 -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiZjNlMjcwNTQ2MWI5ZWJmOSIsImlhdCI6MTc5NTAwNzMzMiwiZXhwIjoxNzk1MDA4MjMyfQ.9Ui8YqXckiZtMQ437ipvRts0TYAHLjJk5On7oWJulvY'

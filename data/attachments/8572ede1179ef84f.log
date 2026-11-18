@@ -1,0 +1,194 @@
+﻿13:09:08 - INFO - POST http://rabbitmq:15672/api/exchanges/%2F/officespace.events/publish
+{
+  "routing_key": "user.registered",
+  "payload": "{\"event_id\": \"00a7f0ee-3d09-4b85-a848-d2c6e3c1a704\", \"type\": \"user.registered\", \"source\": \"autotest\", \"occurred_at\": \"2026-11-18T13:09:08.245571+00:00\", \"payload\": {\"user_id\": 0, \"email\": \"dup.e0a7b4987e@officespace.test\", \"full_name\": \"Дубль\"}}",
+  "payload_encoding": "string",
+  "properties": {
+    "content_type": "application/json",
+    "delivery_mode": 2,
+    "message_id": "00a7f0ee-3d09-4b85-a848-d2c6e3c1a704"
+  }
+}
+
+<- 200 (6 ms)
+{
+  "routed": true
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://rabbitmq:15672/api/exchanges/%2F/officespace.events/publish -H 'Authorization: Basic b2ZmaWNlc3BhY2U6b2ZmaWNlc3BhY2U=' -H 'Content-Type: application/json' --data-raw '{"routing_key": "user.registered", "payload": "{\"event_id\": \"00a7f0ee-3d09-4b85-a848-d2c6e3c1a704\", \"type\": \"user.registered\", \"source\": \"autotest\", \"occurred_at\": \"2026-11-18T13:09:08.245571+00:00\", \"payload\": {\"user_id\": 0, \"email\": \"dup.e0a7b4987e@officespace.test\", \"full_name\": \"\u0414\u0443\u0431\u043b\u044c\"}}", "payload_encoding": "string", "properties": {"content_type": "application/json", "delivery_mode": 2, "message_id": "00a7f0ee-3d09-4b85-a848-d2c6e3c1a704"}}'
+13:09:08 - INFO - POST http://rabbitmq:15672/api/exchanges/%2F/officespace.events/publish
+{
+  "routing_key": "user.registered",
+  "payload": "{\"event_id\": \"00a7f0ee-3d09-4b85-a848-d2c6e3c1a704\", \"type\": \"user.registered\", \"source\": \"autotest\", \"occurred_at\": \"2026-11-18T13:09:08.245571+00:00\", \"payload\": {\"user_id\": 0, \"email\": \"dup.e0a7b4987e@officespace.test\", \"full_name\": \"Дубль\"}}",
+  "payload_encoding": "string",
+  "properties": {
+    "content_type": "application/json",
+    "delivery_mode": 2,
+    "message_id": "00a7f0ee-3d09-4b85-a848-d2c6e3c1a704"
+  }
+}
+
+<- 200 (9 ms)
+{
+  "routed": true
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://rabbitmq:15672/api/exchanges/%2F/officespace.events/publish -H 'Authorization: Basic b2ZmaWNlc3BhY2U6b2ZmaWNlc3BhY2U=' -H 'Content-Type: application/json' --data-raw '{"routing_key": "user.registered", "payload": "{\"event_id\": \"00a7f0ee-3d09-4b85-a848-d2c6e3c1a704\", \"type\": \"user.registered\", \"source\": \"autotest\", \"occurred_at\": \"2026-11-18T13:09:08.245571+00:00\", \"payload\": {\"user_id\": 0, \"email\": \"dup.e0a7b4987e@officespace.test\", \"full_name\": \"\u0414\u0443\u0431\u043b\u044c\"}}", "payload_encoding": "string", "properties": {"content_type": "application/json", "delivery_mode": 2, "message_id": "00a7f0ee-3d09-4b85-a848-d2c6e3c1a704"}}'
+13:09:08 - INFO - POST http://rabbitmq:15672/api/exchanges/%2F/officespace.events/publish
+{
+  "routing_key": "user.registered",
+  "payload": "{\"event_id\": \"f92cd4a9-d0b6-470c-a32c-767e7c757478\", \"type\": \"user.registered\", \"source\": \"autotest\", \"occurred_at\": \"2026-11-18T13:09:08.261694+00:00\", \"payload\": {\"user_id\": 0, \"email\": \"marker.12690ad40a@officespace.test\", \"full_name\": \"Маркер\"}}",
+  "payload_encoding": "string",
+  "properties": {
+    "content_type": "application/json",
+    "delivery_mode": 2,
+    "message_id": "dbc65ee3-f72f-4f72-8a29-4f3a17b64a8b"
+  }
+}
+
+<- 200 (7 ms)
+{
+  "routed": true
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://rabbitmq:15672/api/exchanges/%2F/officespace.events/publish -H 'Authorization: Basic b2ZmaWNlc3BhY2U6b2ZmaWNlc3BhY2U=' -H 'Content-Type: application/json' --data-raw '{"routing_key": "user.registered", "payload": "{\"event_id\": \"f92cd4a9-d0b6-470c-a32c-767e7c757478\", \"type\": \"user.registered\", \"source\": \"autotest\", \"occurred_at\": \"2026-11-18T13:09:08.261694+00:00\", \"payload\": {\"user_id\": 0, \"email\": \"marker.12690ad40a@officespace.test\", \"full_name\": \"\u041c\u0430\u0440\u043a\u0435\u0440\"}}", "payload_encoding": "string", "properties": {"content_type": "application/json", "delivery_mode": 2, "message_id": "dbc65ee3-f72f-4f72-8a29-4f3a17b64a8b"}}'
+13:09:08 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22marker.12690ad40a%40officespace.test%22&limit=50
+
+
+<- 200 (4 ms)
+{
+  "total": 125,
+  "unread": 113,
+  "count": 0,
+  "messages_count": 0,
+  "start": 0,
+  "tags": [],
+  "messages": []
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://mailpit:8025/api/v1/search?query=to%3A%22marker.12690ad40a%40officespace.test%22&limit=50'
+13:09:08 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22marker.12690ad40a%40officespace.test%22&limit=50
+
+
+<- 200 (3 ms)
+{
+  "total": 130,
+  "unread": 117,
+  "count": 1,
+  "messages_count": 1,
+  "start": 0,
+  "tags": [],
+  "messages": [
+    {
+      "ID": "GHuDyUxLKJ97Fodd2hGQSE",
+      "MessageID": "P2rjr8Qy7C4sA3QbFLU6Rd@mailpit",
+      "Read": false,
+      "From": {
+        "Name": "OfficeSpace",
+        "Address": "no-reply@officespace.test"
+      },
+      "To": [
+        {
+          "Name": "",
+          "Address": "marker.12690ad40a@officespace.test"
+        }
+      ],
+      "Cc": [],
+      "Bcc": [],
+      "ReplyTo": [],
+      "Subject": "Добро пожаловать в OfficeSpace",
+      "Created": "2026-11-18T13:09:08.273Z",
+      "Tags": [],
+      "Size": 709,
+      "Attachments": 0,
+      "Snippet": "Маркер, вы зарегистрированы. Войти: http://localhost:8080/login"
+    }
+  ]
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://mailpit:8025/api/v1/search?query=to%3A%22marker.12690ad40a%40officespace.test%22&limit=50'
+13:09:08 - INFO - GET http://mailpit:8025/api/v1/message/GHuDyUxLKJ97Fodd2hGQSE
+
+
+<- 200 (2 ms)
+{
+  "ID": "GHuDyUxLKJ97Fodd2hGQSE",
+  "MessageID": "P2rjr8Qy7C4sA3QbFLU6Rd@mailpit",
+  "From": {
+    "Name": "OfficeSpace",
+    "Address": "no-reply@officespace.test"
+  },
+  "To": [
+    {
+      "Name": "",
+      "Address": "marker.12690ad40a@officespace.test"
+    }
+  ],
+  "Cc": [],
+  "Bcc": [],
+  "ReplyTo": [],
+  "ReturnPath": "no-reply@officespace.test",
+  "Subject": "Добро пожаловать в OfficeSpace",
+  "ListUnsubscribe": {
+    "Header": "",
+    "Links": [],
+    "Errors": "",
+    "HeaderPost": ""
+  },
+  "Date": "2026-11-18T13:09:08.273Z",
+  "Tags": [],
+  "Text": "Маркер, вы зарегистрированы. Войти: http://localhost:8080/login\n",
+  "HTML": "",
+  "Size": 709,
+  "Inline": [],
+  "Attachments": []
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET http://mailpit:8025/api/v1/message/GHuDyUxLKJ97Fodd2hGQSE
+13:09:08 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22dup.e0a7b4987e%40officespace.test%22&limit=50
+
+
+<- 200 (4 ms)
+{
+  "total": 130,
+  "unread": 116,
+  "count": 1,
+  "messages_count": 1,
+  "start": 0,
+  "tags": [],
+  "messages": [
+    {
+      "ID": "VE3xE2uKfsSs7sDTLCcaUH",
+      "MessageID": "9vh6bmshVS27GZLayhWHYL@mailpit",
+      "Read": false,
+      "From": {
+        "Name": "OfficeSpace",
+        "Address": "no-reply@officespace.test"
+      },
+      "To": [
+        {
+          "Name": "",
+          "Address": "dup.e0a7b4987e@officespace.test"
+        }
+      ],
+      "Cc": [],
+      "Bcc": [],
+      "ReplyTo": [],
+      "Subject": "Добро пожаловать в OfficeSpace",
+      "Created": "2026-11-18T13:09:08.257Z",
+      "Tags": [],
+      "Size": 703,
+      "Attachments": 0,
+      "Snippet": "Дубль, вы зарегистрированы. Войти: http://localhost:8080/login"
+    }
+  ]
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://mailpit:8025/api/v1/search?query=to%3A%22dup.e0a7b4987e%40officespace.test%22&limit=50'

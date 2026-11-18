@@ -1,0 +1,84 @@
+﻿13:09:08 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (35 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiYWRjYTMwMTFkMTMxZDhmZCIsImlhdCI6MTc5NTAwNzM0OCwiZXhwIjoxNzk1MDA4MjQ4fQ.reIBinzst0Vx1dC7rYOokhdmIrTfmT7Tck5uS34uKi8",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI4NTg2Y2U1OTA5NjAyMDNhOWI4MDEyOWU5ZTE5YzhmOSIsImZhbSI6IjNlOWE5MDkwYzkzYTVmZDE2ZDdiYjU2N2ZhYWExMjk2IiwiaWF0IjoxNzk1MDA3MzQ4LCJleHAiOjE3OTU2MTIxNDh9.1jqMFYI2-MPuu2l2p01oOaNhOdmoAbZr-Ymsu6_OVrQ",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "admin@officespace.test", "password": "Admin12345"}'
+13:09:08 - INFO - GET http://gateway/api/scheduler/jobs
+
+
+<- 200 (3 ms)
+[
+  {
+    "name": "expire-pending",
+    "schedule": "каждую минуту",
+    "mode": "manual",
+    "next_run_at": null,
+    "last_run": {
+      "job": "expire-pending",
+      "status": "ok",
+      "trigger": "manual",
+      "started_at": "2026-11-18T13:09:08.251721+00:00",
+      "finished_at": "2026-11-18T13:09:08.276800+00:00",
+      "result": {
+        "job": "expire-pending",
+        "status": "ok",
+        "run_id": 3,
+        "expired": 1
+      }
+    }
+  },
+  {
+    "name": "send-reminders",
+    "schedule": "каждую минуту",
+    "mode": "manual",
+    "next_run_at": null,
+    "last_run": {
+      "job": "send-reminders",
+      "status": "ok",
+      "trigger": "manual",
+      "started_at": "2026-11-18T13:08:49.053263+00:00",
+      "finished_at": "2026-11-18T13:08:49.090413+00:00",
+      "result": {
+        "job": "send-reminders",
+        "status": "ok",
+        "run_id": 1,
+        "reminded": 1
+      }
+    }
+  },
+  {
+    "name": "release-no-shows",
+    "schedule": "каждую минуту",
+    "mode": "manual",
+    "next_run_at": null,
+    "last_run": null
+  },
+  {
+    "name": "sync-calendar",
+    "schedule": "ежедневно в 03:00",
+    "mode": "manual",
+    "next_run_at": null,
+    "last_run": null
+  },
+  {
+    "name": "cleanup-tokens",
+    "schedule": "ежедневно в 04:00",
+    "mode": "manual",
+    "next_run_at": null,
+    "last_run": null
+  }
+]
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET http://gateway/api/scheduler/jobs -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiYWRjYTMwMTFkMTMxZDhmZCIsImlhdCI6MTc5NTAwNzM0OCwiZXhwIjoxNzk1MDA4MjQ4fQ.reIBinzst0Vx1dC7rYOokhdmIrTfmT7Tck5uS34uKi8'

@@ -1,0 +1,48 @@
+﻿13:09:05 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.33b204747e@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (31 ms)
+{
+  "id": 97,
+  "email": "employee.33b204747e@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T13:09:05.478746Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.33b204747e@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+13:09:05 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 97
+-> [{'password_hash': 'pbkdf2_sha256$100000$5b51a21473c12b715b255361f7a38624$ce4a56ff9248deb97c4696aa2ce111b7e64d6e37cfb833c9cfbb5a978c1fdcab'}]
+13:09:05 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 64 мс
+13:09:05 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.96ba582513@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (75 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5OCIsImVtYWlsIjoiZW1wbG95ZWUuOTZiYTU4MjUxM0BvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI4YmFkNTM4ZTVkNmZkZmUzIiwiaWF0IjoxNzk1MDA3MzQ1LCJleHAiOjE3OTUwMDgyNDV9.WawpPOQuBxDXXGN2HT79MSSTlfBNPb1jN4est9kbH0A",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5OCIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiODBmMzUzYTMyMTUwMTZmNWFhYTFkZTQ0MThjZWJjMzIiLCJmYW0iOiI1NmJmODNjOThjZGY4MmJkMTFkMDc3ODUzNjZjZDEyYyIsImlhdCI6MTc5NTAwNzM0NSwiZXhwIjoxNzk1NjEyMTQ1fQ.XHH8cpAFRLZZPZXmcAiXmGj_POXwZs6I3hzzDkDDLPs",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.96ba582513@officespace.test", "password": "Passw0rd123"}'
+13:09:05 - INFO - GET http://gateway/api/auth/me
+
+
+<- 401 (5 ms)
+{
+  "detail": "Нужен заголовок Authorization: Bearer <token>"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET http://gateway/api/auth/me
