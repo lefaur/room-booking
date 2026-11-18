@@ -13,7 +13,8 @@ from playwright.sync_api import expect
 
 from framework import data, models
 from framework.infra import wait_until
-from framework.support import actor, day_of, expect as expect_resp, parse
+from framework.prepare import floor_row, resource_row
+from framework.support import actor, as_model, day_of, expect as expect_resp, parse, preparation
 from framework.ui.pages import (BasePage, BookingsPage, EditorPage, ForgotPasswordPage, JobsPage, LoginPage,
                                 MapPage, ProfilePage, RegisterPage, ResetPasswordPage, SettingsPage, UsersPage,
                                 sign_in)
@@ -39,17 +40,29 @@ def _name(context, label: str) -> str:
 
 @step("есть этаж для UI с ресурсами")
 def step_ui_floor(context):
-    """Небольшой отдельный этаж на сценарий: на общем тестовом этаже тысячи ресурсов, на карте их не разглядеть."""
-    resp = context.booking.create_floor(context.admin.token, name=data.unique_name("ui-floor"),
-                                        level=3, width=600, height=400)
-    context.floor = parse(models.Floor, expect_resp(resp, 201))
+    """Небольшой отдельный этаж на сценарий: на общем тестовом этаже тысячи ресурсов, на карте их не разглядеть.
+    Этаж и все ресурсы — одной SQL-транзакцией (ресурс ссылается на этаж из той же пачки)."""
+    rows = []
     for row in context.table:
         kind = "room" if row["тип"] == "переговорка" else "desk"
         x, y, w, h = (int(v) for v in row["x,y,w,h"].split(","))
-        resp = context.booking.create_resource(
-            context.admin.token, floor_id=context.floor.id, kind=kind, name=data.unique_name(row["ярлык"]),
-            capacity=6 if kind == "room" else 1, x=x, y=y, w=w, h=h)
-        context.resources[row["ярлык"]] = parse(models.Resource, expect_resp(resp, 201))
+        rows.append((row["ярлык"], dict(kind=kind, name=data.unique_name(row["ярлык"]),
+                                        capacity=6 if kind == "room" else 1, x=x, y=y, w=w, h=h)))
+    floor_fields = dict(name=data.unique_name("ui-floor"), level=3, width=600, height=400)
+    prep = preparation(context)
+    if prep:
+        with prep:
+            floor = floor_row(prep, **floor_fields)
+            created = [(label, resource_row(prep, floor_id=lambda: floor["id"], **fields)) for label, fields in rows]
+        context.floor = as_model(models.Floor, floor)
+        for label, res in created:
+            context.resources[label] = as_model(models.Resource, res)
+        return
+    context.floor = parse(models.Floor, expect_resp(context.booking.create_floor(context.admin.token,
+                                                                                  **floor_fields), 201))
+    for label, fields in rows:
+        resp = context.booking.create_resource(context.admin.token, floor_id=context.floor.id, **fields)
+        context.resources[label] = parse(models.Resource, expect_resp(resp, 201))
 
 
 # --- вход ---

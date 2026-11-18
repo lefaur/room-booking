@@ -6,7 +6,9 @@ import psycopg2
 from behave import step
 
 from framework import data, models
-from framework.support import actor, day_of, expect, next_cell, office_datetime, parse, test_floor
+from framework.prepare import resource_row
+from framework.support import (actor, as_model, day_of, expect, next_cell, office_datetime, parse, preparation,
+                               test_floor)
 
 
 def _last_booking(context) -> models.Booking:
@@ -24,9 +26,16 @@ def _remember_booking(context, resp) -> None:
 def _create_resource(context, label: str, kind: str, capacity: int) -> None:
     floor = test_floor(context)
     x, y = next_cell(context)
-    resp = context.booking.create_resource(context.admin.token, floor_id=floor["id"], kind=kind,
-                                           name=data.unique_name(label), capacity=capacity, x=x, y=y, w=10, h=10)
-    context.resources[label] = parse(models.Resource, expect(resp, 201))
+    fields = dict(floor_id=floor["id"], kind=kind, name=data.unique_name(label), capacity=capacity,
+                  x=x, y=y, w=10, h=10)
+    prep = preparation(context)
+    if prep:
+        with prep:
+            row = resource_row(prep, **fields)
+        context.resources[label] = as_model(models.Resource, row)
+    else:
+        resp = context.booking.create_resource(context.admin.token, **fields)
+        context.resources[label] = parse(models.Resource, expect(resp, 201))
 
 
 @step('есть переговорка "{label}" на {capacity:d} мест')

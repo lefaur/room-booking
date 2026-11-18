@@ -5,19 +5,26 @@ from datetime import date, datetime, time, timedelta
 from pydantic import BaseModel
 from requests import Response
 
-from framework import data
+from framework import data, prepare
 from framework.actors import Actor
 from framework.http import ApiClient
+from framework.prepare import Preparation
 
 GRID = 11          # шаг сетки, на которой раскладываются ресурсы тестового этажа
 GRID_COLUMNS = 900
 FLOOR_SIZE = GRID * GRID_COLUMNS
 
 
-def actor(context, label: str, logged_in: bool = True) -> Actor:
-    """Участник сценария по ярлыку: создаётся при первом упоминании, дальше переиспользуется."""
+def preparation(context) -> Preparation | None:
+    """Пачка SQL-подготовки сценария (None при PREPARE_VIA=api); созданное сразу попадает в уборку."""
+    return Preparation(context.db, on_created=context.cleanup.track_row) if prepare.VIA_SQL else None
+
+
+def actor(context, label: str, logged_in: bool = True, via_api: bool = False) -> Actor:
+    """Участник сценария по ярлыку: создаётся при первом упоминании, дальше переиспользуется.
+    via_api — когда важны побочные эффекты настоящей регистрации (приветственное письмо)."""
     if label not in context.users:
-        context.users[label] = context.actors.register(label)
+        context.users[label] = context.actors.register(label, None if via_api else preparation(context))
     person = context.users[label]
     if logged_in and person.access_token is None:
         context.actors.login(person)
@@ -25,14 +32,26 @@ def actor(context, label: str, logged_in: bool = True) -> Actor:
 
 
 def test_floor(context) -> dict:
-    """Один этаж на процесс: ресурсы разных сценариев раскладываются по сетке и не пересекаются."""
+    """Один этаж на процесс: ресурсы разных сценариев раскладываются по сетке и не пересекаются.
+    Живёт дольше сценария, поэтому из уборки сценария исключается и удаляется в after_all."""
     shared = context.shared
     if shared.floor is None:
-        resp = context.booking.create_floor(context.admin.token, name=data.unique_name("autotest-floor"),
-                                            level=1, width=FLOOR_SIZE, height=FLOOR_SIZE)
-        expect(resp, 201)
-        shared.floor = resp.json()
+        name = data.unique_name("autotest-floor")
+        prep = preparation(context)
+        if prep:
+            with prep:
+                floor = prepare.floor_row(prep, name=name, level=1, width=FLOOR_SIZE, height=FLOOR_SIZE)
+        else:
+            floor = expect(context.booking.create_floor(context.admin.token, name=name, level=1,
+                                                        width=FLOOR_SIZE, height=FLOOR_SIZE), 201).json()
+        context.cleanup.forget("floor", floor["id"])
+        shared.floor = floor
     return shared.floor
+
+
+def as_model(model: type[BaseModel], row: dict):
+    """Строка БД в контракт API: лишние столбцы (created_at) отбрасываются."""
+    return model.model_validate({name: row[name] for name in model.model_fields})
 
 
 def next_cell(context) -> tuple[int, int]:

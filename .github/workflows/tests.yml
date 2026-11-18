@@ -4,7 +4,40 @@ on:
   push:
     branches: [main]
   pull_request:
+  # форма ручного запуска: Actions → tests → Run workflow
   workflow_dispatch:
+    inputs:
+      tags:
+        description: "Выборка: тег-выражение behave (@auth, «@booking and not @ui»). Пусто — все"
+        required: false
+        default: ""
+      exclude:
+        description: "Исключить теги, через запятую (ui,jobs)"
+        required: false
+        default: ""
+      include_demo:
+        description: "Добавить нарочно падающий @demo_failure (показать артефакты падения)"
+        type: boolean
+        default: false
+      prepare_via:
+        description: "Подготовка предусловий"
+        type: choice
+        options: [sql, api]
+        default: sql
+      parallel:
+        description: "Параллельных процессов"
+        type: choice
+        options: ["4", "2", "1", "6"]
+        default: "4"
+      publish:
+        description: "Опубликовать отчёт на GitHub Pages (иначе только в артефактах прогона)"
+        type: boolean
+        default: false
+
+# На Pages — только полный прогон из main (push) или ручной с галкой publish:
+# частичная выборка не должна затирать отчёт по всему набору
+env:
+  PUBLISH: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'push' || inputs.publish) }}
 
 permissions:
   contents: write   # публикация Allure-отчёта в ветку gh-pages
@@ -23,8 +56,17 @@ jobs:
       - name: Поднять сервисы
         run: docker compose up -d --build --wait
 
-      - name: "Автотесты: API и UI (параллельный проход + @serial последовательно)"
-        run: docker compose run --rm -e PARALLEL=4 -e GITHUB_SHA tests
+      # значения формы идут через env, а не подстановкой в команду: текст из формы не исполняется оболочкой
+      - name: "Автотесты: API и UI"
+        env:
+          TAGS: ${{ inputs.tags }}
+          EXCLUDE: ${{ inputs.exclude }}
+          INCLUDE_DEMO: ${{ inputs.include_demo && '1' || '' }}
+          PREPARE_VIA: ${{ inputs.prepare_via || 'sql' }}
+          PARALLEL: ${{ inputs.parallel || '4' }}
+        run: >-
+          docker compose run --rm -e TAGS -e EXCLUDE -e INCLUDE_DEMO -e PREPARE_VIA -e PARALLEL -e GITHUB_SHA
+          tests
 
       - name: Логи сервисов
         if: always()
@@ -40,7 +82,7 @@ jobs:
             services.log
 
       - name: Забрать историю Allure
-        if: always() && github.ref == 'refs/heads/main'
+        if: always() && env.PUBLISH == 'true'
         uses: actions/checkout@v4
         continue-on-error: true
         with:
@@ -50,14 +92,14 @@ jobs:
       # тот же образ, что и для локального отчёта (tools/allure); history с прошлой публикации даёт график трендов.
       # Всё внутри контейнера: reports/ создан контейнером тестов от root, раннеру туда не записать
       - name: Собрать Allure-отчёт
-        if: always() && github.ref == 'refs/heads/main'
+        if: always() && env.PUBLISH == 'true'
         run: >-
           docker compose run --rm -v ./gh-pages:/gh-pages:ro allure sh -c
           "mkdir -p allure-results/history && cp -r /gh-pages/history/. allure-results/history/ 2>/dev/null;
           allure generate allure-results -o allure-report --clean"
 
       - name: Опубликовать на GitHub Pages
-        if: always() && github.ref == 'refs/heads/main'
+        if: always() && env.PUBLISH == 'true'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

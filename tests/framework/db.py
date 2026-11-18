@@ -1,6 +1,7 @@
 """Коннектор к PostgreSQL: проверки состояния и подготовка данных, которую нельзя сделать через API
 (например, «состарить» бронь, чтобы проверить джобу просрочки). Запросы пишутся в лог сценария."""
 import logging
+from contextlib import contextmanager
 
 import psycopg2
 import psycopg2.extras
@@ -40,6 +41,17 @@ class Database:
             cur.execute(sql, params)
             log.info("SQL: %s\n-> %s rows", cur.query.decode(), cur.rowcount)
             return cur.rowcount
+
+    @contextmanager
+    def transaction(self):
+        """Курсор в одной транзакции: либо записалось всё, либо ничего."""
+        conn = self.conn
+        conn.autocommit = False
+        try:
+            with conn, conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+                yield cur
+        finally:
+            conn.autocommit = True
 
     def close(self) -> None:
         if self._conn is not None:

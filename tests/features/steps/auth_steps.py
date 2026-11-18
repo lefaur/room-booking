@@ -44,6 +44,13 @@ def step_registered(context, label):
     actor(context, label, logged_in=False)
 
 
+@step('пользователь "{label}" зарегистрировался через API')
+def step_registered_via_api(context, label):
+    """Настоящая регистрация со всеми побочными эффектами (событие, приветственное письмо).
+    Обычный «зарегистрирован» создаёт пользователя строкой в БД — быстрее, но без письма."""
+    actor(context, label, logged_in=False, via_api=True)
+
+
 @step('пользователь "{label}" вошёл в систему')
 def step_logged_in(context, label):
     actor(context, label)

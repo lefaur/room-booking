@@ -5,6 +5,8 @@ from dataclasses import dataclass
 from framework import data
 from framework.api import AuthApi
 from framework.config import Credentials
+from framework.db import Database
+from framework.prepare import Preparation, user_row
 
 ROLE_BY_WORD = {
     "сотрудник": "employee",
@@ -54,10 +56,30 @@ class AdminSession:
 
 
 class ActorFactory:
-    def __init__(self, auth: AuthApi, admin: AdminSession):
-        self._auth, self._admin = auth, admin
+    def __init__(self, auth: AuthApi, admin: AdminSession, db: Database):
+        self._auth, self._admin, self._db = auth, admin, db
+        self._password_hash: str | None = None
 
-    def register(self, label: str) -> Actor:
+    def register(self, label: str, prep: Preparation | None = None) -> Actor:
+        """С prep — строкой в БД (сразу с нужной ролью), без — через API, как настоящий пользователь."""
+        if prep is None:
+            return self.register_via_api(label)
+        role = role_of(label)
+        row = user_row(prep, email=data.unique_email(role), full_name=f"Тест {label}", role=role,
+                       password_hash=self._hash())
+        prep.flush()
+        return Actor(label=label, id=row["id"], email=row["email"], password=data.PASSWORD, role=role)
+
+    def _hash(self) -> str:
+        """Хеш общего тестового пароля берётся у пользователя, зарегистрированного через API, один раз
+        на процесс: формат хеша и число итераций остаются заботой сервиса, тесты их не повторяют."""
+        if self._password_hash is None:
+            template = self.register_via_api("сотрудник")
+            row = self._db.one("SELECT password_hash FROM auth.users WHERE id = %s", (template.id,))
+            self._password_hash = row["password_hash"]
+        return self._password_hash
+
+    def register_via_api(self, label: str) -> Actor:
         role = role_of(label)
         email = data.unique_email(role)
         resp = self._auth.register(email, data.PASSWORD, f"Тест {label}")

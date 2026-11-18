@@ -54,6 +54,19 @@ class UiSession:
         self.page.on("response", lambda resp: self._note(
             f"HTTP {resp.status}: {resp.request.method} {resp.url}") if resp.status >= 400 else None)
         self.page.on("framenavigated", self._on_navigated)
+        # созданное через интерфейс (регистрация, редактор этажа) тоже надо убрать за сценарием
+        self.created: list = []
+        self.page.on("response", lambda resp: self.created.append(resp)
+                     if resp.status == 201 and resp.request.method == "POST" else None)
+
+    def track_created(self, cleanup) -> None:
+        """Передать уборке всё, что сценарий создал в браузере. Вызывать до close(): тело ответа
+        читается из ещё открытого контекста."""
+        for resp in self.created:
+            try:
+                cleanup.track("POST", resp.url, resp.status, resp.json)
+            except Exception:
+                pass  # ответ без JSON-тела — не сущность
 
     def _on_navigated(self, frame) -> None:
         # SPA шлёт событие на каждый pushState и перезагрузку данных: пишем только смену адреса
