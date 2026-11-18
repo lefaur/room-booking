@@ -47,14 +47,13 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
+      # тот же образ, что и для локального отчёта (tools/allure); history с прошлой публикации даёт график трендов
       - name: Собрать Allure-отчёт
         if: always() && github.ref == 'refs/heads/main'
-        uses: simple-elf/allure-report-action@v1.12
-        with:
-          allure_results: reports/allure-results
-          allure_history: allure-history
-          gh_pages: gh-pages
-          keep_reports: 20
+        run: |
+          mkdir -p reports/allure-results/history
+          cp -r gh-pages/history/. reports/allure-results/history/ 2>/dev/null || true
+          docker compose run --rm allure allure generate allure-results -o allure-report --clean
 
       - name: Опубликовать на GitHub Pages
         if: always() && github.ref == 'refs/heads/main'
@@ -62,4 +61,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-history
+          publish_dir: reports/allure-report
