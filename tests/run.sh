@@ -6,7 +6,8 @@
 #   sh run.sh -t @auth
 #   TAGS="@booking" EXCLUDE="@ui,@jobs" sh run.sh
 #   INCLUDE_DEMO=1 sh run.sh          # вместе с нарочно падающим @demo_failure
-# Несколько -t складываются по И; внутри одного -t теги через запятую — по ИЛИ.
+# Несколько -t складываются по И; ИЛИ — словом: -t "@auth or @booking" (запятая здесь не работает:
+# рядом стоят выражения с not, и behave разбирает всё по новым правилам, где запятая не оператор).
 set -u
 REPORTS_DIR="${REPORTS_DIR:-/reports}"
 # behavex держит во временной папке отчёта unix-сокет; на смонтированных с Windows дисках
@@ -21,6 +22,12 @@ rm -rf "$WORK" "$REPORTS_DIR/ui-failures" "$REPORTS_DIR/continue"   # артеф
 case "${INCLUDE_DEMO:+demo_failure}${TAGS:-}$*" in
   *demo_failure*) ;;
   *) set -- -t "not @demo_failure" "$@" ;;
+esac
+# @instruction — съёмка скриншотов для инструкций пользователей (docs/user-guide), тоже только явно
+# Съёмка идёт по одному: у сценариев общий этаж с одним названием, а кадр не должен ловить чужие брони
+case "${TAGS:-}$*" in
+  *instruction*) PARALLEL=1 ;;
+  *) set -- -t "not @instruction" "$@" ;;
 esac
 [ -n "${TAGS:-}" ] && set -- -t "$TAGS" "$@"
 for tag in $(echo "${EXCLUDE:-}" | tr ',' ' '); do

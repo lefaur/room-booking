@@ -38,9 +38,13 @@ def step_job_status(context, status):
 
 @step('в журнале джоб booking последний запуск "{job}" со статусом "{status}"')
 def step_job_journal(context, job, status):
-    row = context.db.one("SELECT status, details FROM booking.job_runs WHERE job = %s ORDER BY id DESC LIMIT 1",
-                         (job,))
-    assert row and row["status"] == status, f"Последний запуск {job}: {row}"
+    # «последний» — запуск этого сценария, по run_id из ответа: просто последняя строка журнала бывает
+    # чужой, если соседний сценарий в этот момент запускает ту же джобу
+    result = parse(models.JobRun, context.resp).result
+    run_id = result.get("run_id") or (result.get("detail") or {}).get("run_id")  # при сбое — внутри detail
+    assert run_id, f"В ответе запуска нет run_id: {context.resp.text}"
+    row = context.db.one("SELECT job, status, details FROM booking.job_runs WHERE id = %s", (run_id,))
+    assert row and (row["job"], row["status"]) == (job, status), f"Запуск {job} №{run_id} в журнале: {row}"
 
 
 @step("в списке джоб планировщика есть")

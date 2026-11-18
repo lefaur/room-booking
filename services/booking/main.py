@@ -422,8 +422,8 @@ def run_internal_job(job: str):
         run.finished_at = utcnow()
         db.commit()
         if run.status == "failed":
-            raise HTTPException(502, {"job": job, "status": "failed", **run.details})
-        return {"job": job, "status": "ok", **run.details}
+            raise HTTPException(502, {"job": job, "status": "failed", "run_id": run.id, **run.details})
+        return {"job": job, "status": "ok", "run_id": run.id, **run.details}
 
 
 @app.get("/internal/bookings", dependencies=[Depends(require_service)])

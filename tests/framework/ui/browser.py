@@ -9,6 +9,7 @@ API-сценарии браузер не поднимают. Каждому сц
 """
 import atexit
 import json
+import os
 import re
 import time
 from dataclasses import dataclass, field
@@ -146,9 +147,11 @@ class BrowserHolder:
     def _launch(self) -> Browser:
         if self._browser is None:
             self._playwright = sync_playwright().start()
-            # /dev/shm в контейнере всего 64 МБ: без этого флага вкладки Chromium падают на тяжёлых страницах
+            # /dev/shm в контейнере всего 64 МБ: без этого флага вкладки Chromium падают на тяжёлых страницах.
+            # --lang: формат поля даты берётся из языка процесса браузера, а не из locale контекста
             self._browser = self._playwright.chromium.launch(headless=self._cfg.ui.headless,
-                                                             args=["--disable-dev-shm-usage"])
+                                                             args=["--disable-dev-shm-usage", "--lang=ru-RU"],
+                                                             env={**os.environ, "LANG": "ru_RU.UTF-8", "LANGUAGE": "ru"})
         return self._browser
 
     def new_session(self, mobile: bool = False, title: str = "") -> UiSession:

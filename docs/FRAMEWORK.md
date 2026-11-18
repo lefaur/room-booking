@@ -316,6 +316,7 @@ def step_calendar(context, label, day):
 | `@calendar` | меняет производственный календарь: монопольная блокировка, после сценария сброс заглушки и пересинхронизация |
 | `@auth`, `@messaging` | без `@booking` не берут блокировок общего состояния |
 | `@demo_failure` | нарочно падающий сценарий для этой инструкции, в обычный прогон не входит |
+| `@instruction` | съёмка скриншотов для [инструкций пользователей](user-guide/README.md): только явно (`-t @instruction`), всегда в один процесс |
 
 ## Настройки и переменные окружения
 
@@ -335,6 +336,7 @@ def step_calendar(context, label, day):
 | `LOCK_DIR`, `LOCK_TIMEOUT` | `/tmp/officespace-locks`, `300` | где файлы блокировок; сколько секунд ждать |
 | `HEADED` | пусто | любое значение — браузер с окном (для отладки с хоста) |
 | `UI_ARTIFACTS_DIR` | `/reports/ui-failures` | куда класть артефакты упавших UI-сценариев |
+| `INSTR_DIR` | `/reports/instructions` | куда сценарии `@instruction` кладут снимки; для docs — `/docs/user-guide/img` |
 
 ## Запуск с хоста и отладка в окне браузера
 
@@ -385,3 +387,11 @@ docker compose run --rm -e INCLUDE_DEMO=1 tests sh run.sh   # прогон с у
 docker compose run --rm allure
 docker compose run --rm -v ./docs:/docs tests python tools/capture_docs.py
 ```
+
+Снимки для инструкций пользователей делаются иначе — сценариями `@instruction` на живых данных, см.
+[docs/user-guide/README.md](user-guide/README.md).
+
+## Claude в проекте
+
+`CLAUDE.md` в корне и `.claude/` — навыки, которыми Claude пишет автотесты, текстовые сценарии и
+инструкции по этим правилам, и агент-ревьюер. Список и порядок работы — в [CLAUDE.md](../CLAUDE.md).
