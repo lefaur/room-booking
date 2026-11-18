@@ -1,4 +1,4 @@
-# room-booking-qa
+# room-booking
 
 Учебный стенд для автотестов: **OfficeSpace**, сервис бронирования переговорок и рабочих мест в офисе (микросервисы на FastAPI и PostgreSQL за nginx), и **BDD-фреймворк автотестов** к нему на Behave.
 
