@@ -23,7 +23,7 @@ jobs:
       - name: Поднять сервисы
         run: docker compose up -d --build --wait
 
-      - name: Автотесты: API и UI (параллельный проход + @serial последовательно)
+      - name: "Автотесты: API и UI (параллельный проход + @serial последовательно)"
         run: docker compose run --rm -e PARALLEL=4 -e GITHUB_SHA tests
 
       - name: Логи сервисов
