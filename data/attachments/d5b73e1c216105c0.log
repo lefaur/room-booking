@@ -1,0 +1,78 @@
+﻿10:59:04 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.ceb71427ef@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (17 ms)
+{
+  "id": 167,
+  "email": "employee.ceb71427ef@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:59:04.410640Z"
+}
+10:59:04 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.ceb71427ef@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (18 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNjciLCJlbWFpbCI6ImVtcGxveWVlLmNlYjcxNDI3ZWZAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiM2I5NTc4NTQ3Y2RjZmJmYiIsImlhdCI6MTc5NDk5OTU0NCwiZXhwIjoxNzk1MDAwNDQ0fQ.zV-haz1hN3ZNZ1ylFKvBNDUKLoeQXFIg7MHiO6rTccE",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNjciLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6ImIzNTNjMjhmMGEyZWNkYWI0ZjU1MzEzNGIwYTY0Njg0IiwiZmFtIjoiZTIyNzQ1MjQ2MjNjY2NjNGZiZTNiOGE2ZDVkN2JhNjgiLCJpYXQiOjE3OTQ5OTk1NDQsImV4cCI6MTc5NTYwNDM0NH0.CElw5jcpJkBwtq8E-AjTB6jDHYtXAWuvN9g3buiEBso",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:59:04 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 75,
+  "kind": "room",
+  "name": "A-d2a9cfd52c",
+  "capacity": 6,
+  "x": 44,
+  "y": 0,
+  "w": 10,
+  "h": 10
+}
+
+<- 201 (4 ms)
+{
+  "id": 97,
+  "floor_id": 75,
+  "kind": "room",
+  "name": "A-d2a9cfd52c",
+  "capacity": 6,
+  "x": 44,
+  "y": 0,
+  "w": 10,
+  "h": 10,
+  "equipment": [],
+  "active": true,
+  "version": 1
+}
+10:59:04 - INFO - PUT http://gateway/api/booking/settings
+{
+  "max_booking_hours": 0
+}
+
+<- 422 (1 ms)
+{
+  "detail": [
+    {
+      "type": "greater_than_equal",
+      "loc": [
+        "body",
+        "max_booking_hours"
+      ],
+      "msg": "Input should be greater than or equal to 1",
+      "input": 0,
+      "ctx": {
+        "ge": 1
+      }
+    }
+  ]
+}

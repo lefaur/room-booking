@@ -1,0 +1,103 @@
+﻿10:58:43 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.661769423b@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (30 ms)
+{
+  "id": 2,
+  "email": "employee.661769423b@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:58:43.700113Z"
+}
+10:58:43 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22employee.661769423b%40officespace.test%22&limit=50
+
+
+<- 200 (2 ms)
+{
+  "total": 0,
+  "unread": 0,
+  "count": 0,
+  "messages_count": 0,
+  "start": 0,
+  "tags": [],
+  "messages": []
+}
+10:58:44 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22employee.661769423b%40officespace.test%22&limit=50
+
+
+<- 200 (1 ms)
+{
+  "total": 5,
+  "unread": 4,
+  "count": 1,
+  "messages_count": 1,
+  "start": 0,
+  "tags": [],
+  "messages": [
+    {
+      "ID": "2K8vcM8KMhSwZPvMAHTwt7",
+      "MessageID": "dbfxFRaFiZAfjz7e7VvYpK@mailpit",
+      "Read": false,
+      "From": {
+        "Name": "OfficeSpace",
+        "Address": "no-reply@officespace.test"
+      },
+      "To": [
+        {
+          "Name": "",
+          "Address": "employee.661769423b@officespace.test"
+        }
+      ],
+      "Cc": [],
+      "Bcc": [],
+      "ReplyTo": [],
+      "Subject": "Добро пожаловать в OfficeSpace",
+      "Created": "2026-11-18T10:58:43.849Z",
+      "Tags": [],
+      "Size": 733,
+      "Attachments": 0,
+      "Snippet": "Тест сотрудник, вы зарегистрированы. Войти: http://localhost:8080/login"
+    }
+  ]
+}
+10:58:44 - INFO - GET http://mailpit:8025/api/v1/message/2K8vcM8KMhSwZPvMAHTwt7
+
+
+<- 200 (1 ms)
+{
+  "ID": "2K8vcM8KMhSwZPvMAHTwt7",
+  "MessageID": "dbfxFRaFiZAfjz7e7VvYpK@mailpit",
+  "From": {
+    "Name": "OfficeSpace",
+    "Address": "no-reply@officespace.test"
+  },
+  "To": [
+    {
+      "Name": "",
+      "Address": "employee.661769423b@officespace.test"
+    }
+  ],
+  "Cc": [],
+  "Bcc": [],
+  "ReplyTo": [],
+  "ReturnPath": "no-reply@officespace.test",
+  "Subject": "Добро пожаловать в OfficeSpace",
+  "ListUnsubscribe": {
+    "Header": "",
+    "Links": [],
+    "Errors": "",
+    "HeaderPost": ""
+  },
+  "Date": "2026-11-18T10:58:43.849Z",
+  "Tags": [],
+  "Text": "Тест сотрудник, вы зарегистрированы. Войти: http://localhost:8080/login\n",
+  "HTML": "",
+  "Size": 733,
+  "Inline": [],
+  "Attachments": []
+}

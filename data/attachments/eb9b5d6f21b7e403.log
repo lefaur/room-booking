@@ -1,0 +1,65 @@
+﻿10:58:57 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "admin.654f04a7f5@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест админ"
+}
+
+<- 201 (36 ms)
+{
+  "id": 66,
+  "email": "admin.654f04a7f5@officespace.test",
+  "full_name": "Тест админ",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:58:57.098938Z"
+}
+10:58:57 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (59 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiZTJhNGNhODM4OTA4YTE4MyIsImlhdCI6MTc5NDk5OTUzNywiZXhwIjoxNzk1MDAwNDM3fQ.t5e-aPKQBrU71HdOMprAmWXHlz1_clrZ0ypNNhYNeRM",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI0Y2M4Yzc3NDgyYzNkMDIwYTVjMjZmMWFlOTk0NjMxMiIsImZhbSI6Ijc1YWNjZDVlNzZiNGU0MmVmODYzYWFhNzc2MjFiYTgwIiwiaWF0IjoxNzk0OTk5NTM3LCJleHAiOjE3OTU2MDQzMzd9.5rozFUct3Voh2l-889ehGVJVXDVo_Jz1idhnWLtbDEA",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:58:57 - INFO - PATCH http://gateway/api/auth/users/66
+{
+  "role": "admin"
+}
+
+<- 200 (10 ms)
+{
+  "id": 66,
+  "email": "admin.654f04a7f5@officespace.test",
+  "full_name": "Тест админ",
+  "role": "admin",
+  "is_active": true,
+  "created_at": "2026-11-18T10:58:57.098938Z"
+}
+10:58:57 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin.654f04a7f5@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (47 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NiIsImVtYWlsIjoiYWRtaW4uNjU0ZjA0YTdmNUBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiYTdkOWFmNjRhMjExOTRiNSIsImlhdCI6MTc5NDk5OTUzNywiZXhwIjoxNzk1MDAwNDM3fQ.Os21uI7Q7Q0em7SHDXJa5S9vD5w8Q1d64H0n_np0f_4",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NiIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiZjc5NGIxYzMxZmRmYTkwZGRlZmY2NmYyZDBmNTE0ZjEiLCJmYW0iOiIzZDE4YTBjY2ZkYTNmOGRhODJjNTk1MDI3NmJhNGViYSIsImlhdCI6MTc5NDk5OTUzNywiZXhwIjoxNzk1NjA0MzM3fQ.d1Se9UhqwJeBk9-qxfn1_8yqLMOt99XT4FAjvOaMSuk",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:58:57 - INFO - PATCH http://gateway/api/auth/users/66
+{
+  "is_active": false
+}
+
+<- 409 (7 ms)
+{
+  "detail": "Нельзя отключить себя или сменить себе роль"
+}

@@ -1,0 +1,24 @@
+﻿10:58:56 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "guest.4338006537@officespace.test",
+  "password": "1234567890",
+  "full_name": "Гость"
+}
+
+<- 422 (2 ms)
+{
+  "detail": [
+    {
+      "type": "value_error",
+      "loc": [
+        "body",
+        "password"
+      ],
+      "msg": "Value error, Пароль должен содержать буквы и цифры",
+      "input": "1234567890",
+      "ctx": {
+        "error": {}
+      }
+    }
+  ]
+}

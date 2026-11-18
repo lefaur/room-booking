@@ -1,0 +1,20 @@
+﻿10:59:02 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (30 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiN2UyOWQyODdhMDQxN2RmNCIsImlhdCI6MTc5NDk5OTU0MiwiZXhwIjoxNzk1MDAwNDQyfQ.RYfpzIyPqbYInkg7wmFRWsTbhM3KH39h3TowwfXpOXk",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiJkNzE1NjQ2ZDZiOTliMjZjMjhlNTMwZTc4OTExNDJlMiIsImZhbSI6ImY1NGU0M2ZlMjgwZjYzY2RlOTc3MDYwMWI3MzVmY2JmIiwiaWF0IjoxNzk0OTk5NTQyLCJleHAiOjE3OTU2MDQzNDJ9.BJXIBm8XxHIckj__jUZ-aw6p6DrTdCW_x9KZSO63IYA",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:59:02 - INFO - POST http://gateway/api/scheduler/jobs/make-coffee/run
+
+
+<- 404 (2 ms)
+{
+  "detail": "Нет джобы make-coffee"
+}

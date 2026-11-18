@@ -1,7 +1,0 @@
-﻿10:49:09 - INFO - GET http://gateway/api/booking/internal/bookings?user_id=1
-
-
-<- 404 (1 ms)
-{
-  "detail": "Not Found"
-}

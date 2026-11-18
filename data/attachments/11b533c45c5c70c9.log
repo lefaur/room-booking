@@ -1,0 +1,164 @@
+﻿10:58:57 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.cfa8da376a@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (22 ms)
+{
+  "id": 74,
+  "email": "employee.cfa8da376a@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:58:57.498588Z"
+}
+10:58:57 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.cfa8da376a@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (20 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NCIsImVtYWlsIjoiZW1wbG95ZWUuY2ZhOGRhMzc2YUBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiJkMmNkNWMxZGFmZTI3ZmE2IiwiaWF0IjoxNzk0OTk5NTM3LCJleHAiOjE3OTUwMDA0Mzd9.kRjFQPHVFjfWFkehp4ibRR6-HXj5O-4OdAvaCYlU7PI",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NCIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiMDRiZGEwNjU3YTg1MGM2MzU3NjhiNDgxYzQxY2Y3YmQiLCJmYW0iOiI4YTY3Nzc1YWI4MDdmM2Y1NWZlZTFiY2M1NzdkZWQ2NSIsImlhdCI6MTc5NDk5OTUzNywiZXhwIjoxNzk1NjA0MzM3fQ.DAtLctbq850BUa8HDWPr_Mp-EuxORzwON1HjETx6r_8",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:58:57 - INFO - POST http://gateway/api/tg/link-code
+
+
+<- 201 (5 ms)
+{
+  "code": "0C8DBDDF",
+  "expires_at": "2026-11-18T11:08:57.524540+00:00",
+  "command": "/start 0C8DBDDF"
+}
+10:58:57 - INFO - POST http://stubs:8000/_control/telegram/messages
+{
+  "chat_id": 238843303559,
+  "text": "/start 0C8DBDDF"
+}
+
+<- 200 (4 ms)
+{
+  "update_id": 3,
+  "message": {
+    "message_id": 5,
+    "date": 1794999537,
+    "text": "/start 0C8DBDDF",
+    "chat": {
+      "id": 238843303559,
+      "type": "private"
+    },
+    "from": {
+      "id": 238843303559,
+      "is_bot": false,
+      "username": "tester"
+    }
+  }
+}
+10:58:57 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=238843303559
+
+
+<- 200 (1 ms)
+[]
+10:58:57 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=238843303559
+
+
+<- 200 (1 ms)
+[
+  {
+    "message_id": 6,
+    "chat": {
+      "id": 238843303559,
+      "type": "private"
+    },
+    "date": 1794999537,
+    "text": "Готово! Аккаунт employee.cfa8da376a@officespace.test привязан. Сюда будут приходить уведомления о бронях.",
+    "reply_markup": null
+  }
+]
+10:58:57 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.3f4242e773@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник 2"
+}
+
+<- 201 (17 ms)
+{
+  "id": 78,
+  "email": "employee.3f4242e773@officespace.test",
+  "full_name": "Тест сотрудник 2",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:58:57.849405Z"
+}
+10:58:57 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.3f4242e773@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (19 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3OCIsImVtYWlsIjoiZW1wbG95ZWUuM2Y0MjQyZTc3M0BvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiIxMDkzNTEyNTJhNDdkMGQwIiwiaWF0IjoxNzk0OTk5NTM3LCJleHAiOjE3OTUwMDA0Mzd9.0GqpAM5hn3xiagq7NRxxNiOjPFJPcR3tWtRD7MgiLVo",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3OCIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiZDJhZWYxYmVhOWVmYzI0ZmNhNThlMmU5NThmNzEyYzUiLCJmYW0iOiIwNTIwYmRmNWY0NGEzNjM2OWExNGZmNTIzMDYxZThkYiIsImlhdCI6MTc5NDk5OTUzNywiZXhwIjoxNzk1NjA0MzM3fQ.Mbh9ALyfvVz5Qfl8vmku93FpGhYThlaFZC4bJ-4QXIs",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:58:57 - INFO - POST http://stubs:8000/_control/telegram/messages
+{
+  "chat_id": 35827291072,
+  "text": "/start 0C8DBDDF"
+}
+
+<- 200 (1 ms)
+{
+  "update_id": 7,
+  "message": {
+    "message_id": 13,
+    "date": 1794999537,
+    "text": "/start 0C8DBDDF",
+    "chat": {
+      "id": 35827291072,
+      "type": "private"
+    },
+    "from": {
+      "id": 35827291072,
+      "is_bot": false,
+      "username": "tester"
+    }
+  }
+}
+10:58:57 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=35827291072
+
+
+<- 200 (1 ms)
+[]
+10:58:58 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=35827291072
+
+
+<- 200 (1 ms)
+[
+  {
+    "message_id": 14,
+    "chat": {
+      "id": 35827291072,
+      "type": "private"
+    },
+    "date": 1794999537,
+    "text": "Код недействителен или устарел. Получите новый в приложении.",
+    "reply_markup": null
+  }
+]
+10:58:58 - INFO - GET http://gateway/api/tg/link
+
+
+<- 404 (2 ms)
+{
+  "detail": "Telegram не привязан"
+}

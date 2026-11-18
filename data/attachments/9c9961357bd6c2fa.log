@@ -1,0 +1,134 @@
+﻿10:59:01 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.3ad0bb3cdf@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (34 ms)
+{
+  "id": 121,
+  "email": "employee.3ad0bb3cdf@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:59:01.180607Z"
+}
+10:59:01 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.3ad0bb3cdf@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (25 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjEiLCJlbWFpbCI6ImVtcGxveWVlLjNhZDBiYjNjZGZAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiNzE4NmE1MGQ3ODQ4ZGViNCIsImlhdCI6MTc5NDk5OTU0MSwiZXhwIjoxNzk1MDAwNDQxfQ.a2vgpnF1sPccvs8g8oWBSyZxKBXO3Y4KnG-vgL5peKk",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjEiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6ImE4Njc0MThkYThjYTgzOWJjMWIwZGJlZjcwYjU1ZDdlIiwiZmFtIjoiNzA0MWNlMjgwYzRiMTgxZWE2MTFjYjBiZGRhNGExMmEiLCJpYXQiOjE3OTQ5OTk1NDEsImV4cCI6MTc5NTYwNDM0MX0.eWycX7p7o_xPEgNei8-p7A_4-t0ZCkl1cn2ugrhi2dY",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:59:01 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (31 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiNDhiNjM1NjU4ZDU2MzM4ZSIsImlhdCI6MTc5NDk5OTU0MSwiZXhwIjoxNzk1MDAwNDQxfQ.rmXzyIMxQoQ410yGMUmRt9TxTAs3aeyT7B74d5mr_6k",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI3YzY1ZTU5MDVjZjk1NThlNmVmNjQ1MzE3ZDJkNjhlYSIsImZhbSI6IjUzYjhlYTAwN2RhZjczNmI1MDgzZWQ5MmQ5MTc5ODJiIiwiaWF0IjoxNzk0OTk5NTQxLCJleHAiOjE3OTU2MDQzNDF9.WiWB-obE9KOVWKUWP_NgpT7ucLXudL-FgEm6I6HI_1Q",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:59:01 - INFO - POST http://gateway/api/booking/floors
+{
+  "name": "autotest-floor-bcdc350f34",
+  "level": 1,
+  "width": 9900,
+  "height": 9900
+}
+
+<- 201 (7 ms)
+{
+  "id": 49,
+  "name": "autotest-floor-bcdc350f34",
+  "level": 1,
+  "width": 9900,
+  "height": 9900
+}
+10:59:01 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 49,
+  "kind": "room",
+  "name": "A-0e43664d0c",
+  "capacity": 6,
+  "x": 0,
+  "y": 0,
+  "w": 10,
+  "h": 10
+}
+
+<- 201 (10 ms)
+{
+  "id": 66,
+  "floor_id": 49,
+  "kind": "room",
+  "name": "A-0e43664d0c",
+  "capacity": 6,
+  "x": 0,
+  "y": 0,
+  "w": 10,
+  "h": 10,
+  "equipment": [],
+  "active": true,
+  "version": 1
+}
+10:59:01 - INFO - POST http://gateway/api/booking/bookings
+{
+  "resource_id": 66,
+  "start": "2026-11-19T10:00:00+03:00",
+  "end": "2026-11-19T11:00:00+03:00"
+}
+
+<- 201 (12 ms)
+{
+  "id": 37,
+  "resource_id": 66,
+  "user_id": 121,
+  "user_email": "employee.3ad0bb3cdf@officespace.test",
+  "start": "2026-11-19T07:00:00Z",
+  "end": "2026-11-19T08:00:00Z",
+  "status": "pending",
+  "created_at": "2026-11-18T10:59:01.263301Z",
+  "updated_at": "2026-11-18T10:59:01.268017Z",
+  "cancelled_by": null,
+  "checked_in_at": null
+}
+10:59:01 - INFO - POST http://gateway/api/booking/bookings/37/confirm
+
+
+<- 200 (5 ms)
+{
+  "id": 37,
+  "resource_id": 66,
+  "user_id": 121,
+  "user_email": "employee.3ad0bb3cdf@officespace.test",
+  "start": "2026-11-19T07:00:00Z",
+  "end": "2026-11-19T08:00:00Z",
+  "status": "confirmed",
+  "created_at": "2026-11-18T10:59:01.263301Z",
+  "updated_at": "2026-11-18T10:59:01.276235Z",
+  "cancelled_by": null,
+  "checked_in_at": null
+}
+10:59:01 - INFO - SQL: UPDATE booking.bookings SET created_at = now() - make_interval(mins => 60) WHERE id = 37
+-> 1 rows
+10:59:01 - INFO - POST http://gateway/api/booking/jobs/expire-pending
+
+
+<- 200 (3 ms)
+{
+  "expired": 0
+}
+10:59:01 - INFO - SQL: SELECT status FROM booking.bookings WHERE id = 37
+-> [{'status': 'confirmed'}]

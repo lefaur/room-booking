@@ -1,0 +1,178 @@
+﻿10:58:49 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.779451f9ca@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (34 ms)
+{
+  "id": 20,
+  "email": "employee.779451f9ca@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:58:49.633678Z"
+}
+10:58:49 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22employee.779451f9ca%40officespace.test%22&limit=50
+
+
+<- 200 (4 ms)
+{
+  "total": 28,
+  "unread": 22,
+  "count": 0,
+  "messages_count": 0,
+  "start": 0,
+  "tags": [],
+  "messages": []
+}
+10:58:50 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22employee.779451f9ca%40officespace.test%22&limit=50
+
+
+<- 200 (5 ms)
+{
+  "total": 29,
+  "unread": 23,
+  "count": 1,
+  "messages_count": 1,
+  "start": 0,
+  "tags": [],
+  "messages": [
+    {
+      "ID": "5S8urZECXUnCMyTRjEeJer",
+      "MessageID": "CTJq5imojQaXaoxad2ts5R@mailpit",
+      "Read": false,
+      "From": {
+        "Name": "OfficeSpace",
+        "Address": "no-reply@officespace.test"
+      },
+      "To": [
+        {
+          "Name": "",
+          "Address": "employee.779451f9ca@officespace.test"
+        }
+      ],
+      "Cc": [],
+      "Bcc": [],
+      "ReplyTo": [],
+      "Subject": "Добро пожаловать в OfficeSpace",
+      "Created": "2026-11-18T10:58:49.801Z",
+      "Tags": [],
+      "Size": 733,
+      "Attachments": 0,
+      "Snippet": "Тест сотрудник, вы зарегистрированы. Войти: http://localhost:8080/login"
+    }
+  ]
+}
+10:58:50 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22employee.779451f9ca%40officespace.test%22&limit=50
+
+
+<- 200 (3 ms)
+{
+  "total": 31,
+  "unread": 25,
+  "count": 2,
+  "messages_count": 2,
+  "start": 0,
+  "tags": [],
+  "messages": [
+    {
+      "ID": "hRwtyFcrmjo5w5pKAByNGm",
+      "MessageID": "ftVKSBt3BbMpchQrksgKpa@mailpit",
+      "Read": false,
+      "From": {
+        "Name": "OfficeSpace",
+        "Address": "no-reply@officespace.test"
+      },
+      "To": [
+        {
+          "Name": "",
+          "Address": "employee.779451f9ca@officespace.test"
+        }
+      ],
+      "Cc": [],
+      "Bcc": [],
+      "ReplyTo": [],
+      "Subject": "Сброс пароля",
+      "Created": "2026-11-18T10:58:50.215Z",
+      "Tags": [],
+      "Size": 979,
+      "Attachments": 0,
+      "Snippet": "Чтобы задать новый пароль, перейдите по ссылке до 18.11.2026 14:28: http://localhost:8080/reset-password?token=VAL9-BHI7VQ5-tx6QfphhHsd3Pq3iljyGLWNUuGy9BY Е..."
+    },
+    {
+      "ID": "5S8urZECXUnCMyTRjEeJer",
+      "MessageID": "CTJq5imojQaXaoxad2ts5R@mailpit",
+      "Read": false,
+      "From": {
+        "Name": "OfficeSpace",
+        "Address": "no-reply@officespace.test"
+      },
+      "To": [
+        {
+          "Name": "",
+          "Address": "employee.779451f9ca@officespace.test"
+        }
+      ],
+      "Cc": [],
+      "Bcc": [],
+      "ReplyTo": [],
+      "Subject": "Добро пожаловать в OfficeSpace",
+      "Created": "2026-11-18T10:58:49.801Z",
+      "Tags": [],
+      "Size": 733,
+      "Attachments": 0,
+      "Snippet": "Тест сотрудник, вы зарегистрированы. Войти: http://localhost:8080/login"
+    }
+  ]
+}
+10:58:50 - INFO - GET http://mailpit:8025/api/v1/message/hRwtyFcrmjo5w5pKAByNGm
+
+
+<- 200 (1 ms)
+{
+  "ID": "hRwtyFcrmjo5w5pKAByNGm",
+  "MessageID": "ftVKSBt3BbMpchQrksgKpa@mailpit",
+  "From": {
+    "Name": "OfficeSpace",
+    "Address": "no-reply@officespace.test"
+  },
+  "To": [
+    {
+      "Name": "",
+      "Address": "employee.779451f9ca@officespace.test"
+    }
+  ],
+  "Cc": [],
+  "Bcc": [],
+  "ReplyTo": [],
+  "ReturnPath": "no-reply@officespace.test",
+  "Subject": "Сброс пароля",
+  "ListUnsubscribe": {
+    "Header": "",
+    "Links": [],
+    "Errors": "",
+    "HeaderPost": ""
+  },
+  "Date": "2026-11-18T10:58:50.215Z",
+  "Tags": [],
+  "Text": "Чтобы задать новый пароль, перейдите по ссылке до 18.11.2026 14:28:\nhttp://localhost:8080/reset-password?token=VAL9-BHI7VQ5-tx6QfphhHsd3Pq3iljyGLWNUuGy9BY\n\nЕсли вы не запрашивали сброс, просто проигнорируйте письмо.\n",
+  "HTML": "",
+  "Size": 979,
+  "Inline": [],
+  "Attachments": []
+}
+10:58:50 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.779451f9ca@officespace.test",
+  "password": "NewPassw0rd1"
+}
+
+<- 200 (28 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMCIsImVtYWlsIjoiZW1wbG95ZWUuNzc5NDUxZjljYUBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI4NjMyYmFhZmU5ZTQ2MzNjIiwiaWF0IjoxNzk0OTk5NTMwLCJleHAiOjE3OTUwMDA0MzB9.fdmfcu8UP_zdQtJr_VigG4HDRzUgUs-LloiFr84Yix4",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMCIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiYTYyNWQ2NDI1ZTNlM2QxMjFjNzU1NzFmOTdhNWUyOGEiLCJmYW0iOiIxYWZhZTAwNTc3ZDRmNjlhY2VjYWFiZWUxNWRhNDBkOCIsImlhdCI6MTc5NDk5OTUzMCwiZXhwIjoxNzk1NjA0MzMwfQ.ge2nNyxSe6khKSrx-DA7HNYYujepWU4kwhjeuVNQMF4",
+  "token_type": "bearer",
+  "expires_in": 900
+}

@@ -1,0 +1,24 @@
+﻿10:58:56 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "guest.271ec6c081@officespace.test",
+  "password": "Abc12",
+  "full_name": "Гость"
+}
+
+<- 422 (1 ms)
+{
+  "detail": [
+    {
+      "type": "string_too_short",
+      "loc": [
+        "body",
+        "password"
+      ],
+      "msg": "String should have at least 8 characters",
+      "input": "Abc12",
+      "ctx": {
+        "min_length": 8
+      }
+    }
+  ]
+}

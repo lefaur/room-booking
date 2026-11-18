@@ -1,0 +1,81 @@
+﻿10:58:57 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.d64a983df4@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (28 ms)
+{
+  "id": 75,
+  "email": "employee.d64a983df4@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:58:57.553955Z"
+}
+10:58:57 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.d64a983df4@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (20 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NSIsImVtYWlsIjoiZW1wbG95ZWUuZDY0YTk4M2RmNEBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI1NzkwYmEyYWJmM2Y4YmNlIiwiaWF0IjoxNzk0OTk5NTM3LCJleHAiOjE3OTUwMDA0Mzd9.Sb1uyV5V2z0zi8j8qF_v4T0GOj_Tvm7TqFJ1Zm-kwl8",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3NSIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiNzFmYWFmNTEwMjIwYjVmMTg4ZTFmN2I0YWMyNDdiYjciLCJmYW0iOiI4NDJiZWU0N2JiMzQzM2M5ZTZmZjFlN2NmOWUzYTI2ZSIsImlhdCI6MTc5NDk5OTUzNywiZXhwIjoxNzk1NjA0MzM3fQ.S2Bri6ShE13im5YmpLgiAieVC4Ze9a3heu0SHWtPxNA",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:58:57 - INFO - POST http://stubs:8000/_control/telegram/messages
+{
+  "chat_id": 764352094321,
+  "text": "/start NOPE1234"
+}
+
+<- 200 (1 ms)
+{
+  "update_id": 4,
+  "message": {
+    "message_id": 7,
+    "date": 1794999537,
+    "text": "/start NOPE1234",
+    "chat": {
+      "id": 764352094321,
+      "type": "private"
+    },
+    "from": {
+      "id": 764352094321,
+      "is_bot": false,
+      "username": "tester"
+    }
+  }
+}
+10:58:57 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=764352094321
+
+
+<- 200 (1 ms)
+[]
+10:58:57 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=764352094321
+
+
+<- 200 (1 ms)
+[
+  {
+    "message_id": 8,
+    "chat": {
+      "id": 764352094321,
+      "type": "private"
+    },
+    "date": 1794999537,
+    "text": "Код недействителен или устарел. Получите новый в приложении.",
+    "reply_markup": null
+  }
+]
+10:58:57 - INFO - GET http://gateway/api/tg/link
+
+
+<- 404 (2 ms)
+{
+  "detail": "Telegram не привязан"
+}

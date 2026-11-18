@@ -1,0 +1,173 @@
+﻿10:58:43 - INFO - POST http://rabbitmq:15672/api/exchanges/%2F/officespace.events/publish
+{
+  "routing_key": "user.registered",
+  "payload": "{\"event_id\": \"3690cb59-4dd5-4e20-a5d5-7a8337fc10c3\", \"type\": \"user.registered\", \"source\": \"autotest\", \"occurred_at\": \"2026-11-18T10:58:43.674404+00:00\", \"payload\": {\"user_id\": 0, \"email\": \"dup.89f0325cab@officespace.test\", \"full_name\": \"Дубль\"}}",
+  "payload_encoding": "string",
+  "properties": {
+    "content_type": "application/json",
+    "delivery_mode": 2,
+    "message_id": "3690cb59-4dd5-4e20-a5d5-7a8337fc10c3"
+  }
+}
+
+<- 200 (13 ms)
+{
+  "routed": true
+}
+10:58:43 - INFO - POST http://rabbitmq:15672/api/exchanges/%2F/officespace.events/publish
+{
+  "routing_key": "user.registered",
+  "payload": "{\"event_id\": \"3690cb59-4dd5-4e20-a5d5-7a8337fc10c3\", \"type\": \"user.registered\", \"source\": \"autotest\", \"occurred_at\": \"2026-11-18T10:58:43.674404+00:00\", \"payload\": {\"user_id\": 0, \"email\": \"dup.89f0325cab@officespace.test\", \"full_name\": \"Дубль\"}}",
+  "payload_encoding": "string",
+  "properties": {
+    "content_type": "application/json",
+    "delivery_mode": 2,
+    "message_id": "3690cb59-4dd5-4e20-a5d5-7a8337fc10c3"
+  }
+}
+
+<- 200 (4 ms)
+{
+  "routed": true
+}
+10:58:43 - INFO - POST http://rabbitmq:15672/api/exchanges/%2F/officespace.events/publish
+{
+  "routing_key": "user.registered",
+  "payload": "{\"event_id\": \"97c503af-e895-4744-b6cb-ab30a5e42a10\", \"type\": \"user.registered\", \"source\": \"autotest\", \"occurred_at\": \"2026-11-18T10:58:43.693055+00:00\", \"payload\": {\"user_id\": 0, \"email\": \"marker.8d5f7e5916@officespace.test\", \"full_name\": \"Маркер\"}}",
+  "payload_encoding": "string",
+  "properties": {
+    "content_type": "application/json",
+    "delivery_mode": 2,
+    "message_id": "ce9e4550-71ae-40eb-b079-1ab3ad75daff"
+  }
+}
+
+<- 200 (3 ms)
+{
+  "routed": true
+}
+10:58:43 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22marker.8d5f7e5916%40officespace.test%22&limit=50
+
+
+<- 200 (3 ms)
+{
+  "total": 0,
+  "unread": 0,
+  "count": 0,
+  "messages_count": 0,
+  "start": 0,
+  "tags": [],
+  "messages": []
+}
+10:58:44 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22marker.8d5f7e5916%40officespace.test%22&limit=50
+
+
+<- 200 (1 ms)
+{
+  "total": 5,
+  "unread": 5,
+  "count": 1,
+  "messages_count": 1,
+  "start": 0,
+  "tags": [],
+  "messages": [
+    {
+      "ID": "fcUZDZM9GzPx2Dv8BZ337Y",
+      "MessageID": "ndJZa2kyEYsuMbJuwTCDK8@mailpit",
+      "Read": false,
+      "From": {
+        "Name": "OfficeSpace",
+        "Address": "no-reply@officespace.test"
+      },
+      "To": [
+        {
+          "Name": "",
+          "Address": "marker.8d5f7e5916@officespace.test"
+        }
+      ],
+      "Cc": [],
+      "Bcc": [],
+      "ReplyTo": [],
+      "Subject": "Добро пожаловать в OfficeSpace",
+      "Created": "2026-11-18T10:58:43.736Z",
+      "Tags": [],
+      "Size": 709,
+      "Attachments": 0,
+      "Snippet": "Маркер, вы зарегистрированы. Войти: http://localhost:8080/login"
+    }
+  ]
+}
+10:58:44 - INFO - GET http://mailpit:8025/api/v1/message/fcUZDZM9GzPx2Dv8BZ337Y
+
+
+<- 200 (1 ms)
+{
+  "ID": "fcUZDZM9GzPx2Dv8BZ337Y",
+  "MessageID": "ndJZa2kyEYsuMbJuwTCDK8@mailpit",
+  "From": {
+    "Name": "OfficeSpace",
+    "Address": "no-reply@officespace.test"
+  },
+  "To": [
+    {
+      "Name": "",
+      "Address": "marker.8d5f7e5916@officespace.test"
+    }
+  ],
+  "Cc": [],
+  "Bcc": [],
+  "ReplyTo": [],
+  "ReturnPath": "no-reply@officespace.test",
+  "Subject": "Добро пожаловать в OfficeSpace",
+  "ListUnsubscribe": {
+    "Header": "",
+    "Links": [],
+    "Errors": "",
+    "HeaderPost": ""
+  },
+  "Date": "2026-11-18T10:58:43.736Z",
+  "Tags": [],
+  "Text": "Маркер, вы зарегистрированы. Войти: http://localhost:8080/login\n",
+  "HTML": "",
+  "Size": 709,
+  "Inline": [],
+  "Attachments": []
+}
+10:58:44 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22dup.89f0325cab%40officespace.test%22&limit=50
+
+
+<- 200 (1 ms)
+{
+  "total": 5,
+  "unread": 4,
+  "count": 1,
+  "messages_count": 1,
+  "start": 0,
+  "tags": [],
+  "messages": [
+    {
+      "ID": "JfGzq8DDiqDACNhF23d3Wn",
+      "MessageID": "Y2UtfpVaVTWhr3WWmqF5SH@mailpit",
+      "Read": false,
+      "From": {
+        "Name": "OfficeSpace",
+        "Address": "no-reply@officespace.test"
+      },
+      "To": [
+        {
+          "Name": "",
+          "Address": "dup.89f0325cab@officespace.test"
+        }
+      ],
+      "Cc": [],
+      "Bcc": [],
+      "ReplyTo": [],
+      "Subject": "Добро пожаловать в OfficeSpace",
+      "Created": "2026-11-18T10:58:43.724Z",
+      "Tags": [],
+      "Size": 703,
+      "Attachments": 0,
+      "Snippet": "Дубль, вы зарегистрированы. Войти: http://localhost:8080/login"
+    }
+  ]
+}

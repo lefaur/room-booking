@@ -1,0 +1,56 @@
+﻿10:58:45 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "admin.f109bd34eb@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест админ"
+}
+
+<- 201 (33 ms)
+{
+  "id": 9,
+  "email": "admin.f109bd34eb@officespace.test",
+  "full_name": "Тест админ",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:58:45.316482Z"
+}
+10:58:45 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (37 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiZDQzODAzNGEyMjdmZjU5NSIsImlhdCI6MTc5NDk5OTUyNSwiZXhwIjoxNzk1MDAwNDI1fQ.Jny6qX735VUOWKgwDTAweh1BWQk_umN5oEa4auwy7uE",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiJjYjU5Njc2OTdjN2Q2ODFhZDUwYTFjODg0ZTUzMzExNyIsImZhbSI6IjBkZmE3YTZkMGM3ODFiODlhMDEwMDNjNmJiODZlZDBiIiwiaWF0IjoxNzk0OTk5NTI1LCJleHAiOjE3OTU2MDQzMjV9.OcrXQmc5aSwnTYhaWzJMNJgwLJqnOUDg6mnk0M1dQgM",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:58:45 - INFO - PATCH http://gateway/api/auth/users/9
+{
+  "role": "admin"
+}
+
+<- 200 (13 ms)
+{
+  "id": 9,
+  "email": "admin.f109bd34eb@officespace.test",
+  "full_name": "Тест админ",
+  "role": "admin",
+  "is_active": true,
+  "created_at": "2026-11-18T10:58:45.316482Z"
+}
+10:58:45 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin.f109bd34eb@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (37 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5IiwiZW1haWwiOiJhZG1pbi5mMTA5YmQzNGViQG9mZmljZXNwYWNlLnRlc3QiLCJyb2xlIjoiYWRtaW4iLCJwZXJtcyI6WyJib29raW5ncy5jYW5jZWxfYW55IiwiYm9va2luZ3MuY3JlYXRlIiwiYm9va2luZ3MucmVhZF9hbGwiLCJmbG9vcnMud3JpdGUiLCJqb2JzLnJ1biIsInJlc291cmNlcy53cml0ZSIsInNldHRpbmdzLndyaXRlIiwidXNlcnMubWFuYWdlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiIwZGFkYmM1ZjM1ZGMxMzM2IiwiaWF0IjoxNzk0OTk5NTI1LCJleHAiOjE3OTUwMDA0MjV9.N2FeQ0Ji-XOCirBulPqxwh9D-T80Qr6bBrJBvWMpr_g",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5IiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiJjODhmNmM3Nzc0ZTNjZmZjMDQ4YTE0ZWVkMTNhNWViYyIsImZhbSI6IjdiN2RjODkxMWNkOGEwZmIyNTc2NWIzZGI1NjNmNWVhIiwiaWF0IjoxNzk0OTk5NTI1LCJleHAiOjE3OTU2MDQzMjV9.i2v9eyHqE76ek_dBKkGlAEGGacf_DDsdro0VR9QeTfQ",
+  "token_type": "bearer",
+  "expires_in": 900
+}

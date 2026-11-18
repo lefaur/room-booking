@@ -1,0 +1,63 @@
+﻿10:58:56 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "facility.c78c1adc4d@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест facility"
+}
+
+<- 201 (23 ms)
+{
+  "id": 56,
+  "email": "facility.c78c1adc4d@officespace.test",
+  "full_name": "Тест facility",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:58:56.635604Z"
+}
+10:58:56 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (26 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiNmMxMDlhNzA0NDRkNmQzYiIsImlhdCI6MTc5NDk5OTUzNiwiZXhwIjoxNzk1MDAwNDM2fQ.CEIEjxwymrsD7W4Fw1IOQ0M4ApDye1boEJ1azn5xOnQ",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI5Y2M4YmI1ZjIxNDUzMTRiMjg1MjdkNjdmZWM5MDkzYSIsImZhbSI6Ijg3MjBjOTM3MjQ3MjcxZWIxNThkZmM5MTdjYWVmYzliIiwiaWF0IjoxNzk0OTk5NTM2LCJleHAiOjE3OTU2MDQzMzZ9.a_K7UxctAb5NOvAKHaXWzUql1bWLCiCd06Q7wF5PCXM",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:58:56 - INFO - PATCH http://gateway/api/auth/users/56
+{
+  "role": "facility"
+}
+
+<- 200 (3 ms)
+{
+  "id": 56,
+  "email": "facility.c78c1adc4d@officespace.test",
+  "full_name": "Тест facility",
+  "role": "facility",
+  "is_active": true,
+  "created_at": "2026-11-18T10:58:56.635604Z"
+}
+10:58:56 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "facility.c78c1adc4d@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (24 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NiIsImVtYWlsIjoiZmFjaWxpdHkuYzc4YzFhZGM0ZEBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImZhY2lsaXR5IiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIiwiZmxvb3JzLndyaXRlIiwicmVzb3VyY2VzLndyaXRlIiwic2V0dGluZ3Mud3JpdGUiXSwidHlwZSI6ImFjY2VzcyIsImp0aSI6ImU5N2Q2MzQyOGMzNDkzOGEiLCJpYXQiOjE3OTQ5OTk1MzYsImV4cCI6MTc5NTAwMDQzNn0.nsw-6-Bu7sTd_Iwab0Blxt9GnYXC7gTqDE6KLFiEkDg",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NiIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiZWRhMzEzODZlMDM0NGQ2MzcyY2NmMGNkZmU2NzNmZjUiLCJmYW0iOiI1MjZmMmYzZjAwNTU5YTkxMmJjZjRmNmI3Y2U0MGY3MiIsImlhdCI6MTc5NDk5OTUzNiwiZXhwIjoxNzk1NjA0MzM2fQ.Imw304WkWxDC2AKsvOgjy9kS0lMoB3okTN93tzTl0x0",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:58:56 - INFO - GET http://gateway/api/auth/users?limit=1
+
+
+<- 403 (2 ms)
+{
+  "detail": "Нет прав: users.manage"
+}

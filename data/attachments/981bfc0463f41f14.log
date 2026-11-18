@@ -1,0 +1,132 @@
+﻿10:59:02 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.317b1e889f@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (34 ms)
+{
+  "id": 150,
+  "email": "employee.317b1e889f@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:59:02.188826Z"
+}
+10:59:02 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.317b1e889f@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (53 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNTAiLCJlbWFpbCI6ImVtcGxveWVlLjMxN2IxZTg4OWZAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiNTkzMzM1ZTQwYmU2ZWQ5YSIsImlhdCI6MTc5NDk5OTU0MiwiZXhwIjoxNzk1MDAwNDQyfQ.zh8E22D93iiCNQf9EGqi_XjPGp6OOGh_61N6kcS8K_0",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNTAiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6ImIyNWJjZDNkZmVlZDE3N2JhZjU2ZTFiMGU4OTdhNjRkIiwiZmFtIjoiM2ZkZDJkOTFjZmIyYzJkMTExNzFhYjJlYWEzMjBlZTYiLCJpYXQiOjE3OTQ5OTk1NDIsImV4cCI6MTc5NTYwNDM0Mn0.ws3QxvEZeeIieiHPAZSIj1o-1pxWAoxpgxDLMRWe-9M",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:59:02 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (38 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiNmM0ODMzOWFmMzc1ZjAxNyIsImlhdCI6MTc5NDk5OTU0MiwiZXhwIjoxNzk1MDAwNDQyfQ.NjUEJmMJ_6DjTDGZ9Jr6Chbqsm8kr8anNCwGJyHNV8I",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI4ZmEwNjdmYjRlYTllNjc0YzdkMTVjNDMzOGRjYTdiMiIsImZhbSI6IjAyMWNiNTA0NjMzYWYzZTM2ZDY2NjUxNTQ2NDFmMDFkIiwiaWF0IjoxNzk0OTk5NTQyLCJleHAiOjE3OTU2MDQzNDJ9.mfT5dFAMj4LXbBhM9U0VvMsOA_G4ted-Wp1sy81JHW0",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:59:02 - INFO - POST http://gateway/api/booking/floors
+{
+  "name": "autotest-floor-733cbcd990",
+  "level": 1,
+  "width": 9900,
+  "height": 9900
+}
+
+<- 201 (7 ms)
+{
+  "id": 66,
+  "name": "autotest-floor-733cbcd990",
+  "level": 1,
+  "width": 9900,
+  "height": 9900
+}
+10:59:02 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 66,
+  "kind": "room",
+  "name": "A-c8c42a713a",
+  "capacity": 6,
+  "x": 0,
+  "y": 0,
+  "w": 10,
+  "h": 10
+}
+
+<- 201 (5 ms)
+{
+  "id": 84,
+  "floor_id": 66,
+  "kind": "room",
+  "name": "A-c8c42a713a",
+  "capacity": 6,
+  "x": 0,
+  "y": 0,
+  "w": 10,
+  "h": 10,
+  "equipment": [],
+  "active": true,
+  "version": 1
+}
+10:59:02 - INFO - POST http://gateway/api/booking/bookings
+{
+  "resource_id": 84,
+  "start": "2026-11-19T10:00:00+03:00",
+  "end": "2026-11-19T11:00:00+03:00"
+}
+
+<- 201 (6 ms)
+{
+  "id": 50,
+  "resource_id": 84,
+  "user_id": 150,
+  "user_email": "employee.317b1e889f@officespace.test",
+  "start": "2026-11-19T07:00:00Z",
+  "end": "2026-11-19T08:00:00Z",
+  "status": "pending",
+  "created_at": "2026-11-18T10:59:02.298809Z",
+  "updated_at": "2026-11-18T10:59:02.301600Z",
+  "cancelled_by": null,
+  "checked_in_at": null
+}
+10:59:02 - INFO - POST http://gateway/api/booking/bookings/50/confirm
+
+
+<- 200 (9 ms)
+{
+  "id": 50,
+  "resource_id": 84,
+  "user_id": 150,
+  "user_email": "employee.317b1e889f@officespace.test",
+  "start": "2026-11-19T07:00:00Z",
+  "end": "2026-11-19T08:00:00Z",
+  "status": "confirmed",
+  "created_at": "2026-11-18T10:59:02.298809Z",
+  "updated_at": "2026-11-18T10:59:02.308863Z",
+  "cancelled_by": null,
+  "checked_in_at": null
+}
+10:59:02 - INFO - SQL: UPDATE booking.bookings SET start_at = now() + make_interval(mins => 20), end_at = now() + make_interval(mins => 20) + '0 days 3600.000000 seconds'::interval WHERE id = 50
+-> 1 rows
+10:59:02 - INFO - POST http://gateway/api/booking/bookings/50/check-in
+
+
+<- 409 (6 ms)
+{
+  "detail": "Отметиться можно с 14:09 до 14:34"
+}

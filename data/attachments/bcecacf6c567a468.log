@@ -1,0 +1,125 @@
+﻿10:59:04 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.cd9786dbce@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (17 ms)
+{
+  "id": 170,
+  "email": "employee.cd9786dbce@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:59:04.671215Z"
+}
+10:59:04 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.cd9786dbce@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (18 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNzAiLCJlbWFpbCI6ImVtcGxveWVlLmNkOTc4NmRiY2VAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiODYxMGE3ODU5MjRlMThmYSIsImlhdCI6MTc5NDk5OTU0NCwiZXhwIjoxNzk1MDAwNDQ0fQ.wDon8ebt1lurWOsbflgHfdXwGfOPC-ELR7I7m8DQ4_E",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNzAiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6ImM3YzY4MzIyMDIyYzBlNTlhNTY0N2NhZjE0ZDAyMDNlIiwiZmFtIjoiZGFkYjNiNGRkOTA5MTk1MTVlZTVkYWQwOTgyYjc4NTIiLCJpYXQiOjE3OTQ5OTk1NDQsImV4cCI6MTc5NTYwNDM0NH0.aY2_0H4hOrYYE9ehOo4-uRLr7ZakqjV59iFtYZKeots",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:59:04 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 75,
+  "kind": "desk",
+  "name": "D1-56a88789dc",
+  "capacity": 1,
+  "x": 77,
+  "y": 0,
+  "w": 10,
+  "h": 10
+}
+
+<- 201 (3 ms)
+{
+  "id": 100,
+  "floor_id": 75,
+  "kind": "desk",
+  "name": "D1-56a88789dc",
+  "capacity": 1,
+  "x": 77,
+  "y": 0,
+  "w": 10,
+  "h": 10,
+  "equipment": [],
+  "active": true,
+  "version": 1
+}
+10:59:04 - INFO - PUT http://stubs:8000/_control/calendar
+{
+  "mode": "ok",
+  "days": {
+    "2026": [
+      {
+        "date": "2026-11-25",
+        "type": "holiday",
+        "title": "День автотеста"
+      },
+      {
+        "date": "2026-11-28",
+        "type": "working",
+        "title": "Перенос"
+      }
+    ],
+    "2027": []
+  }
+}
+
+<- 200 (1 ms)
+{
+  "mode": "ok",
+  "years": [
+    2026,
+    2027
+  ]
+}
+10:59:04 - INFO - POST http://gateway/api/scheduler/jobs/sync-calendar/run
+
+
+<- 200 (20 ms)
+{
+  "job": "sync-calendar",
+  "status": "ok",
+  "trigger": "manual",
+  "started_at": "2026-11-18T10:59:04.698413+00:00",
+  "finished_at": "2026-11-18T10:59:04.716589+00:00",
+  "result": {
+    "job": "sync-calendar",
+    "status": "ok",
+    "years": [
+      2026,
+      2027
+    ],
+    "days": 2
+  }
+}
+10:59:04 - INFO - POST http://gateway/api/booking/bookings
+{
+  "resource_id": 100,
+  "date_from": "2026-11-28",
+  "date_to": "2026-11-28"
+}
+
+<- 201 (5 ms)
+{
+  "id": 63,
+  "resource_id": 100,
+  "user_id": 170,
+  "user_email": "employee.cd9786dbce@officespace.test",
+  "start": "2026-11-27T21:00:00Z",
+  "end": "2026-11-28T21:00:00Z",
+  "status": "pending",
+  "created_at": "2026-11-18T10:59:04.719086Z",
+  "updated_at": "2026-11-18T10:59:04.721337Z",
+  "cancelled_by": null,
+  "checked_in_at": null
+}

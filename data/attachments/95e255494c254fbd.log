@@ -1,0 +1,26 @@
+﻿10:58:56 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.50343bde41@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (20 ms)
+{
+  "id": 47,
+  "email": "employee.50343bde41@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:58:56.007940Z"
+}
+10:58:56 - INFO - POST http://gateway/api/auth/password/reset
+{
+  "token": "df0c1528a28f46a7b3046d888e351a96",
+  "new_password": "NewPassw0rd1"
+}
+
+<- 400 (2 ms)
+{
+  "detail": "Ссылка для сброса недействительна или устарела"
+}

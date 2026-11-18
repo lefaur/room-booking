@@ -1,0 +1,63 @@
+﻿10:58:57 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "facility.6db0840820@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест facility"
+}
+
+<- 201 (23 ms)
+{
+  "id": 64,
+  "email": "facility.6db0840820@officespace.test",
+  "full_name": "Тест facility",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:58:57.010305Z"
+}
+10:58:57 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (26 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiN2ZlNjRlMjA2YzM5MTVkMyIsImlhdCI6MTc5NDk5OTUzNywiZXhwIjoxNzk1MDAwNDM3fQ.WdTX-1EvBi97xshgs1buC6BSg1bRzud_Gpp1ZYgoS-4",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI0OTZhYmRiYTY1ZTNjZWMzZDgxZmEwOGMzMGRjZWIyMiIsImZhbSI6Ijg5NWU4YzcyYTExMmUwNDQ5YzM1NmZhMGM4NmExMjY5IiwiaWF0IjoxNzk0OTk5NTM3LCJleHAiOjE3OTU2MDQzMzd9.iHqywGoyHRVQKcI0584amtqgx1ibQuHj4aZrZL4yhMM",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:58:57 - INFO - PATCH http://gateway/api/auth/users/64
+{
+  "role": "facility"
+}
+
+<- 200 (5 ms)
+{
+  "id": 64,
+  "email": "facility.6db0840820@officespace.test",
+  "full_name": "Тест facility",
+  "role": "facility",
+  "is_active": true,
+  "created_at": "2026-11-18T10:58:57.010305Z"
+}
+10:58:57 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "facility.6db0840820@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (30 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NCIsImVtYWlsIjoiZmFjaWxpdHkuNmRiMDg0MDgyMEBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImZhY2lsaXR5IiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIiwiZmxvb3JzLndyaXRlIiwicmVzb3VyY2VzLndyaXRlIiwic2V0dGluZ3Mud3JpdGUiXSwidHlwZSI6ImFjY2VzcyIsImp0aSI6Ijk3Mjk3NjFhNmU4NTg2OTIiLCJpYXQiOjE3OTQ5OTk1MzcsImV4cCI6MTc5NTAwMDQzN30.swLbLW5fyRfBUOyzpI9qeM6DUBXo9kdDT045LgJW_rc",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NCIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiN2IxODdhNDhiMzQ2YTk3YjI5ZmZkNTBjNjUxOGE5NjIiLCJmYW0iOiJmZjNlMzlmMmUwOWFlMjU5MjA4MmMzN2RiMDIyZjM1ZiIsImlhdCI6MTc5NDk5OTUzNywiZXhwIjoxNzk1NjA0MzM3fQ.JsGIUEQHkVDDTuWTtIYAOz0MyCCV-qJC1ZQhr_vBq5g",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:58:57 - INFO - POST http://gateway/api/booking/jobs/expire-pending
+
+
+<- 403 (4 ms)
+{
+  "detail": "Нет прав: jobs.run"
+}

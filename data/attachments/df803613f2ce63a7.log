@@ -1,0 +1,74 @@
+﻿10:58:59 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.fa095607f7@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (23 ms)
+{
+  "id": 87,
+  "email": "employee.fa095607f7@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:58:59.398964Z"
+}
+10:58:59 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.fa095607f7@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (29 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NyIsImVtYWlsIjoiZW1wbG95ZWUuZmEwOTU2MDdmN0BvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiIxMmI5YWZmYzZhNjI3YmIzIiwiaWF0IjoxNzk0OTk5NTM5LCJleHAiOjE3OTUwMDA0Mzl9._h9KmsA455tXuyQZLYJoaqDOJN2cJwYQ7L_Udriu3Lg",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NyIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiMjA4ZWEyYTM2MTQwYmY2MDAzODE3MDhjOWI4NjlkOTAiLCJmYW0iOiJiZjQ4MzZiYTIxZDY2NWM4Yzk3YmY0Mzg4MGFkMDcwZSIsImlhdCI6MTc5NDk5OTUzOSwiZXhwIjoxNzk1NjA0MzM5fQ.Dm6tTtHVWBk8y-05Dg1FHBiz-fi3lszwpQGs26nEVp8",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:58:59 - INFO - POST http://stubs:8000/_control/telegram/messages
+{
+  "chat_id": 248771827014,
+  "text": "/my"
+}
+
+<- 200 (1 ms)
+{
+  "update_id": 20,
+  "message": {
+    "message_id": 37,
+    "date": 1794999539,
+    "text": "/my",
+    "chat": {
+      "id": 248771827014,
+      "type": "private"
+    },
+    "from": {
+      "id": 248771827014,
+      "is_bot": false,
+      "username": "tester"
+    }
+  }
+}
+10:58:59 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=248771827014
+
+
+<- 200 (1 ms)
+[]
+10:58:59 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=248771827014
+
+
+<- 200 (1 ms)
+[
+  {
+    "message_id": 38,
+    "chat": {
+      "id": 248771827014,
+      "type": "private"
+    },
+    "date": 1794999539,
+    "text": "Аккаунт не привязан. Отправьте /start <код> из приложения.",
+    "reply_markup": null
+  }
+]

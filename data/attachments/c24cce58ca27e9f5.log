@@ -1,0 +1,63 @@
+﻿10:58:56 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "manager.1f6b7327fb@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест manager"
+}
+
+<- 201 (19 ms)
+{
+  "id": 60,
+  "email": "manager.1f6b7327fb@officespace.test",
+  "full_name": "Тест manager",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:58:56.804559Z"
+}
+10:58:56 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (22 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiZGM5MTU0ODlkMmE2MmUxMCIsImlhdCI6MTc5NDk5OTUzNiwiZXhwIjoxNzk1MDAwNDM2fQ.Vcv2WL5T-NeJdeAKkBgP8DaJTju6JBpIyqc9aRLX3uc",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI2NzEyOGI4OGFiNTIwM2E5YjhhNjdkOTgyODFhNzRmZSIsImZhbSI6ImQ5MWVjNmQ1OTEzYWQxOGFlNGYxYmYyODY4NWQ2ZjA3IiwiaWF0IjoxNzk0OTk5NTM2LCJleHAiOjE3OTU2MDQzMzZ9.xckBheMxnSsnQ47Q-s4F0HwVlR6_0P5LTMr0Fs4FRk4",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:58:56 - INFO - PATCH http://gateway/api/auth/users/60
+{
+  "role": "manager"
+}
+
+<- 200 (6 ms)
+{
+  "id": 60,
+  "email": "manager.1f6b7327fb@officespace.test",
+  "full_name": "Тест manager",
+  "role": "manager",
+  "is_active": true,
+  "created_at": "2026-11-18T10:58:56.804559Z"
+}
+10:58:56 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "manager.1f6b7327fb@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (41 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MCIsImVtYWlsIjoibWFuYWdlci4xZjZiNzMyN2ZiQG9mZmljZXNwYWNlLnRlc3QiLCJyb2xlIjoibWFuYWdlciIsInBlcm1zIjpbImJvb2tpbmdzLmNhbmNlbF9hbnkiLCJib29raW5ncy5jcmVhdGUiLCJib29raW5ncy5yZWFkX2FsbCJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiODVhMWRlNzdjYzE1MWE1ZSIsImlhdCI6MTc5NDk5OTUzNiwiZXhwIjoxNzk1MDAwNDM2fQ.QtF69gqzlMD1nHyS4MJRP2GtD69fOsar31-CHJtAa6s",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MCIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiZjg1M2U1NWUzNzcxMWIxZmIyNTUzNWJiZDY0MjMyMWMiLCJmYW0iOiJiYmM5M2IyN2MxYTI0YTVjMzYxOThjOTc3MGRjMGI4YyIsImlhdCI6MTc5NDk5OTUzNiwiZXhwIjoxNzk1NjA0MzM2fQ.ePajJ2UKjhUYaawCS6-_pbxw5MOr4Z9_KGEDoBdRlWg",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:58:56 - INFO - PUT http://gateway/api/booking/settings
+{}
+
+<- 403 (2 ms)
+{
+  "detail": "Нет прав: settings.write"
+}

@@ -1,0 +1,61 @@
+﻿10:59:02 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.285eacc396@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (30 ms)
+{
+  "id": 161,
+  "email": "employee.285eacc396@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-18T10:59:02.944103Z"
+}
+10:59:02 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.285eacc396@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (27 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNjEiLCJlbWFpbCI6ImVtcGxveWVlLjI4NWVhY2MzOTZAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiOGNlZDE2MjlhMDkyOTk4OSIsImlhdCI6MTc5NDk5OTU0MiwiZXhwIjoxNzk1MDAwNDQyfQ._Sb0q4upXo65_-uiB6rYxMV_jOmJaoWfy-rNKTvSXEY",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxNjEiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6ImVhYTVkNjU0ZTgyMTI0ZTU2MzVkOTRlNjczZTkzMmU5IiwiZmFtIjoiOWY2NTJiY2Y4MjkxMWUwZThlZjI1NzI3MDE0NGU2MGUiLCJpYXQiOjE3OTQ5OTk1NDIsImV4cCI6MTc5NTYwNDM0Mn0.lrM-PtJQYuVuX-2r-mS4OwJsnY9iFGlJjmLwQzYCmvs",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:59:02 - INFO - SQL: UPDATE auth.refresh_tokens SET expires_at = now() - interval '1 day' WHERE user_id = 161
+-> 1 rows
+10:59:03 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (29 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiYTU3ZDFmY2MwZTI4NDBjMSIsImlhdCI6MTc5NDk5OTU0MywiZXhwIjoxNzk1MDAwNDQzfQ.-fqICZ1-ZzTePi5o1eV6baac8DDWmit9OiCvq_zQsWc",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI0NzFiNGE1N2ZkZjFjNzczMDZjMjZlYzY4ZTI5YzgwMSIsImZhbSI6ImM3ZGQ1MGEyZDAxZmRlMmIzNjA0YWFjMDY4NjYyYjNhIiwiaWF0IjoxNzk0OTk5NTQzLCJleHAiOjE3OTU2MDQzNDN9.65RKLaO7JeSaWX6CfFa-5I7oxGTjzqlqo4q_gOAeGfg",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+10:59:03 - INFO - POST http://gateway/api/scheduler/jobs/cleanup-tokens/run
+
+
+<- 200 (14 ms)
+{
+  "job": "cleanup-tokens",
+  "status": "ok",
+  "trigger": "manual",
+  "started_at": "2026-11-18T10:59:03.010607+00:00",
+  "finished_at": "2026-11-18T10:59:03.023600+00:00",
+  "result": {
+    "refresh_tokens_deleted": 1,
+    "password_resets_deleted": 1
+  }
+}
+10:59:03 - INFO - SQL: SELECT count(*) AS n FROM auth.refresh_tokens WHERE user_id = 161
+-> [{'n': 0}]
