@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
+import { labelSize } from "../resources";
 import type { Floor, MapResource } from "../types";
 
 const props = defineProps<{ floor: Floor; resources: MapResource[]; selectedId: number | null }>();
@@ -48,7 +49,15 @@ function pick(resource: MapResource) {
         :height="res.h"
         :rx="res.kind === 'desk' ? fontSize / 3 : fontSize / 2"
       />
-      <text class="res-label" :x="res.x + res.w / 2" :y="res.y + res.h / 2" :font-size="fontSize">
+      <title>{{ res.name }}</title>
+      <text
+        v-if="labelSize(res.name, res.w, res.h, fontSize)"
+        class="res-label"
+        data-testid="map-resource-label"
+        :x="res.x + res.w / 2"
+        :y="res.y + res.h / 2"
+        :font-size="labelSize(res.name, res.w, res.h, fontSize)!"
+      >
         {{ res.name }}
       </text>
     </g>

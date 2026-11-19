@@ -10,7 +10,7 @@ from sqlalchemy import exists, func, select, text
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from booking import calendar_sync, config, logic, schemas
+from booking import calendar_sync, config, demo, logic, schemas
 from booking.db import Base, SessionLocal, engine, get_db
 from booking.events import confirm_deadline, emit, outbox
 from booking.logic import settings_map
@@ -42,6 +42,8 @@ def init_db() -> None:
             if not db.get(Setting, key):
                 db.add(Setting(key=key, value=value))
         db.commit()
+        if config.DEMO_DATA:
+            demo.ensure_demo_floor(db)
 
 
 @asynccontextmanager

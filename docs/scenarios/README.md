@@ -7,3 +7,4 @@
 | Текстовый сценарий | Автотест |
 |---|---|
 | [ui/booking.md](ui/booking.md) | `tests/features/ui/booking.feature` |
+| [ui/map_labels.md](ui/map_labels.md) | `tests/features/ui/map_labels.feature` |

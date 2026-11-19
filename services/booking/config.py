@@ -4,6 +4,9 @@ from zoneinfo import ZoneInfo
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+psycopg2://officespace:officespace@localhost:5433/officespace")
 ROOT_PATH = os.getenv("ROOT_PATH", "")
 
+# демо-этаж при старте (booking/demo.py) — чтобы стенд, открытый руками, не был пустым
+DEMO_DATA = os.getenv("DEMO_DATA", "").lower() in ("1", "true", "yes")
+
 # часовой пояс офиса: в нём считаются «сегодня» и границы дней для рабочих мест
 OFFICE_TZ = ZoneInfo(os.getenv("OFFICE_TZ", "Europe/Moscow"))
 

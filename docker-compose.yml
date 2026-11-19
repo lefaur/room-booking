@@ -71,6 +71,7 @@ services:
       <<: *service-env
       ROOT_PATH: /api/booking
       CALENDAR_URL: http://stubs:8000/calendar
+      DEMO_DATA: "1"
     depends_on:
       db: {condition: service_healthy}
       rabbitmq: {condition: service_healthy}

@@ -95,7 +95,7 @@ tests/
 
 ![Упавший UI-сценарий в Allure: скриншот, трасса и журнал страницы во вложениях](docs/img/allure-attachments.png)
 
-158 сценариев (132 API и 26 UI), полный прогон с чистого стенда — около минуты.
+159 сценариев (132 API и 27 UI), полный прогон с чистого стенда — около минуты.
 
 Что показывают сценарии:
 
@@ -137,7 +137,7 @@ docker compose run --rm tests behave features/booking/race.feature   # один 
 docker compose run --rm allure                            # HTML-отчёт: reports/allure-report/index.html
 ```
 
-Веб-интерфейс: http://localhost:8080 (администратор `admin@officespace.test` / `Admin12345`). Для разработки фронтенда: `cd web && npm install && npm run dev` (vite проксирует `/api` на gateway).
+Веб-интерфейс: http://localhost:8080 (администратор `admin@officespace.test` / `Admin12345`). При старте создаётся демо-этаж «Офис, 3 этаж (демо)» с переговорками и местами (`DEMO_DATA=1` в `docker-compose.yml`), чтобы карта не была пустой; тесты работают на своих этажах и его не трогают. Для разработки фронтенда: `cd web && npm install && npm run dev` (vite проксирует `/api` на gateway).
 
 Отчёты: `reports/allure-results` (сырые результаты Allure; к каждому сценарию приложен лог HTTP-запросов и SQL), `reports/allure-report/index.html` (готовый отчёт одним файлом), `reports/ui-failures/` (артефакты упавших UI-сценариев). Как их читать — в [docs/FRAMEWORK.md](docs/FRAMEWORK.md).
 

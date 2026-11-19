@@ -4,6 +4,7 @@ import { useRoute, useRouter } from "vue-router";
 
 import { ApiError, del, get, patch, post, query } from "../../api";
 import { EQUIPMENT_LABELS } from "../../labels";
+import { labelSize } from "../../resources";
 import { notify, notifyError } from "../../toasts";
 import type { Floor, Resource, ResourceKind } from "../../types";
 
@@ -257,7 +258,14 @@ function toggleEquipment(item: string, on: boolean) {
             style="cursor: move"
             @pointerdown.prevent="startDrag($event, r, 'move')"
           />
-          <text class="res-label" :x="view(r).x + view(r).w / 2" :y="view(r).y + view(r).h / 2" :font-size="fontSize">
+          <title>{{ view(r).name }}</title>
+          <text
+            v-if="labelSize(view(r).name, view(r).w, view(r).h, fontSize)"
+            class="res-label"
+            :x="view(r).x + view(r).w / 2"
+            :y="view(r).y + view(r).h / 2"
+            :font-size="labelSize(view(r).name, view(r).w, view(r).h, fontSize)!"
+          >
             {{ view(r).name }}
           </text>
           <rect

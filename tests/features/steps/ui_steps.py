@@ -458,3 +458,54 @@ def step_ui_no_horizontal_scroll(context):
     width = page.evaluate("document.documentElement.scrollWidth")
     viewport = page.viewport_size["width"]
     assert width <= viewport, f"Горизонтальная прокрутка: ширина страницы {width}px при экране {viewport}px"
+
+
+# --- подписи на плане ---
+
+LABEL_BOXES_JS = """() => [...document.querySelectorAll('[data-testid="map-resource"]')].map(g => {
+  const rect = g.querySelector('rect').getBBox();
+  const text = g.querySelector('text');
+  const box = text ? text.getBBox() : null;
+  return {name: g.dataset.name, rect: {x: rect.x, y: rect.y, w: rect.width, h: rect.height},
+          label: box && {x: box.x, y: box.y, w: box.width, h: box.height}};
+})"""
+
+
+def _label_boxes(context) -> dict:
+    return {item["name"]: item for item in _page(context).evaluate(LABEL_BOXES_JS)}
+
+
+@step('на карте подписаны {labels}')
+def step_ui_labels_shown(context, labels):
+    for label in re.findall(r'"([^"]+)"', labels):
+        name = _name(context, label)
+        expect(MapPage(_page(context)).resource(name).get_by_test_id("map-resource-label")).to_have_text(name)
+
+
+@step('у "{label}" на карте нет подписи, название — во всплывающей подсказке')
+def step_ui_label_hidden(context, label):
+    name = _name(context, label)
+    resource = MapPage(_page(context)).resource(name)
+    expect(resource.get_by_test_id("map-resource-label")).to_have_count(0)
+    expect(resource.locator("title")).to_have_text(name)
+
+
+@step("подписи на карте не выходят за свои ресурсы и не пересекаются")
+def step_ui_labels_fit(context):
+    """Рамки в единицах плана (getBBox); полпункта допуска на сглаживание шрифта."""
+    tol = 0.5
+    labelled = [i for i in _label_boxes(context).values() if i["label"]]
+    assert labelled, "На карте нет ни одной подписи"
+    problems = []
+    for item in labelled:
+        r, t = item["rect"], item["label"]
+        if (t["x"] < r["x"] - tol or t["y"] < r["y"] - tol
+                or t["x"] + t["w"] > r["x"] + r["w"] + tol or t["y"] + t["h"] > r["y"] + r["h"] + tol):
+            problems.append(f"{item['name']}: подпись {t} выходит за ресурс {r}")
+    for i, a in enumerate(labelled):
+        for b in labelled[i + 1:]:
+            p, q = a["label"], b["label"]
+            if (p["x"] + tol < q["x"] + q["w"] and q["x"] + tol < p["x"] + p["w"]
+                    and p["y"] + tol < q["y"] + q["h"] and q["y"] + tol < p["y"] + p["h"]):
+                problems.append(f"подписи {a['name']} и {b['name']} пересекаются")
+    assert not problems, "\n".join(problems)
