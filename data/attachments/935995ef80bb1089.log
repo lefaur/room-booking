@@ -1,0 +1,48 @@
+﻿10:49:06 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.4ce03600a8@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (33 ms)
+{
+  "id": 97,
+  "email": "employee.4ce03600a8@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-19T10:49:06.303252Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.4ce03600a8@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+10:49:06 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 97
+-> [{'password_hash': 'pbkdf2_sha256$100000$5fa2c3ff65565409ca97b2c6def85a27$bcc2de8f4652db75378d23b264666f16dc82f1f38a5e4ebe6eaadf6b92a5cd6d'}]
+10:49:06 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 2 мс
+10:49:06 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.b190e8ca83@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (168 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5OCIsImVtYWlsIjoiZW1wbG95ZWUuYjE5MGU4Y2E4M0BvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiJmNmVmNTJkYWVkNWU4M2ViIiwiaWF0IjoxNzk1MDg1MzQ2LCJleHAiOjE3OTUwODYyNDZ9.tf7zMBrlrs7J0H8iycoOnSac0eUAw8X6n1DRAKzog0c",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5OCIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiM2ZiY2RiZTcxNTY2NmFhZjNmNDJmNjBkZjc5ZDM0NGQiLCJmYW0iOiIwYzkwMTg3YTg5MWUwZmQ1ZmI2Y2VkODk3NTc4MThhYSIsImlhdCI6MTc5NTA4NTM0NiwiZXhwIjoxNzk1NjkwMTQ2fQ.fbSgvwFWrN3fD9cwvCVgGmUFXZ6tepxpAyJEWvSwYN4",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.b190e8ca83@officespace.test", "password": "Passw0rd123"}'
+10:49:06 - INFO - GET http://gateway/api/auth/me
+
+
+<- 401 (6 ms)
+{
+  "detail": "Неверный тип токена"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET http://gateway/api/auth/me -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI5OCIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiM2ZiY2RiZTcxNTY2NmFhZjNmNDJmNjBkZjc5ZDM0NGQiLCJmYW0iOiIwYzkwMTg3YTg5MWUwZmQ1ZmI2Y2VkODk3NTc4MThhYSIsImlhdCI6MTc5NTA4NTM0NiwiZXhwIjoxNzk1NjkwMTQ2fQ.fbSgvwFWrN3fD9cwvCVgGmUFXZ6tepxpAyJEWvSwYN4'

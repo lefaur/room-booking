@@ -1,0 +1,50 @@
+﻿10:49:08 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.a039036460@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (33 ms)
+{
+  "id": 150,
+  "email": "employee.a039036460@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-19T10:49:08.423170Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.a039036460@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+10:49:08 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 150
+-> [{'password_hash': 'pbkdf2_sha256$100000$4c4c644362ff110b7dbeb65af0210330$43f6f989850b24d353a1067625cff9d5224573b54c0c643b4fb0dce7440f4686'}]
+10:49:08 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 5 мс
+10:49:08 - INFO - POST http://gateway/api/auth/password/forgot
+{
+  "email": "nobody.296bb1d76d@officespace.test"
+}
+
+<- 202 (4 ms)
+{
+  "detail": "Если такой email зарегистрирован, мы отправили письмо со ссылкой для сброса пароля"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/password/forgot -H 'Content-Type: application/json' --data-raw '{"email": "nobody.296bb1d76d@officespace.test"}'
+10:49:08 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22nobody.296bb1d76d%40officespace.test%22&limit=50
+
+
+<- 200 (3 ms)
+{
+  "total": 110,
+  "unread": 105,
+  "count": 0,
+  "messages_count": 0,
+  "start": 0,
+  "tags": [],
+  "messages": []
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://mailpit:8025/api/v1/search?query=to%3A%22nobody.296bb1d76d%40officespace.test%22&limit=50'

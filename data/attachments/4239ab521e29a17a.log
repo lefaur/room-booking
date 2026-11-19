@@ -1,0 +1,38 @@
+﻿10:49:09 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (21 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiY2JkNDc0ZmJiMzVlM2IwMiIsImlhdCI6MTc5NTA4NTM0OSwiZXhwIjoxNzk1MDg2MjQ5fQ.UmawIkBoouuhY-mR8tmnCTHcRzOgnCYrphTVPNKP7uw",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI3YWE0OGIzYjUyMGZiM2UxMTY2NWFjNzAzNzE2YTU2YiIsImZhbSI6IjBlMTZhYWFlMzY1YzA4ODQwMDhlZDBkZWNkMjAxNmJkIiwiaWF0IjoxNzk1MDg1MzQ5LCJleHAiOjE3OTU2OTAxNDl9.3UU0NTgd3S5CtO-JGHAz5Hsq_-o2jIhjl41Svv91HE8",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "admin@officespace.test", "password": "Admin12345"}'
+10:49:09 - INFO - POST http://gateway/api/scheduler/jobs/expire-pending/run
+
+
+<- 200 (13 ms)
+{
+  "job": "expire-pending",
+  "status": "ok",
+  "trigger": "manual",
+  "started_at": "2026-11-19T10:49:09.698832+00:00",
+  "finished_at": "2026-11-19T10:49:09.710357+00:00",
+  "result": {
+    "job": "expire-pending",
+    "status": "ok",
+    "run_id": 4,
+    "expired": 0
+  }
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/scheduler/jobs/expire-pending/run -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiY2JkNDc0ZmJiMzVlM2IwMiIsImlhdCI6MTc5NTA4NTM0OSwiZXhwIjoxNzk1MDg2MjQ5fQ.UmawIkBoouuhY-mR8tmnCTHcRzOgnCYrphTVPNKP7uw'
+10:49:09 - INFO - SQL: SELECT job, status, details FROM booking.job_runs WHERE id = 4
+-> [{'job': 'expire-pending', 'status': 'ok', 'details': {'expired': 0}}]

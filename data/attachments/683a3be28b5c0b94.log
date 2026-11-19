@@ -1,0 +1,40 @@
+﻿10:49:06 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.10bed1fd2b@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (34 ms)
+{
+  "id": 101,
+  "email": "employee.10bed1fd2b@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-19T10:49:06.569866Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.10bed1fd2b@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+10:49:06 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 101
+-> [{'password_hash': 'pbkdf2_sha256$100000$a4a17e34d4f48633c90c880c59169137$d241da60e7d624fe735f1fbd319b29fd035bee48633949c26ee03a9e5fca038f'}]
+10:49:06 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 30 мс
+10:49:06 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.5513e2ee1f@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (23 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDIiLCJlbWFpbCI6ImVtcGxveWVlLjU1MTNlMmVlMWZAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiYjJiYjg2ZmE0OGYxZjUwMiIsImlhdCI6MTc5NTA4NTM0NiwiZXhwIjoxNzk1MDg2MjQ2fQ.tbplGSgYdgqNz2i1PjprqsUaiP5l4sg-rxi_est4qkE",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDIiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6IjMwYzE5ZmZhMjliMTk0MjM4YjMzMjg0ZDY3OTQwYWVjIiwiZmFtIjoiMzhjY2NhNjU0YjVhNTA2MmM3MzU2NTE0NzM2MjhjNGMiLCJpYXQiOjE3OTUwODUzNDYsImV4cCI6MTc5NTY5MDE0Nn0.LqXMnCc0eYD3bIJravOBdVJVjCc-D5i-IstE8B6LW60",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.5513e2ee1f@officespace.test", "password": "Passw0rd123"}'
+10:49:06 - INFO - SQL: SELECT success, user_id, ip FROM auth.login_events WHERE email = 'employee.5513e2ee1f@officespace.test' ORDER BY id DESC LIMIT 1
+-> [{'success': True, 'user_id': 102, 'ip': '172.18.0.13'}]

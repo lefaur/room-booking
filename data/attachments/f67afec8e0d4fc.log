@@ -1,0 +1,196 @@
+﻿10:48:46 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.6a0bb76f9f@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (40 ms)
+{
+  "id": 2,
+  "email": "employee.6a0bb76f9f@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-19T10:48:46.763116Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.6a0bb76f9f@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+10:48:46 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 2
+-> [{'password_hash': 'pbkdf2_sha256$100000$7896f7e745ca4c24476d6a390c26dab1$0613c1fa695925e5ae2cdd4a24a76c344e27751555064f5cd271e0a386ca74c2'}]
+10:48:46 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 3 мс
+10:48:46 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.7d32e4e155@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (42 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2IiwiZW1haWwiOiJlbXBsb3llZS43ZDMyZTRlMTU1QG9mZmljZXNwYWNlLnRlc3QiLCJyb2xlIjoiZW1wbG95ZWUiLCJwZXJtcyI6WyJib29raW5ncy5jcmVhdGUiXSwidHlwZSI6ImFjY2VzcyIsImp0aSI6IjA1MWEzMzUxMWI2ZTc2OGQiLCJpYXQiOjE3OTUwODUzMjYsImV4cCI6MTc5NTA4NjIyNn0.NT62RcsUB32fDUlJmqPkFzuyffzcoLTxHo2SUSn7I1g",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2IiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiIwN2NhYjIxMDRiYTRiMWFlYmU0NzFlYjg1MzI0MDZhNSIsImZhbSI6IjY5OWJkOTcwYmYyOTU1ZGY4MThhYWQ0ZDE0MjY0MzgyIiwiaWF0IjoxNzk1MDg1MzI2LCJleHAiOjE3OTU2OTAxMjZ9.xZzKpK8a-yMVzgP55bleFnIWcqZI-wh1C7ak_w_Neu8",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.7d32e4e155@officespace.test", "password": "Passw0rd123"}'
+10:48:46 - INFO - POST http://gateway/api/tg/link-code
+
+
+<- 201 (39 ms)
+{
+  "code": "ACCD50F6",
+  "expires_at": "2026-11-19T10:58:46.858993+00:00",
+  "command": "/start ACCD50F6"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/tg/link-code -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2IiwiZW1haWwiOiJlbXBsb3llZS43ZDMyZTRlMTU1QG9mZmljZXNwYWNlLnRlc3QiLCJyb2xlIjoiZW1wbG95ZWUiLCJwZXJtcyI6WyJib29raW5ncy5jcmVhdGUiXSwidHlwZSI6ImFjY2VzcyIsImp0aSI6IjA1MWEzMzUxMWI2ZTc2OGQiLCJpYXQiOjE3OTUwODUzMjYsImV4cCI6MTc5NTA4NjIyNn0.NT62RcsUB32fDUlJmqPkFzuyffzcoLTxHo2SUSn7I1g'
+10:48:46 - INFO - POST http://stubs:8000/_control/telegram/messages
+{
+  "chat_id": 163953000863,
+  "text": "/start ACCD50F6"
+}
+
+<- 200 (6 ms)
+{
+  "update_id": 3,
+  "message": {
+    "message_id": 3,
+    "date": 1795085326,
+    "text": "/start ACCD50F6",
+    "chat": {
+      "id": 163953000863,
+      "type": "private"
+    },
+    "from": {
+      "id": 163953000863,
+      "is_bot": false,
+      "username": "tester"
+    }
+  }
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://stubs:8000/_control/telegram/messages -H 'Content-Type: application/json' --data-raw '{"chat_id": 163953000863, "text": "/start ACCD50F6"}'
+10:48:46 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=163953000863
+
+
+<- 200 (2 ms)
+[]
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://stubs:8000/_control/telegram/sent?chat_id=163953000863'
+10:48:47 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=163953000863
+
+
+<- 200 (2 ms)
+[
+  {
+    "message_id": 7,
+    "chat": {
+      "id": 163953000863,
+      "type": "private"
+    },
+    "date": 1795085326,
+    "text": "Готово! Аккаунт employee.7d32e4e155@officespace.test привязан. Сюда будут приходить уведомления о бронях.",
+    "reply_markup": null
+  }
+]
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://stubs:8000/_control/telegram/sent?chat_id=163953000863'
+10:48:47 - INFO - GET http://gateway/api/tg/link
+
+
+<- 200 (6 ms)
+{
+  "chat_id": 163953000863,
+  "username": "tester",
+  "linked_at": "2026-11-19T10:48:46.943810+00:00"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET http://gateway/api/tg/link -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2IiwiZW1haWwiOiJlbXBsb3llZS43ZDMyZTRlMTU1QG9mZmljZXNwYWNlLnRlc3QiLCJyb2xlIjoiZW1wbG95ZWUiLCJwZXJtcyI6WyJib29raW5ncy5jcmVhdGUiXSwidHlwZSI6ImFjY2VzcyIsImp0aSI6IjA1MWEzMzUxMWI2ZTc2OGQiLCJpYXQiOjE3OTUwODUzMjYsImV4cCI6MTc5NTA4NjIyNn0.NT62RcsUB32fDUlJmqPkFzuyffzcoLTxHo2SUSn7I1g'
+10:48:47 - INFO - GET http://mailpit:8025/api/v1/search?query=to%3A%22employee.7d32e4e155%40officespace.test%22&limit=50
+
+
+<- 200 (11 ms)
+{
+  "total": 7,
+  "unread": 7,
+  "count": 1,
+  "messages_count": 1,
+  "start": 0,
+  "tags": [],
+  "messages": [
+    {
+      "ID": "7Cfjx4WjPTWUfZ36fe5VEy",
+      "MessageID": "VjJrVY32GfGSXUmp5MT9Ck@mailpit",
+      "Read": false,
+      "From": {
+        "Name": "OfficeSpace",
+        "Address": "no-reply@officespace.test"
+      },
+      "To": [
+        {
+          "Name": "",
+          "Address": "employee.7d32e4e155@officespace.test"
+        }
+      ],
+      "Cc": [],
+      "Bcc": [],
+      "ReplyTo": [],
+      "Subject": "Telegram привязан",
+      "Created": "2026-11-19T10:48:46.996Z",
+      "Tags": [],
+      "Size": 778,
+      "Attachments": 0,
+      "Snippet": "К аккаунту employee.7d32e4e155@officespace.test привязан Telegram. Если это были не вы, напишите в поддержку."
+    }
+  ]
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://mailpit:8025/api/v1/search?query=to%3A%22employee.7d32e4e155%40officespace.test%22&limit=50'
+10:48:47 - INFO - GET http://mailpit:8025/api/v1/message/7Cfjx4WjPTWUfZ36fe5VEy
+
+
+<- 200 (3 ms)
+{
+  "ID": "7Cfjx4WjPTWUfZ36fe5VEy",
+  "MessageID": "VjJrVY32GfGSXUmp5MT9Ck@mailpit",
+  "From": {
+    "Name": "OfficeSpace",
+    "Address": "no-reply@officespace.test"
+  },
+  "To": [
+    {
+      "Name": "",
+      "Address": "employee.7d32e4e155@officespace.test"
+    }
+  ],
+  "Cc": [],
+  "Bcc": [],
+  "ReplyTo": [],
+  "ReturnPath": "no-reply@officespace.test",
+  "Subject": "Telegram привязан",
+  "ListUnsubscribe": {
+    "Header": "",
+    "Links": [],
+    "Errors": "",
+    "HeaderPost": ""
+  },
+  "Date": "2026-11-19T10:48:46.996Z",
+  "Tags": [],
+  "Text": "К аккаунту employee.7d32e4e155@officespace.test привязан Telegram. Если это были не вы, напишите в поддержку.\n",
+  "HTML": "",
+  "Size": 778,
+  "Inline": [],
+  "Attachments": []
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET http://mailpit:8025/api/v1/message/7Cfjx4WjPTWUfZ36fe5VEy

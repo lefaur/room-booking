@@ -1,0 +1,26 @@
+﻿10:49:09 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "admin@officespace.test",
+  "password": "Admin12345"
+}
+
+<- 200 (22 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiY2ZjNDczMDU0M2IzZDkwMSIsImlhdCI6MTc5NTA4NTM0OSwiZXhwIjoxNzk1MDg2MjQ5fQ.NrVuzxZ6sckcB6OZqr6Dm9Kbnv6mvIOagNYJIykf8pU",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI5ZmYxMzc5N2FiZmNjYjU4NWVkM2NiNDMzMTQyMzAxZCIsImZhbSI6ImZkZTUzYWM3YjYwODQ3YzhkZjUzOGQxMGIwMDQ1NDQ5IiwiaWF0IjoxNzk1MDg1MzQ5LCJleHAiOjE3OTU2OTAxNDl9.oKldDrS9VThs4wcFwyB3owU0Bu0YIt2Cox7BZNtxlx0",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "admin@officespace.test", "password": "Admin12345"}'
+10:49:09 - INFO - POST http://gateway/api/scheduler/jobs/make-coffee/run
+
+
+<- 404 (2 ms)
+{
+  "detail": "Нет джобы make-coffee"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/scheduler/jobs/make-coffee/run -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJhZG1pbkBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImFkbWluIiwicGVybXMiOlsiYm9va2luZ3MuY2FuY2VsX2FueSIsImJvb2tpbmdzLmNyZWF0ZSIsImJvb2tpbmdzLnJlYWRfYWxsIiwiZmxvb3JzLndyaXRlIiwiam9icy5ydW4iLCJyZXNvdXJjZXMud3JpdGUiLCJzZXR0aW5ncy53cml0ZSIsInVzZXJzLm1hbmFnZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiY2ZjNDczMDU0M2IzZDkwMSIsImlhdCI6MTc5NTA4NTM0OSwiZXhwIjoxNzk1MDg2MjQ5fQ.NrVuzxZ6sckcB6OZqr6Dm9Kbnv6mvIOagNYJIykf8pU'

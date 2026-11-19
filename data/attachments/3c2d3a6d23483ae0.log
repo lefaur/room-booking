@@ -1,0 +1,158 @@
+﻿10:49:06 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.6edd18248a@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (34 ms)
+{
+  "id": 106,
+  "email": "employee.6edd18248a@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-19T10:49:06.731329Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.6edd18248a@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+10:49:06 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 106
+-> [{'password_hash': 'pbkdf2_sha256$100000$45e74ecf3598a3de0dd4990ebd53735e$2c59eb6984068a5bcb413564f98ff983a1bc4536216271a9e2c386c7333130f4'}]
+10:49:06 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 2 мс
+10:49:06 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.153f69382b@officespace.test",
+  "password": "Wrong12345"
+}
+
+<- 401 (29 ms)
+{
+  "detail": "Неверный email или пароль"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.153f69382b@officespace.test", "password": "Wrong12345"}'
+10:49:06 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.153f69382b@officespace.test",
+  "password": "Wrong12345"
+}
+
+<- 401 (21 ms)
+{
+  "detail": "Неверный email или пароль"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.153f69382b@officespace.test", "password": "Wrong12345"}'
+10:49:06 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.153f69382b@officespace.test",
+  "password": "Wrong12345"
+}
+
+<- 401 (25 ms)
+{
+  "detail": "Неверный email или пароль"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.153f69382b@officespace.test", "password": "Wrong12345"}'
+10:49:06 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.153f69382b@officespace.test",
+  "password": "Wrong12345"
+}
+
+<- 401 (30 ms)
+{
+  "detail": "Неверный email или пароль"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.153f69382b@officespace.test", "password": "Wrong12345"}'
+10:49:06 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.153f69382b@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (34 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDkiLCJlbWFpbCI6ImVtcGxveWVlLjE1M2Y2OTM4MmJAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiZjFkYWVkNTE2NjNhNzA1MyIsImlhdCI6MTc5NTA4NTM0NiwiZXhwIjoxNzk1MDg2MjQ2fQ.p2dyWdyHht25eWnkZUv4a2NqY-qKAHND2tTgy0sG-IA",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDkiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6IjJkYzk5Y2Y3ZTVmYjhjZmNhZDgyNmU0Nzk3MWQwOTdkIiwiZmFtIjoiZmFmYjllMmIwNzY3MDJiZTcxYzdhOTRkNDE2NmQyYzciLCJpYXQiOjE3OTUwODUzNDYsImV4cCI6MTc5NTY5MDE0Nn0.0UcodqKNQQbHl8cEeH32uIehZUTgLpmsKnrngbQ4GQU",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.153f69382b@officespace.test", "password": "Passw0rd123"}'
+10:49:06 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.153f69382b@officespace.test",
+  "password": "Wrong12345"
+}
+
+<- 401 (35 ms)
+{
+  "detail": "Неверный email или пароль"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.153f69382b@officespace.test", "password": "Wrong12345"}'
+10:49:07 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.153f69382b@officespace.test",
+  "password": "Wrong12345"
+}
+
+<- 401 (111 ms)
+{
+  "detail": "Неверный email или пароль"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.153f69382b@officespace.test", "password": "Wrong12345"}'
+10:49:07 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.153f69382b@officespace.test",
+  "password": "Wrong12345"
+}
+
+<- 401 (38 ms)
+{
+  "detail": "Неверный email или пароль"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.153f69382b@officespace.test", "password": "Wrong12345"}'
+10:49:07 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.153f69382b@officespace.test",
+  "password": "Wrong12345"
+}
+
+<- 401 (31 ms)
+{
+  "detail": "Неверный email или пароль"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.153f69382b@officespace.test", "password": "Wrong12345"}'
+10:49:07 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.153f69382b@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (38 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDkiLCJlbWFpbCI6ImVtcGxveWVlLjE1M2Y2OTM4MmJAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiM2IxMDkzNjMwYTkxZTU5MCIsImlhdCI6MTc5NTA4NTM0NywiZXhwIjoxNzk1MDg2MjQ3fQ.NU-EQLs-wGW06H1drzu1aUi7tFuH--DVq7enQHeQmzs",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMDkiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6ImIyY2RjOTM4YWFiOGM3Mjg4ZmNkMWY4YzE5N2Q2YjUyIiwiZmFtIjoiMmVhZjQyYTlhM2Y4Y2I3NTE5MGQ1ZjcwODZkMTUxMjIiLCJpYXQiOjE3OTUwODUzNDcsImV4cCI6MTc5NTY5MDE0N30.yO6jDna38_Wyj08eC5hgO4GFVZ3WL6XOmhpzmmeyvFM",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.153f69382b@officespace.test", "password": "Passw0rd123"}'

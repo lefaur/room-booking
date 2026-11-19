@@ -1,0 +1,27 @@
+﻿10:49:08 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "guest.53236d30e3@officespace.test",
+  "password": "1234567890",
+  "full_name": "Гость"
+}
+
+<- 422 (2 ms)
+{
+  "detail": [
+    {
+      "type": "value_error",
+      "loc": [
+        "body",
+        "password"
+      ],
+      "msg": "Value error, Пароль должен содержать буквы и цифры",
+      "input": "1234567890",
+      "ctx": {
+        "error": {}
+      }
+    }
+  ]
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "guest.53236d30e3@officespace.test", "password": "1234567890", "full_name": "\u0413\u043e\u0441\u0442\u044c"}'

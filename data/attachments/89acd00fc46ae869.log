@@ -1,0 +1,102 @@
+﻿10:48:46 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.311ce3c668@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (39 ms)
+{
+  "id": 3,
+  "email": "employee.311ce3c668@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-19T10:48:46.764139Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.311ce3c668@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+10:48:46 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 3
+-> [{'password_hash': 'pbkdf2_sha256$100000$c0a9466f2e347d3149858c14c0e0bd60$1f6d9430a95ed07c7f0b79c0ee23411a78e02eb9ae77705e59bbaf6e79e006fc'}]
+10:48:46 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 3 мс
+10:48:46 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.32de060033@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (51 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1IiwiZW1haWwiOiJlbXBsb3llZS4zMmRlMDYwMDMzQG9mZmljZXNwYWNlLnRlc3QiLCJyb2xlIjoiZW1wbG95ZWUiLCJwZXJtcyI6WyJib29raW5ncy5jcmVhdGUiXSwidHlwZSI6ImFjY2VzcyIsImp0aSI6IjhkZDVhYTM5NWJhZTJlYWIiLCJpYXQiOjE3OTUwODUzMjYsImV4cCI6MTc5NTA4NjIyNn0.F3lAzrN59QP-j6CxOhU3ettkSfTCiDEaz-f7RQqCyaw",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1IiwidHlwZSI6InJlZnJlc2giLCJqdGkiOiI0OGEyNzBiMzEwZGMzNWIzOWFlZDI0OTAzODRkN2ExOCIsImZhbSI6ImI0NGQ1ZTc4MzAzNDg4ZjVmYTdmYmNkYTdiYTQ0NjEzIiwiaWF0IjoxNzk1MDg1MzI2LCJleHAiOjE3OTU2OTAxMjZ9.nNGQrU3FHybH7HXjndfmWio6l7hQBc31vhzJ79eJmp4",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.32de060033@officespace.test", "password": "Passw0rd123"}'
+10:48:46 - INFO - POST http://stubs:8000/_control/telegram/messages
+{
+  "chat_id": 459595715244,
+  "text": "/start NOPE1234"
+}
+
+<- 200 (6 ms)
+{
+  "update_id": 1,
+  "message": {
+    "message_id": 1,
+    "date": 1795085326,
+    "text": "/start NOPE1234",
+    "chat": {
+      "id": 459595715244,
+      "type": "private"
+    },
+    "from": {
+      "id": 459595715244,
+      "is_bot": false,
+      "username": "tester"
+    }
+  }
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://stubs:8000/_control/telegram/messages -H 'Content-Type: application/json' --data-raw '{"chat_id": 459595715244, "text": "/start NOPE1234"}'
+10:48:46 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=459595715244
+
+
+<- 200 (1 ms)
+[]
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://stubs:8000/_control/telegram/sent?chat_id=459595715244'
+10:48:47 - INFO - GET http://stubs:8000/_control/telegram/sent?chat_id=459595715244
+
+
+<- 200 (2 ms)
+[
+  {
+    "message_id": 5,
+    "chat": {
+      "id": 459595715244,
+      "type": "private"
+    },
+    "date": 1795085326,
+    "text": "Код недействителен или устарел. Получите новый в приложении.",
+    "reply_markup": null
+  }
+]
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://stubs:8000/_control/telegram/sent?chat_id=459595715244'
+10:48:47 - INFO - GET http://gateway/api/tg/link
+
+
+<- 404 (8 ms)
+{
+  "detail": "Telegram не привязан"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET http://gateway/api/tg/link -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1IiwiZW1haWwiOiJlbXBsb3llZS4zMmRlMDYwMDMzQG9mZmljZXNwYWNlLnRlc3QiLCJyb2xlIjoiZW1wbG95ZWUiLCJwZXJtcyI6WyJib29raW5ncy5jcmVhdGUiXSwidHlwZSI6ImFjY2VzcyIsImp0aSI6IjhkZDVhYTM5NWJhZTJlYWIiLCJpYXQiOjE3OTUwODUzMjYsImV4cCI6MTc5NTA4NjIyNn0.F3lAzrN59QP-j6CxOhU3ettkSfTCiDEaz-f7RQqCyaw'

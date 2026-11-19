@@ -1,0 +1,63 @@
+﻿10:48:59 - INFO - SQL-подготовка одной транзакцией: booking.floors ×1, booking.resources ×3, 26 мс
+10:48:59 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.851783f028@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (52 ms)
+{
+  "id": 66,
+  "email": "employee.851783f028@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-19T10:48:59.832413Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.851783f028@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+10:48:59 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 66
+-> [{'password_hash': 'pbkdf2_sha256$100000$51ebc9e8b9e687281bebda83cef88a3d$7e182817ca1773de56018b499bf6276def4a47ed64cdf8c2ef58a3fa3a998c59'}]
+10:48:59 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 8 мс
+10:48:59 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.2260b495b9@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (47 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NyIsImVtYWlsIjoiZW1wbG95ZWUuMjI2MGI0OTViOUBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI5NjAxYTFkMjNhOWM2NWJhIiwiaWF0IjoxNzk1MDg1MzM5LCJleHAiOjE3OTUwODYyMzl9.8n9MysG2xNX1sH3HXWtq42e3jhpSanZhsH0ky2TdjYw",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NyIsInR5cGUiOiJyZWZyZXNoIiwianRpIjoiNTZiZmI1MTE1OGFmYTA3NTdlYjY3MjM5MTI3ODMxOGEiLCJmYW0iOiI5MTY4OGMyYmM4ZTdiODk0YWU3YzJjMDYyMzIyM2Y2NyIsImlhdCI6MTc5NTA4NTMzOSwiZXhwIjoxNzk1NjkwMTM5fQ.TMnRbzILLJJ6ONCmwxGs-BV5hn0ZD14ZeUfFEx9PVEU",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.2260b495b9@officespace.test", "password": "Passw0rd123"}'
+10:49:00 - INFO - POST http://gateway/api/booking/bookings
+{
+  "resource_id": 49,
+  "start": "2026-11-20T15:00:00+03:00",
+  "end": "2026-11-20T16:00:00+03:00"
+}
+
+<- 201 (17 ms)
+{
+  "id": 12,
+  "resource_id": 49,
+  "user_id": 67,
+  "user_email": "employee.2260b495b9@officespace.test",
+  "start": "2026-11-20T12:00:00Z",
+  "end": "2026-11-20T13:00:00Z",
+  "status": "pending",
+  "created_at": "2026-11-19T10:49:00.420277Z",
+  "updated_at": "2026-11-19T10:49:00.424192Z",
+  "cancelled_by": null,
+  "checked_in_at": null
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/booking/bookings -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NyIsImVtYWlsIjoiZW1wbG95ZWUuMjI2MGI0OTViOUBvZmZpY2VzcGFjZS50ZXN0Iiwicm9sZSI6ImVtcGxveWVlIiwicGVybXMiOlsiYm9va2luZ3MuY3JlYXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI5NjAxYTFkMjNhOWM2NWJhIiwiaWF0IjoxNzk1MDg1MzM5LCJleHAiOjE3OTUwODYyMzl9.8n9MysG2xNX1sH3HXWtq42e3jhpSanZhsH0ky2TdjYw' -H 'Content-Type: application/json' --data-raw '{"resource_id": 49, "start": "2026-11-20T15:00:00+03:00", "end": "2026-11-20T16:00:00+03:00"}'

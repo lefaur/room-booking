@@ -1,0 +1,48 @@
+﻿10:49:07 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.e66d084c60@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (38 ms)
+{
+  "id": 115,
+  "email": "employee.e66d084c60@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-19T10:49:07.211244Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.e66d084c60@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+10:49:07 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 115
+-> [{'password_hash': 'pbkdf2_sha256$100000$3705c8c41ec74b34d3bdb8e2651a1fdd$1f2c72eebee974f3524d719808ef02d5e7f56a5baab52a5aab9bc5147069c59c'}]
+10:49:07 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 4 мс
+10:49:07 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "facility.4cbacec5b5@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (59 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTYiLCJlbWFpbCI6ImZhY2lsaXR5LjRjYmFjZWM1YjVAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJmYWNpbGl0eSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSIsImZsb29ycy53cml0ZSIsInJlc291cmNlcy53cml0ZSIsInNldHRpbmdzLndyaXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiJlZDI3NmViNDNiNWJmZWU3IiwiaWF0IjoxNzk1MDg1MzQ3LCJleHAiOjE3OTUwODYyNDd9.qEk4ftVI3eFi25a5GKAFPvnRstzjOsM42yvpx6cPEWk",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTYiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6ImM0YmE4NWQxZjM2MTk5YWU0YzcxMGEwN2ViOTUwYWNlIiwiZmFtIjoiZTRlOTI3ZTZkNTc2ZDFkZDMxZmFiZmQ2ODVjZDczODEiLCJpYXQiOjE3OTUwODUzNDcsImV4cCI6MTc5NTY5MDE0N30.yXFUSSj4nx2_4R_K4bGG2LE3Aq9Nfa4K7HAGKQno0vI",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "facility.4cbacec5b5@officespace.test", "password": "Passw0rd123"}'
+10:49:07 - INFO - GET http://gateway/api/auth/users?limit=1
+
+
+<- 403 (5 ms)
+{
+  "detail": "Нет прав: users.manage"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://gateway/api/auth/users?limit=1' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTYiLCJlbWFpbCI6ImZhY2lsaXR5LjRjYmFjZWM1YjVAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJmYWNpbGl0eSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSIsImZsb29ycy53cml0ZSIsInJlc291cmNlcy53cml0ZSIsInNldHRpbmdzLndyaXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiJlZDI3NmViNDNiNWJmZWU3IiwiaWF0IjoxNzk1MDg1MzQ3LCJleHAiOjE3OTUwODYyNDd9.qEk4ftVI3eFi25a5GKAFPvnRstzjOsM42yvpx6cPEWk'

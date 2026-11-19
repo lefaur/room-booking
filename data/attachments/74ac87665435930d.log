@@ -1,0 +1,10 @@
+﻿10:49:09 - INFO - POST http://gateway/api/booking/internal/jobs/expire-pending
+
+
+<- 404 (1 ms)
+{
+  "detail": "Not Found"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/booking/internal/jobs/expire-pending

@@ -1,0 +1,48 @@
+﻿10:49:06 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.960281013a@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (36 ms)
+{
+  "id": 111,
+  "email": "employee.960281013a@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-19T10:49:06.906188Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.960281013a@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+10:49:06 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 111
+-> [{'password_hash': 'pbkdf2_sha256$100000$e3492dc3a7fc19e8eafec0e49b4d5e0b$81faf73449669d5c2e31082c338f2c3fa31a7117c2a0fc4b616136a553bf3f22'}]
+10:49:07 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 112 мс
+10:49:07 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.3559cad5dd@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (43 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTIiLCJlbWFpbCI6ImVtcGxveWVlLjM1NTljYWQ1ZGRAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiYmNlNzA1Y2Q1OGNmNzFmMSIsImlhdCI6MTc5NTA4NTM0NywiZXhwIjoxNzk1MDg2MjQ3fQ.ywwqKUWa7EdH-zA6J2R2WkeaeH5n2MbutF0oOY9HG2U",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTIiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6IjI0MDcyOGU4ODYwNGE4ZGQ4OWMxNzZhOWYwM2RmYzA3IiwiZmFtIjoiOGJkMmIzY2IzYzNlOGVjMDVjMDNmYWQ2MzkzM2Y1MWQiLCJpYXQiOjE3OTUwODUzNDcsImV4cCI6MTc5NTY5MDE0N30.CfANnnY4xByn7y-xsxe8w6LvgyaEfucz_UwmsuO7HZU",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.3559cad5dd@officespace.test", "password": "Passw0rd123"}'
+10:49:07 - INFO - GET http://gateway/api/auth/users?limit=1
+
+
+<- 403 (2 ms)
+{
+  "detail": "Нет прав: users.manage"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://gateway/api/auth/users?limit=1' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMTIiLCJlbWFpbCI6ImVtcGxveWVlLjM1NTljYWQ1ZGRAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiYmNlNzA1Y2Q1OGNmNzFmMSIsImlhdCI6MTc5NTA4NTM0NywiZXhwIjoxNzk1MDg2MjQ3fQ.ywwqKUWa7EdH-zA6J2R2WkeaeH5n2MbutF0oOY9HG2U'

@@ -1,0 +1,278 @@
+﻿10:49:15 - INFO - POST http://gateway/api/auth/register
+{
+  "email": "employee.f4ce3013d4@officespace.test",
+  "password": "Passw0rd123",
+  "full_name": "Тест сотрудник"
+}
+
+<- 201 (27 ms)
+{
+  "id": 264,
+  "email": "employee.f4ce3013d4@officespace.test",
+  "full_name": "Тест сотрудник",
+  "role": "employee",
+  "is_active": true,
+  "created_at": "2026-11-19T10:49:15.482561Z"
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/register -H 'Content-Type: application/json' --data-raw '{"email": "employee.f4ce3013d4@officespace.test", "password": "Passw0rd123", "full_name": "\u0422\u0435\u0441\u0442 \u0441\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u043a"}'
+10:49:15 - INFO - SQL: SELECT password_hash FROM auth.users WHERE id = 264
+-> [{'password_hash': 'pbkdf2_sha256$100000$c025c07e6b541a84498718f60572a43e$bb0c404880bdcd5341d2f27d41059e16eb52c0ee4619e9e2714b4b9bd6e6d2a5'}]
+10:49:15 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 4 мс
+10:49:15 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "facility.614a140673@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (30 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNjciLCJlbWFpbCI6ImZhY2lsaXR5LjYxNGExNDA2NzNAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJmYWNpbGl0eSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSIsImZsb29ycy53cml0ZSIsInJlc291cmNlcy53cml0ZSIsInNldHRpbmdzLndyaXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI4MDVkZjIyOGQwNmNmNWYwIiwiaWF0IjoxNzk1MDg1MzU1LCJleHAiOjE3OTUwODYyNTV9.uHzXIGxJ3C_kmFcdgsSlOiQe89ko7KFFR_pT20I6Q3Y",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNjciLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6ImQ0NTdkZWQyMGFhZjYyNDFkZjg3MTM1MTAxNWFhOTY4IiwiZmFtIjoiNTIwMjEzYzgwOGE2ZTI5YWVjMmQxM2Y0MDc0OTVjZTQiLCJpYXQiOjE3OTUwODUzNTUsImV4cCI6MTc5NTY5MDE1NX0.1JRZpPM-juJor4ztahwnVuXwrKapPyQ8SDOpiGAg9Rc",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "facility.614a140673@officespace.test", "password": "Passw0rd123"}'
+10:49:15 - INFO - POST http://gateway/api/booking/floors
+{
+  "name": "floor-37db45d3cb",
+  "level": 2,
+  "width": 100,
+  "height": 60
+}
+
+<- 201 (6 ms)
+{
+  "id": 69,
+  "name": "floor-37db45d3cb",
+  "level": 2,
+  "width": 100,
+  "height": 60
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/booking/floors -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNjciLCJlbWFpbCI6ImZhY2lsaXR5LjYxNGExNDA2NzNAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJmYWNpbGl0eSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSIsImZsb29ycy53cml0ZSIsInJlc291cmNlcy53cml0ZSIsInNldHRpbmdzLndyaXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI4MDVkZjIyOGQwNmNmNWYwIiwiaWF0IjoxNzk1MDg1MzU1LCJleHAiOjE3OTUwODYyNTV9.uHzXIGxJ3C_kmFcdgsSlOiQe89ko7KFFR_pT20I6Q3Y' -H 'Content-Type: application/json' --data-raw '{"name": "floor-37db45d3cb", "level": 2, "width": 100, "height": 60}'
+10:49:15 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 69,
+  "kind": "room",
+  "name": "A-c8d4bc342f",
+  "capacity": 6,
+  "x": 0,
+  "y": 0,
+  "w": 20,
+  "h": 20,
+  "equipment": [
+    "whiteboard"
+  ]
+}
+
+<- 201 (16 ms)
+{
+  "id": 102,
+  "floor_id": 69,
+  "kind": "room",
+  "name": "A-c8d4bc342f",
+  "capacity": 6,
+  "x": 0,
+  "y": 0,
+  "w": 20,
+  "h": 20,
+  "equipment": [
+    "whiteboard"
+  ],
+  "active": true,
+  "version": 1
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/booking/resources -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNjciLCJlbWFpbCI6ImZhY2lsaXR5LjYxNGExNDA2NzNAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJmYWNpbGl0eSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSIsImZsb29ycy53cml0ZSIsInJlc291cmNlcy53cml0ZSIsInNldHRpbmdzLndyaXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI4MDVkZjIyOGQwNmNmNWYwIiwiaWF0IjoxNzk1MDg1MzU1LCJleHAiOjE3OTUwODYyNTV9.uHzXIGxJ3C_kmFcdgsSlOiQe89ko7KFFR_pT20I6Q3Y' -H 'Content-Type: application/json' --data-raw '{"floor_id": 69, "kind": "room", "name": "A-c8d4bc342f", "capacity": 6, "x": 0, "y": 0, "w": 20, "h": 20, "equipment": ["whiteboard"]}'
+10:49:15 - INFO - POST http://gateway/api/booking/resources
+{
+  "floor_id": 69,
+  "kind": "room",
+  "name": "B-8d4e30b874",
+  "capacity": 6,
+  "x": 30,
+  "y": 0,
+  "w": 20,
+  "h": 20,
+  "equipment": [
+    "whiteboard"
+  ]
+}
+
+<- 201 (7 ms)
+{
+  "id": 105,
+  "floor_id": 69,
+  "kind": "room",
+  "name": "B-8d4e30b874",
+  "capacity": 6,
+  "x": 30,
+  "y": 0,
+  "w": 20,
+  "h": 20,
+  "equipment": [
+    "whiteboard"
+  ],
+  "active": true,
+  "version": 1
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/booking/resources -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNjciLCJlbWFpbCI6ImZhY2lsaXR5LjYxNGExNDA2NzNAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJmYWNpbGl0eSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSIsImZsb29ycy53cml0ZSIsInJlc291cmNlcy53cml0ZSIsInNldHRpbmdzLndyaXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI4MDVkZjIyOGQwNmNmNWYwIiwiaWF0IjoxNzk1MDg1MzU1LCJleHAiOjE3OTUwODYyNTV9.uHzXIGxJ3C_kmFcdgsSlOiQe89ko7KFFR_pT20I6Q3Y' -H 'Content-Type: application/json' --data-raw '{"floor_id": 69, "kind": "room", "name": "B-8d4e30b874", "capacity": 6, "x": 30, "y": 0, "w": 20, "h": 20, "equipment": ["whiteboard"]}'
+10:49:15 - INFO - POST http://gateway/api/booking/bookings
+{
+  "resource_id": 102,
+  "start": "2026-11-20T10:00:00+03:00",
+  "end": "2026-11-20T11:00:00+03:00"
+}
+
+<- 201 (14 ms)
+{
+  "id": 51,
+  "resource_id": 102,
+  "user_id": 267,
+  "user_email": "facility.614a140673@officespace.test",
+  "start": "2026-11-20T07:00:00Z",
+  "end": "2026-11-20T08:00:00Z",
+  "status": "pending",
+  "created_at": "2026-11-19T10:49:15.566549Z",
+  "updated_at": "2026-11-19T10:49:15.570982Z",
+  "cancelled_by": null,
+  "checked_in_at": null
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/booking/bookings -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNjciLCJlbWFpbCI6ImZhY2lsaXR5LjYxNGExNDA2NzNAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJmYWNpbGl0eSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSIsImZsb29ycy53cml0ZSIsInJlc291cmNlcy53cml0ZSIsInNldHRpbmdzLndyaXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI4MDVkZjIyOGQwNmNmNWYwIiwiaWF0IjoxNzk1MDg1MzU1LCJleHAiOjE3OTUwODYyNTV9.uHzXIGxJ3C_kmFcdgsSlOiQe89ko7KFFR_pT20I6Q3Y' -H 'Content-Type: application/json' --data-raw '{"resource_id": 102, "start": "2026-11-20T10:00:00+03:00", "end": "2026-11-20T11:00:00+03:00"}'
+10:49:15 - INFO - GET http://gateway/api/booking/floors/69/map?at=2026-11-20T10%3A30%3A00%2B03%3A00
+
+
+<- 200 (7 ms)
+{
+  "floor": {
+    "id": 69,
+    "name": "floor-37db45d3cb",
+    "level": 2,
+    "width": 100,
+    "height": 60
+  },
+  "at": "2026-11-20T10:30:00+03:00",
+  "resources": [
+    {
+      "id": 102,
+      "floor_id": 69,
+      "kind": "room",
+      "name": "A-c8d4bc342f",
+      "capacity": 6,
+      "x": 0,
+      "y": 0,
+      "w": 20,
+      "h": 20,
+      "equipment": [
+        "whiteboard"
+      ],
+      "active": true,
+      "version": 1,
+      "busy": true,
+      "mine": true
+    },
+    {
+      "id": 105,
+      "floor_id": 69,
+      "kind": "room",
+      "name": "B-8d4e30b874",
+      "capacity": 6,
+      "x": 30,
+      "y": 0,
+      "w": 20,
+      "h": 20,
+      "equipment": [
+        "whiteboard"
+      ],
+      "active": true,
+      "version": 1,
+      "busy": false,
+      "mine": false
+    }
+  ]
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://gateway/api/booking/floors/69/map?at=2026-11-20T10%3A30%3A00%2B03%3A00' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNjciLCJlbWFpbCI6ImZhY2lsaXR5LjYxNGExNDA2NzNAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJmYWNpbGl0eSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSIsImZsb29ycy53cml0ZSIsInJlc291cmNlcy53cml0ZSIsInNldHRpbmdzLndyaXRlIl0sInR5cGUiOiJhY2Nlc3MiLCJqdGkiOiI4MDVkZjIyOGQwNmNmNWYwIiwiaWF0IjoxNzk1MDg1MzU1LCJleHAiOjE3OTUwODYyNTV9.uHzXIGxJ3C_kmFcdgsSlOiQe89ko7KFFR_pT20I6Q3Y'
+10:49:15 - INFO - SQL-подготовка одной транзакцией: auth.users ×1, 2 мс
+10:49:15 - INFO - POST http://gateway/api/auth/login
+{
+  "email": "employee.e97c115c1c@officespace.test",
+  "password": "Passw0rd123"
+}
+
+<- 200 (38 ms)
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNzEiLCJlbWFpbCI6ImVtcGxveWVlLmU5N2MxMTVjMWNAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiNWU0M2M5N2U3MmRjMzI4ZiIsImlhdCI6MTc5NTA4NTM1NSwiZXhwIjoxNzk1MDg2MjU1fQ.JRo2qtfkjXf34ELisvZ_mjDuPG0-QAnO1avtP9hacHs",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNzEiLCJ0eXBlIjoicmVmcmVzaCIsImp0aSI6IjcyY2MzZTA0M2MyNDNjYzE1M2Y4YTAxYjYyNDc3ZGQ3IiwiZmFtIjoiNGI4MGI3OTZlMGU0NWMzNzIwNzJkMDBhODg5MWU2ZGQiLCJpYXQiOjE3OTUwODUzNTUsImV4cCI6MTc5NTY5MDE1NX0.OmGGFjUpehLuIgufHqqh752O9B5OGfsb97WAORiYoQo",
+  "token_type": "bearer",
+  "expires_in": 900
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X POST http://gateway/api/auth/login -H 'Content-Type: application/json' --data-raw '{"email": "employee.e97c115c1c@officespace.test", "password": "Passw0rd123"}'
+10:49:15 - INFO - GET http://gateway/api/booking/floors/69/map?at=2026-11-20T10%3A30%3A00%2B03%3A00
+
+
+<- 200 (7 ms)
+{
+  "floor": {
+    "id": 69,
+    "name": "floor-37db45d3cb",
+    "level": 2,
+    "width": 100,
+    "height": 60
+  },
+  "at": "2026-11-20T10:30:00+03:00",
+  "resources": [
+    {
+      "id": 102,
+      "floor_id": 69,
+      "kind": "room",
+      "name": "A-c8d4bc342f",
+      "capacity": 6,
+      "x": 0,
+      "y": 0,
+      "w": 20,
+      "h": 20,
+      "equipment": [
+        "whiteboard"
+      ],
+      "active": true,
+      "version": 1,
+      "busy": true,
+      "mine": false
+    },
+    {
+      "id": 105,
+      "floor_id": 69,
+      "kind": "room",
+      "name": "B-8d4e30b874",
+      "capacity": 6,
+      "x": 30,
+      "y": 0,
+      "w": 20,
+      "h": 20,
+      "equipment": [
+        "whiteboard"
+      ],
+      "active": true,
+      "version": 1,
+      "busy": false,
+      "mine": false
+    }
+  ]
+}
+
+повторить (с хоста — через http://localhost:8080):
+curl -X GET 'http://gateway/api/booking/floors/69/map?at=2026-11-20T10%3A30%3A00%2B03%3A00' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyNzEiLCJlbWFpbCI6ImVtcGxveWVlLmU5N2MxMTVjMWNAb2ZmaWNlc3BhY2UudGVzdCIsInJvbGUiOiJlbXBsb3llZSIsInBlcm1zIjpbImJvb2tpbmdzLmNyZWF0ZSJdLCJ0eXBlIjoiYWNjZXNzIiwianRpIjoiNWU0M2M5N2U3MmRjMzI4ZiIsImlhdCI6MTc5NTA4NTM1NSwiZXhwIjoxNzk1MDg2MjU1fQ.JRo2qtfkjXf34ELisvZ_mjDuPG0-QAnO1avtP9hacHs'
